@@ -334,6 +334,21 @@ body {
 .steps-list li { display: flex; gap: 12px; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
 .steps-list li .step-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: rgba(0,113,227,0.1); color: var(--accent); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
 
+/* ===== Posture Correction ===== */
+.pc-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+.pc-title { font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+.pc-row { display: flex; gap: 8px; }
+.pc-input { flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-btn); font-size: 13px; font-family: inherit; background: var(--card-bg); outline: none; }
+.pc-input:focus { border-color: var(--accent); }
+.pc-btn { padding: 8px 18px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius-btn); font-size: 13px; cursor: pointer; white-space: nowrap; font-family: inherit; }
+.pc-btn:hover { opacity: 0.85; }
+.pc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.pc-result { margin-top: 10px; padding: 14px 16px; background: #e8f4fd; border-radius: 8px; font-size: 13px; line-height: 1.7; color: #1a1a2e; }
+.pc-result .pc-tip { margin-bottom: 6px; padding-left: 4px; }
+.pc-result .pc-tip-num { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; text-align: center; line-height: 20px; margin-right: 8px; }
+.pc-result .pc-loading { color: var(--text-secondary); font-size: 13px; }
+.pc-result .pc-error { color: #d32f2f; }
+
 /* ===== AI Weekly Table ===== */
 .ai-table-wrap { overflow-x: auto; margin: 16px 0; border-radius: var(--radius-card); border: 1px solid var(--border); }
 .ai-week-table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 640px; }
@@ -381,13 +396,6 @@ body {
 .diet-tab-content { display:none; animation:fadeSlideIn 0.3s ease; }
 .diet-tab-content.active { display:block; }
 
-.diet-sub-tabs { display:flex; gap:0; border-bottom:1px solid var(--border); margin-bottom:20px; }
-.diet-sub-tab-btn { padding:10px 20px; border:none; border-bottom:2px solid transparent; background:none; color:var(--text-secondary); font-size:13px; cursor:pointer; font-family:inherit; transition:all 0.2s; margin-bottom:-1px; }
-.diet-sub-tab-btn:hover { color:var(--text-primary); }
-.diet-sub-tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
-.diet-sub-content { display:none; }
-.diet-sub-content.active { display:block; }
-
 /* Goal Form */
 .goal-form { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); padding:24px; margin-bottom:24px; }
 .form-row { margin-bottom:20px; }
@@ -401,6 +409,21 @@ body {
 .form-option { padding:8px 20px; border:1px solid var(--border); border-radius:var(--radius-btn); background:var(--card-bg); color:var(--text-primary); font-size:14px; cursor:pointer; font-family:inherit; transition:all 0.2s; }
 .form-option:hover { border-color:var(--accent); }
 .form-option.selected { border-color:var(--accent); background:rgba(0,113,227,0.06); color:var(--accent); }
+.goal-hint { font-size:14px; color:var(--text-secondary); margin-bottom:20px; padding:12px 16px; background:rgba(0,113,227,0.04); border-radius:var(--radius-btn); border:1px dashed var(--border); text-align:center; }
+.form-slider-row { display:flex; align-items:center; gap:12px; }
+.form-slider { flex:1; height:6px; -webkit-appearance:none; appearance:none; background:var(--border); border-radius:3px; outline:none; cursor:pointer; }
+.form-slider::-webkit-slider-thumb { -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:var(--accent); border:2px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,0.2); cursor:pointer; }
+.form-slider-val { font-size:14px; font-weight:500; color:var(--text-primary); min-width:36px; text-align:center; }
+
+/* Goal Card View */
+.goal-card-view { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); padding:24px; margin-bottom:24px; }
+.goal-card-header { font-size:18px; font-weight:600; color:var(--text-primary); margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+.goal-card-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.goal-card-item { background:#F5F5F7; border-radius:var(--radius-card); padding:16px 12px; text-align:center; }
+.goal-card-item .gci-num { display:block; font-size:24px; font-weight:600; color:var(--text-primary); }
+.goal-card-item .gci-unit { font-size:12px; color:var(--text-secondary); }
+.goal-card-item .gci-label { display:block; font-size:12px; color:var(--text-secondary); margin-top:4px; }
+.goal-card-footer { font-size:13px; color:var(--text-secondary); padding:12px 0 0 0; text-align:center; }
 
 /* Goal Results */
 .goal-results { margin-top:8px; }
@@ -429,13 +452,8 @@ body {
 .meal-item-left { flex:1; }
 .meal-item-name { font-size:14px; color:var(--text-primary); }
 .meal-item-portion { font-size:12px; color:var(--text-secondary); margin-top:1px; }
-.meal-item-nutrients { margin-top:3px; }
-.meal-item-right { text-align:right; flex-shrink:0; margin-left:12px; }
-.meal-item-cal { font-size:14px; color:var(--text-primary); font-weight:500; }
-.meal-item-pro { font-size:11px; color:var(--text-secondary); }
 .meal-item-del { background:none; border:none; color:var(--text-secondary); font-size:16px; cursor:pointer; padding:4px 6px; margin-left:8px; font-family:inherit; transition:color 0.2s; }
 .meal-item-del:hover { color:#E53E3E; }
-.meal-total { font-size:13px; color:var(--accent); font-weight:500; text-align:right; padding-top:8px; border-top:1px solid var(--border); margin-top:4px; }
 
 /* Food Search */
 .food-search-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200; align-items:center; justify-content:center; padding:20px; }
@@ -458,74 +476,13 @@ body {
 .food-si-left { flex:1; }
 .food-si-name { font-size:14px; color:var(--text-primary); }
 .food-si-detail { font-size:11px; color:var(--text-secondary); margin-top:1px; }
-.food-si-right { text-align:right; flex-shrink:0; margin-left:12px; }
-.food-si-cal { font-size:13px; color:var(--text-primary); font-weight:500; }
-.food-si-primary { font-size:13px; color:var(--text-primary); font-weight:600; }
 .food-si-detail { font-size:11px; color:var(--text-secondary); margin-top:1px; }
-.nutrient-primary { font-size:13px; color:var(--accent); font-weight:600; }
-.nutrient-secondary { font-size:11px; color:var(--text-secondary); }
-.food-si-pro { font-size:11px; color:var(--text-secondary); }
 .food-portions { padding:16px 20px 20px; border-top:1px solid var(--border); text-align:center; }
-.portions-title { font-size:14px; font-weight:500; color:var(--text-primary); margin-bottom:12px; }
-.portions-control { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:12px; }
-.portion-unit { font-size:14px; color:var(--text-secondary); }
-.portions-info { font-size:13px; color:var(--text-secondary); margin-bottom:12px; }
-
-/* Daily Summary */
-.daily-summary-bar { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); padding:16px 20px; margin-top:20px; position:sticky; bottom:0; }
-.summary-row { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
-.summary-row:last-child { margin-bottom:0; }
-.summary-label { font-size:12px; color:var(--text-secondary); min-width:36px; }
-.summary-val { font-size:12px; color:var(--text-primary); font-weight:500; min-width:80px; text-align:right; }
-.progress-bar { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
-.progress-fill { height:100%; background:var(--accent); border-radius:3px; transition:width 0.3s ease; }
-.progress-fill.over { background:#E53E3E; }
-.progress-fill.green { background:#38A169; }
-
-/* Plan Template */
-.plan-template-card { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); padding:16px 20px; margin-bottom:16px; }
-.plan-template-card .template-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-.plan-template-card .template-name { font-size:15px; font-weight:600; color:var(--text-primary); }
-.plan-template-card .template-total { font-size:12px; color:var(--text-secondary); }
-.plan-template-card .template-meal { display:flex; align-items:center; gap:8px; padding:5px 0; }
-.plan-template-card .template-meal .tm-name { font-size:13px; color:var(--text-primary); flex:1; }
-.plan-template-card .template-meal .tm-cal { font-size:12px; color:var(--text-secondary); }
-.plan-template-card .template-actions { display:flex; gap:8px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
-.btn-apply-plan { padding:6px 16px; border:none; border-radius:var(--radius-btn); background:var(--accent); color:#fff; font-size:12px; cursor:pointer; font-family:inherit; transition:opacity 0.2s; }
-.btn-apply-plan:hover { opacity:0.85; }
-.btn-del-template { padding:6px 16px; border:1px solid var(--border); border-radius:var(--radius-btn); background:var(--card-bg); color:var(--text-secondary); font-size:12px; cursor:pointer; font-family:inherit; transition:all 0.2s; }
-.btn-del-template:hover { border-color:#E53E3E; color:#E53E3E; }
-
-/* Compare Section */
-.compare-section { background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); padding:16px 20px; margin-bottom:20px; }
-.compare-title { font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:12px; }
-.compare-row { display:flex; align-items:center; gap:12px; padding:5px 0; font-size:13px; }
-.compare-label { color:var(--text-secondary); min-width:48px; }
-.compare-bar { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
-.compare-fill { height:100%; border-radius:3px; transition:width 0.3s; }
-.compare-fill.green { background:#38A169; }
-.compare-fill.red { background:#E53E3E; }
-.compare-fill.dim { background:var(--border); }
-.compare-text { font-size:12px; color:var(--text-primary); min-width:60px; text-align:right; font-weight:500; }
-.compare-diff { font-size:11px; min-width:40px; text-align:right; }
-.compare-diff.ok { color:#38A169; }
-.compare-diff.miss { color:#E53E3E; }
-
-/* Saved Templates */
-.saved-template-item { display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); padding:12px 16px; margin-bottom:8px; }
-.saved-template-item .sti-left { flex:1; }
-.saved-template-item .sti-name { font-size:14px; color:var(--text-primary); font-weight:500; }
-.saved-template-item .sti-info { font-size:12px; color:var(--text-secondary); margin-top:2px; }
-.saved-template-item .sti-actions { display:flex; gap:6px; }
-.saved-template-item .sti-use { padding:5px 12px; border:none; border-radius:var(--radius-btn); background:var(--accent); color:#fff; font-size:11px; cursor:pointer; font-family:inherit; }
-.saved-template-item .sti-del { padding:5px 12px; border:1px solid var(--border); border-radius:var(--radius-btn); background:var(--card-bg); color:var(--text-secondary); font-size:11px; cursor:pointer; font-family:inherit; }
-.saved-template-item .sti-del:hover { border-color:#E53E3E; color:#E53E3E; }
 
 @media (max-width:640px) {
   .goal-results-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
   .meal-card { padding:14px 16px; }
   .food-search-box { max-height:90vh; }
-  .daily-summary-bar { padding:14px 16px; }
 }
 
 /* ===== AI Coach ===== */
@@ -799,12 +756,20 @@ body {
 
     <!-- Tab1: 营养目标 -->
     <div class="diet-tab-content active" id="diet-calc-tab">
-      <div class="goal-form">
-        <div class="section-title">设置你的营养目标</div>
+      <!-- Saved data card view (shown when data exists) -->
+      <div class="goal-card-view" id="goal-card-view" style="display:none;">
+        <div class="goal-card-header" id="goal-card-header"></div>
+        <div class="goal-card-grid" id="goal-card-grid"></div>
+        <button class="btn-secondary" id="goal-edit-btn">✏️ 修改设置</button>
+      </div>
+
+      <!-- Form view (shown when no data or editing) -->
+      <div class="goal-form" id="goal-form">
+        <div class="goal-hint">请设置你的身体数据和目标，AI将为你计算营养方案</div>
         <div class="form-row">
           <label class="form-label">健身目标</label>
           <div class="form-options" id="diet-goal-options">
-            <button class="form-option selected" data-value="增肌">💪 增肌</button>
+            <button class="form-option" data-value="增肌">💪 增肌</button>
             <button class="form-option" data-value="减脂">🔥 减脂</button>
             <button class="form-option" data-value="保持">⚖️ 保持体重</button>
           </div>
@@ -812,54 +777,34 @@ body {
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">身高 (cm)</label>
-            <input class="form-input" type="number" id="diet-height" placeholder="170" min="100" max="250">
+            <input class="form-input" type="number" id="diet-height" placeholder="请输入身高" min="100" max="250">
           </div>
           <div class="form-group">
             <label class="form-label">体重 (kg)</label>
-            <input class="form-input" type="number" id="diet-weight" placeholder="70" min="20" max="300">
+            <input class="form-input" type="number" id="diet-weight" placeholder="请输入体重(kg)" min="20" max="300">
           </div>
           <div class="form-group">
             <label class="form-label">年龄</label>
-            <input class="form-input" type="number" id="diet-age" placeholder="25" min="10" max="120">
+            <input class="form-input" type="number" id="diet-age" placeholder="请输入年龄" min="10" max="120">
           </div>
         </div>
         <div class="form-row">
           <label class="form-label">活动水平</label>
           <div class="form-options" id="diet-activity-options">
             <button class="form-option" data-value="1.2">🪑 久坐</button>
-            <button class="form-option selected" data-value="1.375">🚶 轻度活动</button>
+            <button class="form-option" data-value="1.375">🚶 轻度活动</button>
             <button class="form-option" data-value="1.55">🏃 中度活动</button>
             <button class="form-option" data-value="1.725">🏋️ 高强度</button>
           </div>
         </div>
-        <button class="btn-primary" id="diet-calc-btn">计算营养目标</button>
-      </div>
-
-      <div class="goal-results" id="diet-goal-results" style="display:none;">
-        <div class="section-title">每日营养目标</div>
-        <div class="goal-results-grid">
-          <div class="goal-card">
-            <span class="goal-num" id="goal-calories">0</span>
-            <span class="goal-unit">大卡</span>
-            <span class="goal-label">每日热量</span>
-          </div>
-          <div class="goal-card">
-            <span class="goal-num" id="goal-protein">0</span>
-            <span class="goal-unit">克</span>
-            <span class="goal-label">蛋白质</span>
-          </div>
-          <div class="goal-card">
-            <span class="goal-num" id="goal-carbs">0</span>
-            <span class="goal-unit">克</span>
-            <span class="goal-label">碳水化合物</span>
-          </div>
-          <div class="goal-card">
-            <span class="goal-num" id="goal-fat">0</span>
-            <span class="goal-unit">克</span>
-            <span class="goal-label">脂肪</span>
+        <div class="form-row">
+          <label class="form-label">训练天数/周</label>
+          <div class="form-slider-row">
+            <input type="range" class="form-slider" id="diet-training-days" min="1" max="7" value="3">
+            <span class="form-slider-val" id="diet-training-days-val"></span>
           </div>
         </div>
-        <div class="goal-note">这是基于你的数据计算的营养目标，可在「饮食记录」中追踪每日摄入</div>
+        <button class="btn-primary" id="diet-save-btn">💾 保存设置</button>
       </div>
     </div>
 
@@ -875,97 +820,52 @@ body {
         <div class="meal-card" data-meal="breakfast">
           <div class="meal-header"><span class="meal-name">🌅 早餐</span><button class="meal-add-btn" data-meal="breakfast">+ 添加食物</button></div>
           <div class="meal-items" id="meal-breakfast"></div>
-          <div class="meal-total" id="meal-total-breakfast">合计：0 大卡 · 0g 蛋白质</div>
         </div>
         <div class="meal-card" data-meal="lunch">
           <div class="meal-header"><span class="meal-name">☀️ 午餐</span><button class="meal-add-btn" data-meal="lunch">+ 添加食物</button></div>
           <div class="meal-items" id="meal-lunch"></div>
-          <div class="meal-total" id="meal-total-lunch">合计：0 大卡 · 0g 蛋白质</div>
         </div>
         <div class="meal-card" data-meal="dinner">
           <div class="meal-header"><span class="meal-name">🌙 晚餐</span><button class="meal-add-btn" data-meal="dinner">+ 添加食物</button></div>
           <div class="meal-items" id="meal-dinner"></div>
-          <div class="meal-total" id="meal-total-dinner">合计：0 大卡 · 0g 蛋白质</div>
         </div>
         <div class="meal-card" data-meal="snack">
           <div class="meal-header"><span class="meal-name">🍪 加餐</span><button class="meal-add-btn" data-meal="snack">+ 添加食物</button></div>
           <div class="meal-items" id="meal-snack"></div>
-          <div class="meal-total" id="meal-total-snack">合计：0 大卡 · 0g 蛋白质</div>
-        </div>
-      </div>
-
-      <!-- Plan vs Actual Comparison -->
-      <div id="diet-compare" style="display:none;"></div>
-
-      <!-- Daily Summary -->
-      <div class="daily-summary-bar" id="daily-summary-bar">
-        <div class="summary-row">
-          <span class="summary-label">🔥 热量</span>
-          <span class="summary-val" id="summary-cal">0 / 0 大卡</span>
-          <div class="progress-bar"><div class="progress-fill" id="progress-cal" style="width:0%"></div></div>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">🥩 蛋白质</span>
-          <span class="summary-val" id="summary-protein">0 / 0g</span>
-          <div class="progress-bar"><div class="progress-fill" id="progress-protein" style="width:0%"></div></div>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">🍚 碳水</span>
-          <span class="summary-val" id="summary-carbs">0 / 0g</span>
-          <div class="progress-bar"><div class="progress-fill" id="progress-carbs" style="width:0%"></div></div>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">🧈 脂肪</span>
-          <span class="summary-val" id="summary-fat">0 / 0g</span>
-          <div class="progress-bar"><div class="progress-fill" id="progress-fat" style="width:0%"></div></div>
         </div>
       </div>
     </div>
 
-    <!-- Tab3: 我的计划 -->
+    <!-- Tab3: 我的计划（原则卡片） -->
     <div class="diet-tab-content" id="diet-plan-tab">
-      <div class="diet-sub-tabs">
-        <button class="diet-sub-tab-btn active" data-sub-tab="template">📄 计划模板</button>
-        <button class="diet-sub-tab-btn" data-sub-tab="custom">✏️ 自定义计划</button>
+      <!-- Goals Summary -->
+      <div class="goal-card-view" id="plan-goal-summary">
+        <div class="goal-card-header" id="plan-goal-header">🎯 今日营养目标</div>
+        <div class="goal-card-grid" id="plan-goal-grid"></div>
       </div>
 
-      <!-- Template Sub-tab -->
-      <div class="diet-sub-content active" id="diet-template-sub">
-        <div class="section-title">AI自动生成的饮食计划</div>
-        <div id="diet-template-area">
-          <p style="color:var(--text-secondary);">请先在「营养目标」中设置你的数据</p>
+      <!-- Principle Card -->
+      <div class="goal-card-view">
+        <div class="goal-card-header">📖 饮食原则</div>
+        <ul style="list-style:none;padding:0;margin:0;">
+          <li style="padding:10px 0;font-size:15px;color:var(--text-primary);border-bottom:1px solid var(--border);">🥩 每餐一掌蛋白质（肉/蛋/鱼/豆）</li>
+          <li style="padding:10px 0;font-size:15px;color:var(--text-primary);border-bottom:1px solid var(--border);">🍚 每餐一拳主食（米/面/薯/全麦）</li>
+          <li style="padding:10px 0;font-size:15px;color:var(--text-primary);border-bottom:1px solid var(--border);">🥬 每餐一捧蔬菜（深色蔬菜占一半）</li>
+          <li style="padding:10px 0;font-size:15px;color:var(--text-primary);border-bottom:1px solid var(--border);">🥜 每天一把坚果或2勺油</li>
+          <li style="padding:10px 0;font-size:15px;color:var(--text-primary);">⏱️ 训练后30分钟内补充蛋白质+碳水</li>
+        </ul>
+        <div style="margin-top:20px;padding:16px;background:rgba(0,113,227,0.04);border-radius:var(--radius-btn);text-align:center;font-size:14px;color:var(--text-secondary);border:1px dashed var(--border);">
+          💡 不知道怎么吃？点右下角AI教练，拍照或描述你吃的，我来帮你算
+        </div>
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn-secondary" id="check-diet-btn">📋 帮我看看今天吃的</button>
+          <button class="btn-secondary" id="recommend-meal-btn">🍽️ 推荐一餐</button>
         </div>
       </div>
 
-      <!-- Custom Sub-tab -->
-      <div class="diet-sub-content" id="diet-custom-sub" style="display:none;">
-        <div class="section-title">自定义饮食计划</div>
-        <p style="color:var(--text-secondary);margin-bottom:16px;">从食物库中选择食物，组合成你的一日饮食计划</p>
-        <div id="diet-custom-area">
-          <div class="meal-card" data-meal="custom-bf">
-            <div class="meal-header"><span class="meal-name">🌅 早餐</span><button class="meal-add-btn" data-custom="bf">+ 添加食物</button></div>
-            <div class="meal-items" id="custom-bf"></div>
-          </div>
-          <div class="meal-card" data-meal="custom-lu">
-            <div class="meal-header"><span class="meal-name">☀️ 午餐</span><button class="meal-add-btn" data-custom="lu">+ 添加食物</button></div>
-            <div class="meal-items" id="custom-lu"></div>
-          </div>
-          <div class="meal-card" data-meal="custom-di">
-            <div class="meal-header"><span class="meal-name">🌙 晚餐</span><button class="meal-add-btn" data-custom="di">+ 添加食物</button></div>
-            <div class="meal-items" id="custom-di"></div>
-          </div>
-          <div class="meal-card" data-meal="custom-sn">
-            <div class="meal-header"><span class="meal-name">🍪 加餐</span><button class="meal-add-btn" data-custom="sn">+ 添加食物</button></div>
-            <div class="meal-items" id="custom-sn"></div>
-          </div>
-          <div class="form-row" style="margin-top:16px;gap:12px;display:flex;">
-            <input class="form-input" type="text" id="template-name" placeholder="输入模板名称..." style="flex:1;max-width:300px;">
-            <button class="btn-primary" id="save-template-btn">💾 保存为模板</button>
-          </div>
-        </div>
-        <div class="section-title" style="margin-top:32px;">已保存的模板</div>
-        <div id="saved-templates"></div>
-      </div>
+      <!-- Today's Records Quick Access -->
+      <div class="section-title" style="margin-top:32px;">🍽️ 今日饮食记录</div>
+      <div id="plan-today-records"></div>
     </div>
   </div>
 </div>
@@ -982,11 +882,11 @@ body {
     <div class="food-search-list" id="food-search-list"></div>
     <div class="food-portions" id="food-portions" style="display:none;">
       <div class="portions-title">选择份量</div>
-      <div class="portions-control">
-        <input class="form-input" type="number" id="portion-input" value="1" min="0.5" step="0.5" style="width:80px;">
-        <span class="portion-unit" id="portion-unit">份</span>
+      <div class="form-options" id="portion-options" style="justify-content:center;margin-bottom:16px;">
+        <button class="form-option" data-portion="小">小份</button>
+        <button class="form-option selected" data-portion="中">中份</button>
+        <button class="form-option" data-portion="大">大份</button>
       </div>
-      <div class="portions-info" id="portions-info"></div>
       <button class="btn-primary" id="confirm-food-btn">确认添加</button>
     </div>
   </div>
@@ -1008,6 +908,16 @@ body {
     <div class="modal-sets" id="modal-sets"></div>
     <h4>执行步骤</h4>
     <ol class="steps-list" id="modal-steps"></ol>
+
+    <!-- Posture Correction -->
+    <div class="pc-section" id="pc-section" style="display:none;">
+      <div class="pc-title">🤖 姿势纠错</div>
+      <div class="pc-row">
+        <input class="pc-input" id="pc-input" placeholder="描述你遇到的问题，比如膝盖疼、肩膀不舒服..." />
+        <button class="pc-btn" id="pc-btn">分析</button>
+      </div>
+      <div class="pc-result" id="pc-result" style="display:none;"></div>
+    </div>
   </div>
 </div>
 
@@ -1030,10 +940,12 @@ body {
       </div>
     </div>
     <div class="ai-chat-quick" id="ai-chat-quick">
-      <button class="ai-quick-btn" data-prompt="帮我生成一周训练计划">生成计划</button>
-      <button class="ai-quick-btn" data-prompt="帮我纠正深蹲动作">动作纠错</button>
-      <button class="ai-quick-btn" data-prompt="减脂期饮食怎么安排">饮食建议</button>
-      <button class="ai-quick-btn" data-prompt="今天推荐一组训练">今日推荐</button>
+      <button class="ai-quick-btn" data-prompt="plan">📋 生成计划</button>
+      <button class="ai-quick-btn" data-prompt="correct">🔧 动作纠错</button>
+      <button class="ai-quick-btn" data-prompt="diet">🥗 饮食建议</button>
+      <button class="ai-quick-btn" data-prompt="recommend">💡 今日推荐</button>
+      <button class="ai-quick-btn" data-prompt="check-diet">📋 看我吃的</button>
+      <button class="ai-quick-btn" data-prompt="recommend-meal">🍽️ 推荐一餐</button>
     </div>
     <div class="ai-chat-input-wrap">
       <textarea class="ai-chat-input" id="ai-chat-input" rows="1" placeholder="输入你的问题..." autocomplete="off"></textarea>
@@ -1376,11 +1288,99 @@ function openModal(ex) {
   console.log(`[视频] ${ex.name} => ${ex.videoUrl}`);
   modalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Init posture correction + context
+  _currentExName = ex.name;
+  _currentMuscleId = ex.muscleId || '';
+  _currentSubCategory = ex.subCategory || '';
+  pcSection.style.display = 'block';
+  pcInput.value = '';
+  pcResult.style.display = 'none';
 }
 function closeModal() { modalOverlay.classList.remove('open'); document.body.style.overflow = ''; videoIframe.src = ''; }
 btnCloseModal.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
+
+// ===== Posture Correction =====
+const pcSection = document.getElementById('pc-section');
+const pcInput = document.getElementById('pc-input');
+const pcBtn = document.getElementById('pc-btn');
+const pcResult = document.getElementById('pc-result');
+let _currentExName = '';
+let _currentMuscleId = '';
+let _currentSubCategory = '';
+
+pcBtn.addEventListener('click', async () => {
+  const problem = pcInput.value.trim();
+  if (!problem) {
+    alert('请描述你遇到的问题，比如膝盖疼、肩膀不舒服等');
+    return;
+  }
+
+  const apiKey = localStorage.getItem('deepseek_api_key');
+  if (!apiKey) {
+    alert('请先在设置页面配置 DeepSeek API Key');
+    document.getElementById('ai-settings-overlay').classList.add('open');
+    return;
+  }
+
+  pcResult.style.display = 'block';
+  pcResult.innerHTML = '<div class="pc-loading">🤔 分析中，请稍候...</div>';
+  pcBtn.disabled = true;
+
+  try {
+    const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + apiKey },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          { role: 'system', content: '你是一个专业的健身教练，擅长动作姿势纠错。用中文回答，每条建议不超过50字。' },
+          { role: 'user', content: '用户正在做' + _currentExName + '，遇到了' + problem + '。请分析可能的原因，给出3条具体的纠正建议。每条建议不超过50字。' }
+        ],
+        temperature: 0.7,
+        max_tokens: 500
+      })
+    });
+
+    if (!resp.ok) {
+      const errText = await resp.text();
+      throw new Error('API请求失败 (' + resp.status + '): ' + errText);
+    }
+
+    const data = await resp.json();
+    const advice = data.choices[0].message.content;
+
+    // Parse numbered suggestions (1., 2., 3.) or split by newlines
+    const lines = advice.split('\n').filter(l => l.trim());
+    const tips = lines.filter(l => /^\d/.test(l.trim())).length >= 3
+      ? lines.filter(l => /^\d/.test(l.trim()))
+      : lines;
+
+    let html = '';
+    tips.forEach((tip, i) => {
+      const cleanTip = tip.replace(/^\d+\s*[.、]\s*/, '').trim();
+      if (cleanTip) {
+        html += '<div class="pc-tip"><span class="pc-tip-num">' + (i + 1) + '</span>' + cleanTip + '</div>';
+      }
+    });
+    if (!html) html = '<div>' + advice.replace(/\n/g, '<br>') + '</div>';
+    pcResult.innerHTML = html;
+  } catch (err) {
+    pcResult.innerHTML = '<div class="pc-error">❌ ' + err.message + '</div>';
+  } finally {
+    pcBtn.disabled = false;
+  }
+});
+
+// ===== AI Settings =====
+document.getElementById('ai-settings-save').addEventListener('click', () => {
+  const key = document.getElementById('ai-api-key-input').value.trim();
+  if (!key) { alert('请输入 API Key'); return; }
+  localStorage.setItem('deepseek_api_key', key);
+  alert('✅ API Key 已保存');
+  document.getElementById('ai-settings-overlay').classList.remove('open');
+});
 
 // ============================================================
 //  PLAN PAGE
@@ -1944,6 +1944,7 @@ const foodDatabase = [
   { name:'荞麦面', unit:'100g', calories:340, protein:13.3, carbs:71.5, fat:2.7, category:'主食类', primaryNutrient:'carb' },
   { name:'玉米', unit:'100g', calories:96, protein:3.3, carbs:19.0, fat:1.2, category:'主食类', primaryNutrient:'carb' },
   { name:'藜麦', unit:'100g', calories:368, protein:14.1, carbs:64.2, fat:6.1, category:'主食类', primaryNutrient:'carb' },
+  { name:'赤小豆', unit:'100g', calories:324, protein:20.0, carbs:60.7, fat:0.6, category:'主食类', primaryNutrient:'carb' },
   { name:'意面', unit:'100g', calories:350, protein:12.0, carbs:72.0, fat:1.5, category:'主食类', primaryNutrient:'carb' },
   // 肉蛋类
   { name:'鸡胸肉', unit:'100g', calories:133, protein:31.0, carbs:0, fat:1.2, category:'肉蛋类', primaryNutrient:'protein' },
@@ -1996,7 +1997,9 @@ const foodDatabase = [
   { name:'橄榄油', unit:'勺(10ml)', calories:88, protein:0, carbs:0, fat:10.0, category:'油脂调料', primaryNutrient:'fat' },
   { name:'椰子油', unit:'勺(10ml)', calories:86, protein:0, carbs:0, fat:9.8, category:'油脂调料', primaryNutrient:'fat' },
   { name:'蜂蜜', unit:'勺(15g)', calories:49, protein:0, carbs:12.5, fat:0, category:'油脂调料', primaryNutrient:'carb' },
-  { name:'枫糖浆', unit:'勺(15ml)', calories:39, protein:0, carbs:10.0, fat:0, category:'油脂调料', primaryNutrient:'carb' }
+  { name:'枫糖浆', unit:'勺(15ml)', calories:39, protein:0, carbs:10.0, fat:0, category:'油脂调料', primaryNutrient:'carb' },
+  { name:'包子', unit:'个(80g)', calories:200, protein:8.0, carbs:28.0, fat:6.0, category:'主食类', primaryNutrient:'carb' },
+  { name:'豆浆', unit:'250ml', calories:35, protein:3.0, carbs:3.0, fat:1.5, category:'奶制品', primaryNutrient:'protein' },
 ];
 
 // ---- Nutrient display helpers ----
@@ -2046,7 +2049,6 @@ function formatCalories(food, portions) {
 // ============================================================
 const DIET_RECORDS_KEY = 'diet_records';
 const DIET_GOALS_KEY = 'diet_goals';
-const DIET_TEMPLATES_KEY = 'diet_templates';
 const mealKeys = ['breakfast','lunch','dinner','snack'];
 const mealLabels = { breakfast:'🌅 早餐', lunch:'☀️ 午餐', dinner:'🌙 晚餐', snack:'🍪 加餐' };
 
@@ -2066,9 +2068,6 @@ function saveDayRecords(dateStr, records) {
 function getDietGoals() { try { return JSON.parse(localStorage.getItem(DIET_GOALS_KEY)); } catch { return null; } }
 function saveDietGoals(g) { localStorage.setItem(DIET_GOALS_KEY, JSON.stringify(g)); }
 
-function getDietTemplates() { try { return JSON.parse(localStorage.getItem(DIET_TEMPLATES_KEY)) || []; } catch { return []; } }
-function saveDietTemplates(t) { localStorage.setItem(DIET_TEMPLATES_KEY, JSON.stringify(t)); }
-
 // ============================================================
 //  DIET: Navigation & Init
 // ============================================================
@@ -2086,22 +2085,24 @@ document.querySelectorAll('.diet-tab-btn').forEach(btn => {
     document.querySelectorAll('.diet-tab-content').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById('diet-' + btn.dataset.dietTab + '-tab').classList.add('active');
-  });
-});
-
-// Diet sub-sub-tab switching (my plan)
-document.querySelectorAll('.diet-sub-tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.diet-sub-tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.diet-sub-content').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('diet-' + btn.dataset.subTab + '-sub').classList.add('active');
+    if (btn.dataset.dietTab === 'plan') renderDietPlanTab();
   });
 });
 
 // ============================================================
 //  DIET: Tab1 - 营养目标 Calculator
 // ============================================================
+// Training days slider
+const tdSlider = document.getElementById('diet-training-days');
+const tdVal = document.getElementById('diet-training-days-val');
+function updateTdDisplay() {
+  tdVal.textContent = tdSlider.value + '天/周';
+}
+if (tdSlider) {
+  tdSlider.addEventListener('input', updateTdDisplay);
+  tdVal.textContent = '';
+}
+
 // Goal options
 document.querySelectorAll('#diet-goal-options .form-option').forEach(opt => {
   opt.addEventListener('click', () => {
@@ -2116,82 +2117,101 @@ document.querySelectorAll('#diet-activity-options .form-option').forEach(opt => 
   });
 });
 
-function calculateDietGoal() {
+const ACTIVITY_LABELS = { '1.2':'久坐','1.375':'轻度活动','1.55':'中度活动','1.725':'高强度' };
+
+function saveDietSettings() {
   const goalEl = document.querySelector('#diet-goal-options .form-option.selected');
   const activityEl = document.querySelector('#diet-activity-options .form-option.selected');
-  if (!goalEl || !activityEl) return;
+  if (!goalEl) { alert('请选择健身目标'); return; }
+  if (!activityEl) { alert('请选择活动水平'); return; }
 
   const goal = goalEl.dataset.value;
   const activity = parseFloat(activityEl.dataset.value);
   const height = parseFloat(document.getElementById('diet-height').value);
   const weight = parseFloat(document.getElementById('diet-weight').value);
   const age = parseFloat(document.getElementById('diet-age').value);
+  const trainingDays = parseInt(document.getElementById('diet-training-days').value) || 3;
 
   if (!height || !weight || !age || height < 50 || weight < 10 || age < 5) {
     alert('请正确填写身高、体重和年龄');
     return;
   }
 
-  // Mifflin-St Jeor (male formula as default)
-  const bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-  const tdee = Math.round(bmr * activity);
+  // Calculate targets (simple formula)
+  let targetCalories, carbPct, proteinPct, fatPct;
+  if (goal === '增肌') { targetCalories = Math.round(weight * 35); carbPct = 0.55; proteinPct = 0.20; fatPct = 0.25; }
+  else if (goal === '减脂') { targetCalories = Math.round(weight * 25); carbPct = 0.50; proteinPct = 0.20; fatPct = 0.30; }
+  else { targetCalories = Math.round(weight * 30); carbPct = 0.55; proteinPct = 0.15; fatPct = 0.30; }
 
-  let targetCalories, proteinPerKg;
-  if (goal === '增肌') { targetCalories = tdee + 300; proteinPerKg = 2; }
-  else if (goal === '减脂') { targetCalories = tdee - 300; proteinPerKg = 1.6; }
-  else { targetCalories = tdee; proteinPerKg = 1.2; }
-
-  const protein = Math.round(proteinPerKg * weight);
-  const proteinCalories = protein * 4;
-  const remaining = targetCalories - proteinCalories;
-  const carbs = Math.round((remaining * 0.55) / 4);
-  const fat = Math.round((remaining * 0.25) / 9);
-
-  // Display
-  document.getElementById('goal-calories').textContent = targetCalories;
-  document.getElementById('goal-protein').textContent = protein;
-  document.getElementById('goal-carbs').textContent = carbs;
-  document.getElementById('goal-fat').textContent = fat;
-
-  document.getElementById('diet-goal-results').style.display = 'block';
+  const protein = Math.round(targetCalories * proteinPct / 4);
+  const carbs = Math.round(targetCalories * carbPct / 4);
+  const fat = Math.round(targetCalories * fatPct / 9);
 
   // Save
-  const data = { goal, height, weight, age, activity, targetCalories, protein, carbs, fat, date: new Date().toISOString() };
+  const data = { goal, height, weight, age, activity, trainingDays, targetCalories, protein, carbs, fat, date: new Date().toISOString() };
   saveDietGoals(data);
+
+  // Show card view
+  showGoalCard(data);
 }
 
-document.getElementById('diet-calc-btn').addEventListener('click', calculateDietGoal);
+function showGoalCard(saved) {
+  document.getElementById('goal-form').style.display = 'none';
+  const cardView = document.getElementById('goal-card-view');
+  cardView.style.display = 'block';
+
+  const actLabel = ACTIVITY_LABELS[String(saved.activity)] || '未知';
+  document.getElementById('goal-card-header').textContent =
+    '🎯 ' + saved.goal + ' · ' + saved.weight + 'kg · 每周' + (saved.trainingDays || 3) + '天 · ' + actLabel;
+
+  document.getElementById('goal-card-grid').innerHTML =
+    '<div class="goal-card-item"><span class="gci-num">' + saved.targetCalories + ' <span class="gci-unit">大卡</span></span><span class="gci-label">每日热量</span></div>' +
+    '<div class="goal-card-item"><span class="gci-num">' + saved.protein + ' <span class="gci-unit">g</span></span><span class="gci-label">蛋白质</span></div>' +
+    '<div class="goal-card-item"><span class="gci-num">' + saved.carbs + ' <span class="gci-unit">g</span></span><span class="gci-label">碳水化合物</span></div>' +
+    '<div class="goal-card-item"><span class="gci-num">' + saved.fat + ' <span class="gci-unit">g</span></span><span class="gci-label">脂肪</span></div>';
+}
+
+function showGoalForm() {
+  document.getElementById('goal-card-view').style.display = 'none';
+  document.getElementById('goal-form').style.display = 'block';
+}
+
+document.getElementById('diet-save-btn').addEventListener('click', saveDietSettings);
+document.getElementById('goal-edit-btn').addEventListener('click', () => {
+  // Pre-fill form with saved data
+  const saved = getDietGoals();
+  if (saved) {
+    document.querySelectorAll('#diet-goal-options .form-option').forEach(o => {
+      o.classList.toggle('selected', o.dataset.value === saved.goal);
+    });
+    document.querySelectorAll('#diet-activity-options .form-option').forEach(o => {
+      o.classList.toggle('selected', o.dataset.value === String(saved.activity));
+    });
+    document.getElementById('diet-height').value = saved.height || '';
+    document.getElementById('diet-weight').value = saved.weight || '';
+    document.getElementById('diet-age').value = saved.age || '';
+    const td = document.getElementById('diet-training-days');
+    if (td && saved.trainingDays) { td.value = saved.trainingDays; updateTdDisplay(); }
+  }
+  showGoalForm();
+});
+
+// Also save when Enter pressed on inputs
+['diet-height','diet-weight','diet-age'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') saveDietSettings();
+  });
+});
 
 // Restore saved goals on load
 function restoreDietGoals() {
   const saved = getDietGoals();
-  if (!saved) return;
-  // Restore form values
-  document.querySelectorAll('#diet-goal-options .form-option').forEach(o => {
-    o.classList.toggle('selected', o.dataset.value === saved.goal);
-  });
-  document.querySelectorAll('#diet-activity-options .form-option').forEach(o => {
-    o.classList.toggle('selected', o.dataset.value === String(saved.activity));
-  });
-  document.getElementById('diet-height').value = saved.height || '';
-  document.getElementById('diet-weight').value = saved.weight || '';
-  document.getElementById('diet-age').value = saved.age || '';
-  // Show results
-  if (saved.targetCalories) {
-    document.getElementById('goal-calories').textContent = saved.targetCalories;
-    document.getElementById('goal-protein').textContent = saved.protein;
-    document.getElementById('goal-carbs').textContent = saved.carbs;
-    document.getElementById('goal-fat').textContent = saved.fat;
-    document.getElementById('diet-goal-results').style.display = 'block';
+  if (saved && saved.targetCalories) {
+    showGoalCard(saved);
+  } else {
+    document.getElementById('goal-form').style.display = 'block';
   }
 }
-
-// Also auto-calc when Enter pressed on inputs
-['diet-height','diet-weight','diet-age'].forEach(id => {
-  document.getElementById(id).addEventListener('keydown', e => {
-    if (e.key === 'Enter') calculateDietGoal();
-  });
-});
 
 restoreDietGoals();
 
@@ -2200,9 +2220,7 @@ restoreDietGoals();
 // ============================================================
 let currentDate = new Date();
 let pendingMealType = null; // which meal we're adding food to
-let pendingCustomTarget = null; // which custom meal target
 let selectedFood = null; // selected food in search
-let isCustomMode = false; // true when searching from custom plan
 
 function formatDate(d) {
   const y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), day = String(d.getDate()).padStart(2,'0');
@@ -2224,43 +2242,18 @@ function updateDateDisplay() {
 function renderDay() {
   const dateStr = formatDate(currentDate);
   const records = getDayRecords(dateStr);
-  const goals = getDietGoals();
 
-  // Render each meal
-  let totals = { calories:0, protein:0, carbs:0, fat:0 };
   for (const meal of mealKeys) {
     const items = records[meal] || [];
     const container = document.getElementById('meal-' + meal);
     container.innerHTML = '';
-    let mealCal = 0, mealPro = 0;
     items.forEach((item, idx) => {
-      const c = Math.round(item.calories * item.portions);
-      const p = Math.round(item.protein * item.portions);
-      const carbsVal = Math.round(item.carbs * item.portions);
-      const fatVal = Math.round(item.fat * item.portions);
-      mealCal += c; mealPro += p;
+      const portion = item.portion || (item.portions + ' ' + (item.unit || '份'));
       const div = document.createElement('div');
       div.className = 'meal-item';
-      const primary = item.primaryNutrient || 'protein';
-      const label = nutrientLabels[primary] || '蛋白质';
-      let primaryVal = carbsVal;
-      if (primary === 'protein') primaryVal = p;
-      else if (primary === 'fat') primaryVal = fatVal;
-      else primaryVal = carbsVal;
-      div.innerHTML = `<div class="meal-item-left"><div class="meal-item-name">${item.name}</div><div class="meal-item-portion">${item.portions} ${item.unit}</div>
-        <div class="meal-item-nutrients">${formatNutrientLine(item, item.portions)}</div></div>
-        <div class="meal-item-right"><div class="meal-item-cal">${c} 大卡</div></div>
+      div.innerHTML = `<div class="meal-item-left"><div class="meal-item-name">${item.name}</div><div class="meal-item-portion">${portion}</div></div>
         <button class="meal-item-del" data-meal="${meal}" data-idx="${idx}">✕</button>`;
       container.appendChild(div);
-    });
-    document.getElementById('meal-total-' + meal).textContent =
-      items.length ? `合计：${mealCal} 大卡 · ${mealPro}g 蛋白质` : `合计：0 大卡 · 0g 蛋白质`;
-    totals.calories += mealCal;
-    totals.protein += mealPro;
-    // also calc carbs and fat for summary
-    items.forEach(item => {
-      totals.carbs += Math.round(item.carbs * item.portions);
-      totals.fat += Math.round(item.fat * item.portions);
     });
   }
 
@@ -2274,34 +2267,11 @@ function renderDay() {
       records[meal].splice(idx, 1);
       saveDayRecords(dateStr, records);
       renderDay();
+      // Re-render plan tab if visible
+      const planTab = document.getElementById('diet-plan-tab');
+      if (planTab && planTab.classList.contains('active')) renderDietPlanTab();
     });
   });
-
-  // Update summary bar
-  updateSummary(totals, goals);
-}
-
-function updateSummary(totals, goals) {
-  const fields = [
-    { id:'cal', label:'🔥 热量', val:totals.calories, target:goals ? goals.targetCalories : 0, unit:'大卡' },
-    { id:'protein', label:'🥩 蛋白质', val:totals.protein, target:goals ? goals.protein : 0, unit:'g' },
-    { id:'carbs', label:'🍚 碳水', val:totals.carbs, target:goals ? goals.carbs : 0, unit:'g' },
-    { id:'fat', label:'🧈 脂肪', val:totals.fat, target:goals ? goals.fat : 0, unit:'g' }
-  ];
-
-  for (const f of fields) {
-    const target = f.target || 0;
-    document.getElementById('summary-' + f.id).textContent = target > 0 ? `${f.val} / ${target}${f.unit}` : `${f.val} / —`;
-    const bar = document.getElementById('progress-' + f.id);
-    if (target > 0) {
-      const pct = Math.min(100, Math.round((f.val / target) * 100));
-      bar.style.width = pct + '%';
-      bar.classList.toggle('over', pct > 100);
-    } else {
-      bar.style.width = '0%';
-      bar.classList.remove('over');
-    }
-  }
 }
 
 // Date navigation
@@ -2334,12 +2304,17 @@ const foodSearchInput = document.getElementById('food-search-input');
 const foodSearchList = document.getElementById('food-search-list');
 const foodCategoriesEl = document.getElementById('food-categories');
 const foodPortions = document.getElementById('food-portions');
-const portionInput = document.getElementById('portion-input');
-const portionUnit = document.getElementById('portion-unit');
-const portionsInfo = document.getElementById('portions-info');
 const confirmFoodBtn = document.getElementById('confirm-food-btn');
 
 let activeFoodCategory = '全部';
+
+// Portion option buttons
+document.querySelectorAll('#portion-options .form-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('#portion-options .form-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+  });
+});
 
 // Build category filter buttons
 (function buildCategoryFilters() {
@@ -2364,8 +2339,7 @@ function renderFoodSearch() {
   if (q) list = list.filter(f => f.name.includes(q));
   foodSearchList.innerHTML = list.map(f =>
     `<div class="food-search-item" data-name="${f.name}">
-      <div class="food-si-left"><div class="food-si-name">${f.name}</div><div class="food-si-primary">${formatNutrientLine(f, 1)}</div></div>
-      <div class="food-si-right"><div class="food-si-cal">${f.calories} 大卡</div><div class="food-si-detail">${f.category} · ${f.unit}</div></div>
+      <div class="food-si-left"><div class="food-si-name">${f.name}</div><div class="food-si-detail">${f.category}</div></div>
     </div>`
   ).join('');
   // Select first by default
@@ -2385,50 +2359,26 @@ function renderFoodSearch() {
 
 function showPortionSelector() {
   if (!selectedFood) return;
-  portionUnit.textContent = selectedFood.unit;
-  portionInput.value = 1;
-  updatePortionsInfo();
   foodPortions.style.display = 'block';
-  // Scroll to portions
   foodPortions.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function updatePortionsInfo() {
-  if (!selectedFood) return;
-  const p = parseFloat(portionInput.value) || 1;
-  portionsInfo.innerHTML = `${selectedFood.name} ${p} ${selectedFood.unit}：${Math.round(selectedFood.calories * p)} 大卡 · ${formatNutrientLine(selectedFood, p)}`;
-}
-
-portionInput.addEventListener('input', updatePortionsInfo);
-
 confirmFoodBtn.addEventListener('click', () => {
   if (!selectedFood) return;
-  const p = parseFloat(portionInput.value) || 1;
+  const portionEl = document.querySelector('#portion-options .form-option.selected');
   const item = {
     name: selectedFood.name,
-    unit: selectedFood.unit,
-    portions: p,
-    calories: selectedFood.calories,
-    protein: selectedFood.protein,
-    carbs: selectedFood.carbs,
-    fat: selectedFood.fat,
-    primaryNutrient: selectedFood.primaryNutrient || 'protein'
+    portion: portionEl ? portionEl.dataset.portion : '中'
   };
 
-  if (isCustomMode && pendingCustomTarget) {
-    // Add to custom plan
-    const container = document.getElementById('custom-' + pendingCustomTarget);
-    const existing = container._customItems || [];
-    existing.push(item);
-    container._customItems = existing;
-    renderCustomPlanMeal(pendingCustomTarget);
-  } else if (pendingMealType) {
-    // Add to daily record
+  if (pendingMealType) {
     const dateStr = formatDate(currentDate);
     const records = getDayRecords(dateStr);
     records[pendingMealType].push(item);
     saveDayRecords(dateStr, records);
     renderDay();
+    const planTab = document.getElementById('diet-plan-tab');
+    if (planTab && planTab.classList.contains('active')) renderDietPlanTab();
   }
 
   closeFoodSearch();
@@ -2455,8 +2405,6 @@ function openFoodSearch() {
 function closeFoodSearch() {
   foodSearchOverlay.classList.remove('open');
   pendingMealType = null;
-  pendingCustomTarget = null;
-  isCustomMode = false;
   selectedFood = null;
 }
 
@@ -2468,542 +2416,318 @@ renderDay();
 //  DIET: Tab3 - 我的计划
 // ============================================================
 
-// --- Auto-generate diet plan from goals ---
-function generateDietPlan() {
+// ============================================================
+//  DIET: Tab3 - 我的计划 (卡片渲染)
+// ============================================================
+// ============================================================
+//  DIET: Tab3 - 我的计划 (卡片渲染)
+// ============================================================
+
+function renderDietPlanTab() {
   const goals = getDietGoals();
-  const area = document.getElementById('diet-template-area');
+  const header = document.getElementById("plan-goal-header");
+  const grid = document.getElementById("plan-goal-grid");
+  if (!grid) return;
+
   if (!goals || !goals.targetCalories) {
-    area.innerHTML = `<div class="empty-state"><div class="empty-icon">📊</div><p>请先在「营养目标」中设置你的数据</p><div class="empty-hint">计算营养目标后，AI将自动生成饮食计划模板</div></div>`;
+    header.textContent = "🎯 今日营养目标";
+    grid.innerHTML = '<div style="grid-column:1/-1;color:#999;text-align:center;padding:12px;">请先在「营养目标」中设置数据</div>';
+    renderTodayRecords();
     return;
   }
 
-  const cal = goals.targetCalories;
-  const protein = goals.protein;
-  const carbs = goals.carbs;
-  const fat = goals.fat;
+  header.textContent = "🎯 " + goals.goal + " · 每日" + goals.targetCalories + "大卡";
+  grid.innerHTML =
+    '<div class="goal-card-item"><span class="goal-card-label">蛋白质</span><span class="goal-card-value">' + goals.protein + 'g</span></div>' +
+    '<div class="goal-card-item"><span class="goal-card-label">碳水</span><span class="goal-card-value">' + goals.carbs + 'g</span></div>' +
+    '<div class="goal-card-item"><span class="goal-card-label">脂肪</span><span class="goal-card-value">' + goals.fat + 'g</span></div>' +
+    '<div class="goal-card-item"><span class="goal-card-label">体重</span><span class="goal-card-value">' + goals.weight + 'kg</span></div>';
 
-  // Generate meal plan based on calorie level
-  // Ratios: breakfast ~25%, lunch ~35%, dinner ~30%, snack ~10%
-  const ratios = { breakfast: 0.28, lunch: 0.35, dinner: 0.27, snack: 0.10 };
-  const plans = {};
+  renderTodayRecords();
+}
 
+function renderTodayRecords() {
+  const container = document.getElementById("plan-today-records");
+  if (!container) return;
+
+  const today = formatDate(new Date());
+  const records = getDayRecords(today);
+  const mealKeys = ["breakfast", "lunch", "dinner", "snack"];
+  const mealNames = { breakfast:"早餐", lunch:"午餐", dinner:"晚餐", snack:"加餐" };
+
+  let html = "";
   for (const meal of mealKeys) {
-    const mealCal = Math.round(cal * ratios[meal]);
-    const mealPro = Math.round(protein * ratios[meal]);
-    const mealCarbs = Math.round(carbs * ratios[meal]);
-    const mealFat = Math.round(fat * ratios[meal]);
-    plans[meal] = { cal: mealCal, protein: mealPro, carbs: mealCarbs, fat: mealFat };
-  }
-
-  // Pick foods based on meal type
-  function suggestFoods(meal, targets) {
-    let items = [];
-    if (meal === 'breakfast') {
-      items.push({ name:'燕麦', unitMatch:'100g', portions:Math.round(targets.carbs/66*10)/10, category:'主食类' });
-      items.push({ name:'鸡蛋', unitMatch:'1个(50g)', portions:2, category:'肉蛋类' });
-      items.push({ name:'纯牛奶', unitMatch:'250ml', portions:1, category:'奶制品' });
-    } else if (meal === 'lunch') {
-      items.push({ name:'米饭', unitMatch:'100g', portions:Math.round(targets.carbs/26*10)/10, category:'主食类' });
-      items.push({ name:'鸡胸肉', unitMatch:'100g', portions:Math.round(targets.protein/31*10)/10, category:'肉蛋类' });
-      items.push({ name:'西兰花', unitMatch:'100g', portions:1, category:'蔬菜类' });
-    } else if (meal === 'dinner') {
-      items.push({ name:'红薯', unitMatch:'100g', portions:Math.round(targets.carbs/20*10)/10, category:'主食类' });
-      items.push({ name:'三文鱼', unitMatch:'100g', portions:Math.round(targets.protein/20*10)/10, category:'肉蛋类' });
-      items.push({ name:'菠菜', unitMatch:'100g', portions:1, category:'蔬菜类' });
-    } else if (meal === 'snack') {
-      items.push({ name:'蛋白粉', unitMatch:'勺(30g)', portions:1, category:'肉蛋类' });
-      items.push({ name:'香蕉', unitMatch:'1根(120g)', portions:1, category:'水果类' });
+    const items = records[meal] || [];
+    html += '<div style="margin-bottom:10px;"><div style="font-size:13px;font-weight:600;color:#555;margin-bottom:4px;">' + mealNames[meal] + '</div>';
+    if (items.length === 0) {
+      html += '<div style="font-size:12px;color:#bbb;padding:2px 0;">暂无记录</div>';
+    } else {
+      items.forEach(item => {
+        const portion = item.portion || "中";
+        html += '<div style="font-size:13px;padding:2px 0;">' + item.name + ' · ' + portion + '份</div>';
+      });
     }
-    return items.map(item => {
-      const food = foodDatabase.find(f => f.name === item.name && f.unit === item.unitMatch);
-      if (!food) return null;
-      const p = item.portions || 1;
-      return {
-        name: food.name, unit: food.unit, portions: p,
-        calories: Math.round(food.calories * p),
-        protein: Math.round(food.protein * p),
-        carbs: Math.round(food.carbs * p),
-        fat: Math.round(food.fat * p)
-      };
-    }).filter(Boolean);
+    html += "</div>";
   }
-
-  let totalPlanCal = 0, totalPlanPro = 0;
-  let html = `<div class="plan-template-card"><div class="template-header">
-    <span class="template-name">🎯 ${goals.goal}计划 · 每日${cal}大卡</span>
-    <span class="template-total"></span>
-  </div>`;
-
-  for (const meal of mealKeys) {
-    const targets = plans[meal];
-    const foods = suggestFoods(meal, targets);
-    const mealCal = foods.reduce((s, f) => s + f.calories, 0);
-    const mealPro = foods.reduce((s, f) => s + f.protein, 0);
-    totalPlanCal += mealCal;
-    totalPlanPro += mealPro;
-
-    html += `<div class="template-meal"><span class="tm-label">${mealLabels[meal]}</span>
-      <span class="tm-name">${foods.map(f => `${f.name} ×${f.portions}${f.unit}`).join('、')}</span>
-      <span class="tm-cal">${mealCal}大卡 / ${mealPro}g蛋白质</span>
-    </div>`;
-  }
-
-  html += `<div class="template-actions">
-    <button class="btn-apply-plan" id="apply-plan-btn">📋 应用到今日饮食记录</button>
-  </div></div>`;
-
-  // Also show actual plan data for comparison
-  area.innerHTML = html;
-
-  // Store plan for comparison
-  window._currentDietPlan = { meals: {} };
-  for (const meal of mealKeys) {
-    const targets = plans[meal];
-    window._currentDietPlan.meals[meal] = suggestFoods(meal, targets);
-  }
-  window._currentDietPlan.totalCal = totalPlanCal;
-  window._currentDietPlan.totalPro = totalPlanPro;
-
-  document.getElementById('apply-plan-btn').addEventListener('click', applyPlanToToday);
+  container.innerHTML = html;
 }
 
-function applyPlanToToday() {
-  if (!window._currentDietPlan) return;
-  const dateStr = formatDate(new Date());
-  const records = getDayRecords(dateStr);
+// ============================================================
+//  DIET: Tab3 按钮处理
+// ============================================================
 
-  for (const meal of mealKeys) {
-    const foods = window._currentDietPlan.meals[meal] || [];
-    records[meal] = foods.map(f => ({
-      name: f.name, unit: f.unit, portions: f.portions,
-      calories: f.calories / f.portions,
-      protein: f.protein / f.portions,
-      carbs: f.carbs / f.portions,
-      fat: f.fat / f.portions
-    }));
-  }
-
-  saveDayRecords(dateStr, records);
-  alert('✅ 已应用到今日饮食记录！切换到「饮食记录」查看。');
-
-  // Switch to record tab
-  document.querySelectorAll('.diet-tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.diet-tab-content').forEach(c => c.classList.remove('active'));
-  document.querySelector('[data-diet-tab="record"]').classList.add('active');
-  document.getElementById('diet-record-tab').classList.add('active');
-  currentDate = new Date();
-  updateDateDisplay();
-  renderDay();
-}
-
-// --- Custom plan: add food to custom meals ---
-function renderCustomPlanMeal(target) {
-  const container = document.getElementById('custom-' + target);
-  const items = container._customItems || [];
-  container.innerHTML = items.map((item, idx) =>
-    `<div class="meal-item">
-      <div class="meal-item-left"><div class="meal-item-name">${item.name}</div><div class="meal-item-portion">${item.portions} ${item.unit}</div>
-        <div class="meal-item-nutrients">${formatNutrientLine(item, item.portions)}</div></div>
-      <div class="meal-item-right"><div class="meal-item-cal">${Math.round(item.calories * item.portions)} 大卡</div></div>
-      <button class="meal-item-del" data-custom="${target}" data-idx="${idx}">✕</button>
-    </div>`
-  ).join('');
-  container.querySelectorAll('.meal-item-del').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const t = btn.dataset.custom;
-      const idx = parseInt(btn.dataset.idx);
-      const c = document.getElementById('custom-' + t);
-      const arr = c._customItems || [];
-      arr.splice(idx, 1);
-      c._customItems = arr;
-      renderCustomPlanMeal(t);
-    });
-  });
-}
-
-// Initialize custom plan containers
-['bf','lu','di','sn'].forEach(t => {
-  const el = document.getElementById('custom-' + t);
-  if (el) el._customItems = [];
+document.getElementById("check-diet-btn").addEventListener("click", () => {
+  openAIChat();
+  const prompt = getContextPrompt("check-diet");
+  aiChatInput.value = prompt;
+  aiChatInput.focus();
+  aiChatInput.style.height = "auto";
+  aiChatInput.style.height = aiChatInput.scrollHeight + "px";
 });
 
-// Save template
-document.getElementById('save-template-btn').addEventListener('click', () => {
-  const name = document.getElementById('template-name').value.trim();
-  if (!name) { alert('请输入模板名称'); return; }
-
-  const meals = {};
-  let hasItems = false;
-  for (const prefix of ['bf','lu','di','sn']) {
-    const el = document.getElementById('custom-' + prefix);
-    const items = el._customItems || [];
-    if (items.length > 0) hasItems = true;
-    meals[prefix] = items;
-  }
-  if (!hasItems) { alert('请至少添加一些食物到自定义计划中'); return; }
-
-  const templates = getDietTemplates();
-  templates.push({ name, meals, createdAt: new Date().toISOString() });
-  saveDietTemplates(templates);
-  document.getElementById('template-name').value = '';
-  renderSavedTemplates();
-  alert('✅ 模板已保存！');
-});
-
-function renderSavedTemplates() {
-  const container = document.getElementById('saved-templates');
-  const templates = getDietTemplates();
-  if (templates.length === 0) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">📄</div><p>还没有保存的模板</p><div class="empty-hint">在上方自定义计划后保存为模板</div></div>`;
-    return;
-  }
-  container.innerHTML = templates.map((t, idx) => {
-    const totalItems = Object.values(t.meals).reduce((s, arr) => s + arr.length, 0);
-    return `<div class="saved-template-item">
-      <div class="sti-left"><div class="sti-name">${t.name}</div><div class="sti-info">${totalItems} 个食物 · ${new Date(t.createdAt).toLocaleDateString()}</div></div>
-      <div class="sti-actions">
-        <button class="sti-use" data-idx="${idx}">应用</button>
-        <button class="sti-del" data-idx="${idx}">删除</button>
-      </div>
-    </div>`;
-  }).join('');
-
-  container.querySelectorAll('.sti-use').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const idx = parseInt(btn.dataset.idx);
-      const templates = getDietTemplates();
-      const tmpl = templates[idx];
-      if (!tmpl) return;
-
-      const dateStr = formatDate(new Date());
-      const records = getDayRecords(dateStr);
-      const mealMap = { bf:'breakfast', lu:'lunch', di:'dinner', sn:'snack' };
-      for (const [prefix, meal] of Object.entries(mealMap)) {
-        const items = tmpl.meals[prefix] || [];
-        records[meal] = items.map(i => ({
-          name: i.name, unit: i.unit, portions: i.portions,
-          calories: i.calories / i.portions,
-          protein: i.protein / i.portions,
-          carbs: i.carbs / i.portions,
-          fat: i.fat / i.portions
-        }));
-      }
-      saveDayRecords(dateStr, records);
-      alert('✅ 模板已应用到今日饮食记录！');
-      document.querySelectorAll('.diet-tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.diet-tab-content').forEach(c => c.classList.remove('active'));
-      document.querySelector('[data-diet-tab="record"]').classList.add('active');
-      document.getElementById('diet-record-tab').classList.add('active');
-      currentDate = new Date();
-      updateDateDisplay();
-      renderDay();
-    });
-  });
-
-  container.querySelectorAll('.sti-del').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const idx = parseInt(btn.dataset.idx);
-      const templates = getDietTemplates();
-      if (!confirm(`确定删除模板「${templates[idx].name}」？`)) return;
-      templates.splice(idx, 1);
-      saveDietTemplates(templates);
-      renderSavedTemplates();
-    });
-  });
-}
-
-// --- Plan vs Actual Comparison ---
-function renderComparison() {
-  const container = document.getElementById('diet-compare');
-  const goals = getDietGoals();
-  const plan = window._currentDietPlan;
-
-  if (!goals || !goals.targetCalories || !plan) {
-    container.style.display = 'none';
-    return;
-  }
-
-  const dateStr = formatDate(currentDate);
-  const records = getDayRecords(dateStr);
-  const actual = { calories:0, protein:0, carbs:0, fat:0 };
-  for (const meal of mealKeys) {
-    for (const item of records[meal] || []) {
-      actual.calories += Math.round(item.calories * item.portions);
-      actual.protein += Math.round(item.protein * item.portions);
-      actual.carbs += Math.round(item.carbs * item.portions);
-      actual.fat += Math.round(item.fat * item.portions);
-    }
-  }
-
-  const fields = [
-    { label:'🔥 热量', plan: goals.targetCalories, actual: actual.calories, unit:'大卡' },
-    { label:'🥩 蛋白质', plan: goals.protein, actual: actual.protein, unit:'g' },
-    { label:'🍚 碳水', plan: goals.carbs, actual: actual.carbs, unit:'g' },
-    { label:'🧈 脂肪', plan: goals.fat, actual: actual.fat, unit:'g' }
-  ];
-
-  container.style.display = 'block';
-  container.innerHTML = `<div class="compare-section">
-    <div class="compare-title">📊 计划 vs 实际</div>
-    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:12px;">
-      🎯 目标：${goals.goal} · ${goals.targetCalories}大卡/日
-    </div>
-    ${fields.map(f => {
-      const pct = f.plan > 0 ? Math.min(100, Math.round((f.actual / f.plan) * 100)) : 0;
-      const diff = f.actual - f.plan;
-      const isOk = diff <= 0 || (f.label.includes('蛋白质') && diff > 0);
-      const fillClass = pct >= 100 ? 'green' : 'red';
-      return `<div class="compare-row">
-        <span class="compare-label">${f.label}</span>
-        <div class="compare-bar"><div class="compare-fill ${pct >= 80 ? 'green' : 'red'}" style="width:${pct}%"></div></div>
-        <span class="compare-text">${f.actual} / ${f.plan} ${f.unit}</span>
-        <span class="compare-diff ${pct >= 80 ? 'ok' : 'miss'}">${pct >= 80 ? '✅' : '⚠️'} ${pct}%</span>
-      </div>`;
-    }).join('')}
-  </div>`;
-}
-
-// Override renderDay to include comparison
-const _origRenderDay = renderDay;
-renderDay = function() {
-  _origRenderDay();
-  renderComparison();
-};
-
-// --- Initialize plan tab ---
-// Listen for tab switches to regenerate plan
-document.querySelectorAll('.diet-tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (btn.dataset.dietTab === 'plan') {
-      generateDietPlan();
-      renderSavedTemplates();
-    } else if (btn.dataset.dietTab === 'record') {
-      renderComparison();
-    }
-  });
-});
-
-// Initial load on page show
-btnNavDiet.addEventListener('click', () => {
-  generateDietPlan();
-  renderSavedTemplates();
+document.getElementById("recommend-meal-btn").addEventListener("click", () => {
+  openAIChat();
+  const prompt = getContextPrompt("recommend-meal");
+  aiChatInput.value = prompt;
+  aiChatInput.focus();
+  aiChatInput.style.height = "auto";
+  aiChatInput.style.height = aiChatInput.scrollHeight + "px";
 });
 
 // ============================================================
-//  AI COACH — DeepSeek Chat
+//  AI 对话
 // ============================================================
-const AI_KEY_KEY = 'deepseek_api_key';
-const AI_HISTORY_KEY = 'ai_chat_history';
-const AI_SYSTEM_PROMPT = '你是专业健身教练。回答要具体、简短、可操作，不超过300字。语气鼓励、平实。';
 
-// DOM
-const aiCoachBtn = document.getElementById('ai-coach-btn');
-const aiChatOverlay = document.getElementById('ai-chat-overlay');
-const aiChatPanel = document.getElementById('ai-chat-panel');
-const aiChatClose = document.getElementById('ai-chat-close');
-const aiMessages = document.getElementById('ai-chat-messages');
-const aiInput = document.getElementById('ai-chat-input');
-const aiSend = document.getElementById('ai-chat-send');
-const aiQuickBtns = document.querySelectorAll('.ai-quick-btn');
-const aiSettingsOverlay = document.getElementById('ai-settings-overlay');
-const aiApiInput = document.getElementById('ai-api-key-input');
-const aiSettingsSave = document.getElementById('ai-settings-save');
+const aiChatOverlay = document.getElementById("ai-chat-overlay");
+const aiChatPanel = document.getElementById("ai-chat-panel");
+const aiChatMessages = document.getElementById("ai-chat-messages");
+const aiChatInput = document.getElementById("ai-chat-input");
+const aiChatSend = document.getElementById("ai-chat-send");
+const aiChatClose = document.getElementById("ai-chat-close");
+const aiCoachBtn = document.getElementById("ai-coach-btn");
+const aiSettingsOverlay = document.getElementById("ai-settings-overlay");
+const aiApiKeyInput = document.getElementById("ai-api-key-input");
+const aiSettingsSave = document.getElementById("ai-settings-save");
 
-let aiChatHistory = [];
-let aiIsLoading = false;
+const CHAT_HISTORY_KEY = "ai_chat_history";
 
-// Load API key
-function getApiKey() { return localStorage.getItem(AI_KEY_KEY) || ''; }
-function saveApiKey(key) { localStorage.setItem(AI_KEY_KEY, key); }
-
-// Load chat history
-function loadChatHistory() {
-  try {
-    const data = JSON.parse(localStorage.getItem(AI_HISTORY_KEY));
-    if (data && Array.isArray(data)) aiChatHistory = data;
-  } catch { aiChatHistory = []; }
-}
-function saveChatHistory() {
-  localStorage.setItem(AI_HISTORY_KEY, JSON.stringify(aiChatHistory.slice(-50)));
-}
-
-// Render messages
-function renderMessages() {
-  const existing = aiMessages.querySelectorAll('.ai-msg');
-  // Keep welcome if no history
-  if (aiChatHistory.length === 0) {
-    if (existing.length === 0) {
-      aiMessages.innerHTML = `<div class="ai-msg ai-msg-bot"><div class="ai-msg-content">你好！我是AI健身教练，有什么可以帮你的？</div></div>`;
-    }
+function openAIChat() {
+  const apiKey = localStorage.getItem("deepseek_api_key");
+  if (!apiKey) {
+    aiSettingsOverlay.classList.add("open");
     return;
   }
-  aiMessages.innerHTML = aiChatHistory.map(msg =>
-    `<div class="ai-msg ai-msg-${msg.role === 'user' ? 'user' : 'bot'}">
-      <div class="ai-msg-content">${escapeHtml(msg.content)}</div>
-    </div>`
-  ).join('');
-  scrollToBottom();
+  aiChatOverlay.classList.add("open");
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+function closeAIChat() {
+  aiChatOverlay.classList.remove("open");
 }
 
-function scrollToBottom() {
-  setTimeout(() => { aiMessages.scrollTop = aiMessages.scrollHeight; }, 10);
+function appendMsg(text, sender) {
+  const div = document.createElement("div");
+  div.className = "ai-msg ai-msg-" + sender;
+  var safe = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  div.innerHTML = '<div class="ai-msg-content">' + safe.replace(/\n/g, '<br>') + '</div>';
+  aiChatMessages.appendChild(div);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
 }
 
 function showLoading() {
-  const div = document.createElement('div');
-  div.className = 'ai-msg ai-msg-bot';
-  div.id = 'ai-msg-loading';
-  div.innerHTML = '<div class="ai-msg-loading"><span></span><span></span><span></span></div>';
-  aiMessages.appendChild(div);
-  scrollToBottom();
+  const div = document.createElement("div");
+  div.className = "ai-msg ai-msg-bot ai-msg-loading";
+  div.id = "ai-loading";
+  div.innerHTML = '<div class="ai-msg-content"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div>';
+  aiChatMessages.appendChild(div);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
 }
 
 function hideLoading() {
-  const el = document.getElementById('ai-msg-loading');
+  const el = document.getElementById("ai-loading");
   if (el) el.remove();
 }
 
-// Add message
-function addMessage(role, content) {
-  aiChatHistory.push({ role, content, time: Date.now() });
-  saveChatHistory();
-  renderMessages();
-}
-
-// Toggle panel
-function openChat() {
-  aiChatOverlay.classList.add('open');
-  aiInput.focus();
-}
-function closeChat() {
-  aiChatOverlay.classList.remove('open');
-}
-
-aiCoachBtn.addEventListener('click', () => {
-  const key = getApiKey();
-  if (!key) {
-    aiSettingsOverlay.classList.add('open');
-    return;
+function getChatHistory() {
+  try {
+    return JSON.parse(localStorage.getItem(CHAT_HISTORY_KEY)) || [];
+  } catch(e) {
+    return [];
   }
-  if (!aiChatOverlay.classList.contains('open')) {
-    loadChatHistory();
-    renderMessages();
-    openChat();
-  } else {
-    closeChat();
-  }
-});
+}
 
-aiChatClose.addEventListener('click', closeChat);
+function saveChatHistory(history) {
+  const trimmed = history.slice(-20);
+  localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(trimmed));
+}
 
-// Settings
-aiSettingsSave.addEventListener('click', () => {
-  const key = aiApiInput.value.trim();
-  if (!key) { alert('请输入API Key'); return; }
-  saveApiKey(key);
-  aiSettingsOverlay.classList.remove('open');
-  loadChatHistory();
-  renderMessages();
-  openChat();
-});
-
-// Send message
 async function sendMessage(text) {
-  const content = text.trim();
-  if (!content || aiIsLoading) return;
+  const msg = text.trim();
+  if (!msg) return;
 
-  const key = getApiKey();
-  if (!key) {
-    aiSettingsOverlay.classList.add('open');
+  const apiKey = localStorage.getItem("deepseek_api_key");
+  if (!apiKey) {
+    appendMsg("请先在设置页面配置 DeepSeek API Key", "bot");
     return;
   }
 
-  aiIsLoading = true;
-  aiSend.disabled = true;
-  aiInput.value = '';
-
-  addMessage('user', content);
+  appendMsg(msg, "user");
+  aiChatInput.value = "";
+  aiChatSend.disabled = true;
   showLoading();
 
   try {
-    const messages = [
-      { role: 'system', content: AI_SYSTEM_PROMPT },
-      ...aiChatHistory.slice(-20).map(m => ({ role: m.role, content: m.content }))
-    ];
+    const history = getChatHistory();
+    history.push({ role:"user", content: msg });
 
-    const res = await fetch('https://api.deepseek.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + key
-      },
-      body: JSON.stringify({
-        model: 'deepseek-chat',
-        messages: messages,
-        max_tokens: 600,
-        temperature: 0.7
-      })
+    const resp = await fetch("https://api.deepseek.com/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type":"application/json", "Authorization":"Bearer " + apiKey },
+      body: JSON.stringify({ model:"deepseek-chat", messages: history, temperature:0.7, max_tokens:500 })
     });
 
-    if (!res.ok) {
-      const errData = await res.text();
-      throw new Error(errData || 'API请求失败');
+    if (!resp.ok) {
+      const errText = await resp.text();
+      throw new Error("请求失败 (" + resp.status + "): " + errText);
     }
 
-    const data = await res.json();
-    const reply = data.choices?.[0]?.message?.content || '抱歉，我没有理解你的问题，请再试一次。';
+    const data = await resp.json();
+    const reply = data.choices[0].message.content.trim();
     hideLoading();
-    addMessage('assistant', reply);
+    appendMsg(reply, "bot");
+
+    history.push({ role:"assistant", content: reply });
+    saveChatHistory(history);
   } catch (err) {
     hideLoading();
-    let errorMsg = '请求失败，请检查网络连接和API Key是否正确。';
-    if (err.message) errorMsg += '\n' + err.message;
-    addMessage('assistant', '⚠️ ' + errorMsg);
+    appendMsg("❌ " + err.message, "bot");
+  } finally {
+    aiChatSend.disabled = false;
   }
-
-  aiIsLoading = false;
-  aiSend.disabled = false;
-  aiInput.focus();
 }
 
-// Send button
-aiSend.addEventListener('click', () => sendMessage(aiInput.value));
+// AI Chat Event Listeners
+aiChatClose.addEventListener("click", closeAIChat);
+aiChatOverlay.addEventListener("click", (e) => {
+  if (e.target === aiChatOverlay) closeAIChat();
+});
 
-// Enter to send, Shift+Enter for newline
-aiInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
+aiCoachBtn.addEventListener("click", openAIChat);
+
+aiChatSend.addEventListener("click", () => sendMessage(aiChatInput.value));
+
+aiChatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault();
-    sendMessage(aiInput.value);
+    sendMessage(aiChatInput.value);
   }
 });
 
-// Auto-resize input
-aiInput.addEventListener('input', () => {
-  aiInput.style.height = '44px';
-  aiInput.style.height = Math.min(aiInput.scrollHeight, 120) + 'px';
+// AI Settings
+aiSettingsSave.addEventListener("click", () => {
+  const key = aiApiKeyInput.value.trim();
+  if (key) {
+    localStorage.setItem("deepseek_api_key", key);
+    aiSettingsOverlay.classList.remove("open");
+    aiChatOverlay.classList.add("open");
+  }
 });
 
+aiSettingsOverlay.addEventListener("click", (e) => {
+  if (e.target === aiSettingsOverlay) aiSettingsOverlay.classList.remove("open");
+});
+
+// Auto-resize textarea
+aiChatInput.addEventListener("input", () => {
+  aiChatInput.style.height = "auto";
+  aiChatInput.style.height = aiChatInput.scrollHeight + "px";
+});
+
+// ============================================================
+//  AI 快捷按钮 && Context Prompts
+// ============================================================
+
+const MUSCLE_NAMES = { chest:"胸部", back:"背部", shoulders:"肩部", legs:"腿部", arms:"手臂", abs:"腹部", glutes:"臀部" };
+
+function getContextPrompt(type) {
+  if (type === "correct") {
+    if (_currentExName) return "我在做" + _currentExName + "时遇到问题：[等待用户补充]";
+    return "请先浏览动作库，或告诉我你在做哪个动作遇到了问题";
+  }
+  if (type === "plan") {
+    if (_currentMuscleId && MUSCLE_NAMES[_currentMuscleId]) {
+      return "我最近在练" + MUSCLE_NAMES[_currentMuscleId] + "，帮我生成本周训练计划";
+    }
+    return "帮我生成一周训练计划";
+  }
+  if (type === "diet") {
+    try {
+      const today = formatDate(new Date());
+      const recs = getDayRecords(today);
+      let summary = "我今天的饮食记录：\n";
+      const mealMap = { breakfast:"早餐", lunch:"午餐", dinner:"晚餐", snack:"加餐" };
+      ["breakfast","lunch","dinner","snack"].forEach(m => {
+        const items = recs[m] || [];
+        if (items.length) {
+          summary += mealMap[m] + "：" + items.map(i => i.name + "(" + (i.portion || "中") + "份)").join("、") + "\n";
+        } else {
+          summary += mealMap[m] + "：无记录\n";
+        }
+      });
+      return summary + "\n请根据我的饮食记录给出建议";
+    } catch(e) {
+      return "帮我看看今天的饮食记录，给出改进建议";
+    }
+  }
+  if (type === "check-diet") {
+    try {
+      const today = formatDate(new Date());
+      const recs = getDayRecords(today);
+      let summary = "我今天吃了：\n";
+      const mealMap = { breakfast:"早餐", lunch:"午餐", dinner:"晚餐", snack:"加餐" };
+      ["breakfast","lunch","dinner","snack"].forEach(m => {
+        const items = recs[m] || [];
+        if (items.length) {
+          summary += mealMap[m] + "：" + items.map(i => i.name + "(" + (i.portion || "中") + "份)").join("、") + "\n";
+        } else {
+          summary += mealMap[m] + "：无记录\n";
+        }
+      });
+      return summary + "\n请分析我这顿饭的营养搭配是否合理，给出改进建议。";
+    } catch(e) {
+      return "我今天吃了：帮我分析一下营养搭配是否合理，给出改进建议。";
+    }
+  }
+  if (type === "recommend-meal") {
+    try {
+      const goals = getDietGoals();
+      if (goals && goals.targetCalories) {
+        return "我的营养目标是：" + goals.goal + "，每日" + goals.targetCalories + "大卡（蛋白质" + goals.protein + "g、碳水" + goals.carbs + "g、脂肪" + goals.fat + "g）。请根据我的目标推荐一餐合适的食物搭配，包括主食、蛋白质和蔬菜。";
+      }
+    } catch(e) {}
+    return "请给我推荐一餐健康饮食，包括主食、蛋白质和蔬菜。";
+  }
+  if (type === "recommend") {
+    return "根据我今天的训练情况，给我一些饮食或恢复建议。";
+  }
+  return "";
+}
+
 // Quick buttons
-aiQuickBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const prompt = btn.dataset.prompt;
-    if (prompt) sendMessage(prompt);
+document.querySelectorAll(".ai-quick-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const type = btn.dataset.prompt;
+    const prompt = getContextPrompt(type);
+    if (!prompt) return;
+    openAIChat();
+    setTimeout(() => {
+      aiChatInput.value = prompt;
+      aiChatInput.focus();
+      aiChatInput.style.height = "auto";
+      aiChatInput.style.height = aiChatInput.scrollHeight + "px";
+    }, 100);
   });
 });
 
-// Close chat on overlay click (outside panel)
-aiChatOverlay.addEventListener('click', (e) => {
-  if (e.target === aiChatOverlay) closeChat();
-});
-
-// Init: load history silently
-loadChatHistory();
 </script>
 </body>
 </html>
