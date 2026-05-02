@@ -2562,7 +2562,7 @@ function selfCheckSchedule(week) {
 
 // Female-specific weekly schedule: 下肢/上肢/全身 split
 function getFemaleSchedule(days, selectedDays) {
-  const patterns = { 2:['下肢','上肢'], 3:['下肢','上肢','全身'], 4:['下肢','上肢','休息','下肢','上肢','休息','休息'], 5:['下肢','上肢','全身','下肢','上肢','休息','休息'] };
+  const patterns = { 1:['全身'], 2:['下肢','上肢'], 3:['下肢','上肢','全身'], 4:['下肢','上肢','休息','下肢','上肢','休息','休息'], 5:['下肢','上肢','全身','下肢','上肢','休息','休息'], 6:['下肢','上肢','全身','下肢','上肢','全身','休息'], 7:['下肢','上肢','全身','下肢','上肢','全身','全身'] };
   const pattern = patterns[days] || patterns[3];
   const pool = pattern.filter(d => d !== '休息');
   const seq = [];
@@ -2633,9 +2633,14 @@ function selectExercisesForDay(focusName, pool, expCfg, gCfg, gender) {
         if (!used.has(ex.name) && ex.femaleRecommended) auxPool.push(ex);
       }
     }
-    shuffle(auxPool);
+    // Prioritize cable (fixed machine) exercises, then shuffle within groups
+    const cableAux = auxPool.filter(e => e.equipment === 'cable');
+    const otherAux = auxPool.filter(e => e.equipment !== 'cable');
+    shuffle(cableAux);
+    shuffle(otherAux);
+    const sortedAuxPool = [...cableAux, ...otherAux];
     let auxAdded = 0;
-    for (const ex of auxPool) {
+    for (const ex of sortedAuxPool) {
       if (auxAdded >= 2) break;
       if (add(ex, '辅助')) auxAdded++;
     }
@@ -3679,8 +3684,8 @@ function renderTodayRecords() {
       html += '<div style="font-size:12px;color:#bbb;padding:2px 0;"><span style="opacity:0.35;">🍽️</span> 暂无记录</div>';
     } else {
       items.forEach(item => {
-        const portion = item.grams ? item.grams + 'g · ' + item.calories + '大卡' : (item.portion || "中") + '份';
-        html += '<div style="font-size:13px;padding:2px 0;">' + item.name + ' · ' + portion + '</div>';
+        const portion = item.portion || "中";
+        html += '<div style="font-size:13px;padding:2px 0;">' + item.name + ' · ' + portion + '份</div>';
       });
     }
     html += "</div>";
@@ -3868,7 +3873,7 @@ function getContextPrompt(type) {
       ["breakfast","lunch","dinner","snack"].forEach(m => {
         const items = recs[m] || [];
         if (items.length) {
-          summary += mealMap[m] + "：" + items.map(i => i.name + "(" + (i.grams ? i.grams + "g" : (i.portion || "中") + "份") + ")").join("、") + "\n";
+          summary += mealMap[m] + "：" + items.map(i => i.name + "(" + (i.portion || "中") + "份)").join("、") + "\n";
         } else {
           summary += mealMap[m] + "：无记录\n";
         }
@@ -3887,7 +3892,7 @@ function getContextPrompt(type) {
       ["breakfast","lunch","dinner","snack"].forEach(m => {
         const items = recs[m] || [];
         if (items.length) {
-          summary += mealMap[m] + "：" + items.map(i => i.name + "(" + (i.grams ? i.grams + "g" : (i.portion || "中") + "份") + ")").join("、") + "\n";
+          summary += mealMap[m] + "：" + items.map(i => i.name + "(" + (i.portion || "中") + "份)").join("、") + "\n";
         } else {
           summary += mealMap[m] + "：无记录\n";
         }
