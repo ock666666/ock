@@ -499,6 +499,90 @@ body.theme-transitioning::after {
 .ai-summary-item { font-size: 13px; color: var(--text-secondary); flex: 1; min-width: 140px; }
 .ai-summary-item strong { color: var(--text-primary); }
 
+/* ===== Exercise Replace ===== */
+.ai-ex-replace { background:none; border:none; cursor:pointer; color:var(--text-secondary); font-size:10px; padding:0 2px; line-height:1; vertical-align:middle; opacity:0.5; transition:opacity 0.15s,color 0.15s; }
+.ai-ex-replace:hover { opacity:1; color:#e53935; }
+.ai-ex-select { font-size:11px; padding:2px 4px; border:1px solid var(--accent); border-radius:4px; background:var(--card-bg); color:var(--text-primary); font-family:inherit; max-width:100%; box-sizing:border-box; }
+
+/* ===== Week Tracker ===== */
+.week-tracker { margin-bottom:24px; padding:20px; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); }
+.week-day-grid { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.week-day-card { flex:1; min-width:72px; display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 8px; border-radius:var(--radius-btn); border:1px solid var(--border); cursor:pointer; transition:opacity 0.2s,background 0.2s; background:var(--bg-card); user-select:none; }
+.week-day-card:hover { background:var(--accent-light); }
+.week-day-card.checked { opacity:0.6; background:rgba(var(--accent-rgb),0.04); }
+.week-day-name { font-size:13px; color:var(--text-primary); font-weight:500; }
+.week-day-check { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; border:2px solid var(--text-secondary); color:transparent; transition:all 0.2s; box-sizing:border-box; }
+.week-day-card.checked .week-day-check { border-color:var(--accent); background:var(--accent); color:#fff; }
+.week-progress-text { text-align:center; font-size:14px; color:var(--text-secondary); margin-top:12px; font-weight:500; }
+
+/* ===== Plan View Tabs ===== */
+.plan-view-tabs { display:flex; gap:8px; margin-bottom:16px; }
+.plan-view-btn { flex:1; padding:10px 12px; border:1px solid var(--border); border-radius:var(--radius-btn); background:var(--bg-card); color:var(--text-secondary); font-size:14px; cursor:pointer; font-family:inherit; transition:all 0.2s; text-align:center; }
+.plan-view-btn.active { border-color:var(--accent); color:var(--accent); background:var(--accent-light); }
+.plan-view-btn:hover:not(.active) { border-color:var(--text-secondary); }
+
+/* ===== Schedule View ===== */
+.schedule-day-card { margin-bottom:16px; padding:16px; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-card); }
+.schedule-day-header { font-size:15px; font-weight:600; color:var(--accent); margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+.schedule-day-rest { text-align:center; color:var(--text-secondary); padding:20px 0; font-size:14px; }
+.schedule-ex-item { display:flex; align-items:center; gap:8px; padding:6px 0; border-bottom:1px dashed var(--border); font-size:13px; }
+.schedule-ex-item:last-of-type { border-bottom:none; }
+.schedule-ex-link { color:var(--text-primary); cursor:pointer; font-weight:500; transition:color 0.15s; }
+.schedule-ex-link:hover { color:var(--accent); text-decoration:underline; }
+.schedule-ex-sets { color:var(--accent); font-size:12px; margin-left:auto; white-space:nowrap; }
+.schedule-ex-emoji { font-size:16px; }
+.schedule-empty { text-align:center; padding:40px 20px; color:var(--text-secondary); font-size:15px; }
+
+/* ===== Favorites View ===== */
+.fav-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.fav-item { display:flex; align-items:center; gap:10px; padding:12px 16px; background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-card); cursor:pointer; transition:border-color 0.15s; }
+.fav-item:hover { border-color:var(--accent); }
+.fav-item .fav-emoji { font-size:24px; }
+.fav-item .fav-name { font-size:14px; color:var(--text-primary); flex:1; }
+.fav-item .fav-del { background:none; border:none; color:var(--text-secondary); cursor:pointer; font-size:14px; padding:4px; border-radius:4px; transition:color 0.15s; }
+.fav-item .fav-del:hover { color:#FF3B30; background:rgba(255,50,50,0.1); }
+@media (max-width:640px) { .fav-grid { grid-template-columns:1fr; } }
+
+/* ===== Welcome Overlay ===== */
+.welcome-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,0.7); backdrop-filter:blur(8px);
+  display:none; align-items:center; justify-content:center;
+  padding:24px;
+}
+.welcome-overlay.open { display:flex; }
+.welcome-box {
+  background:var(--card-bg); border:1px solid var(--glass-border);
+  border-radius:var(--radius-modal); padding:32px 28px;
+  max-width:400px; width:100%; text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+.welcome-emoji { font-size:48px; margin-bottom:12px; display:block; }
+.welcome-title { font-size:22px; font-weight:600; color:var(--text-primary); margin-bottom:8px; }
+.welcome-sub { font-size:14px; color:var(--text-secondary); margin-bottom:24px; line-height:1.6; }
+.welcome-steps { text-align:left; margin-bottom:28px; }
+.welcome-step { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); }
+.welcome-step:last-of-type { border-bottom:none; }
+.welcome-step-num {
+  width:26px; height:26px; border-radius:50%; background:var(--accent);
+  color:#fff; font-size:13px; font-weight:600; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.welcome-step-text { font-size:14px; color:var(--text-primary); line-height:1.5; }
+.welcome-step-text small { display:block; font-size:12px; color:var(--text-secondary); margin-top:2px; }
+.welcome-btn {
+  width:100%; padding:14px; border:none; border-radius:var(--radius-btn);
+  background:var(--accent); color:#fff; font-size:16px; font-weight:500;
+  cursor:pointer; font-family:inherit; transition:opacity 0.15s;
+}
+.welcome-btn:hover { opacity:0.85; }
+.welcome-skip {
+  display:block; margin-top:12px; font-size:13px; color:var(--text-secondary);
+  cursor:pointer; background:none; border:none; font-family:inherit;
+  text-decoration:underline; opacity:0.6;
+}
+.welcome-skip:hover { opacity:1; }
+
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .cards-grid.muscle-grid { grid-template-columns: repeat(2, 1fr); }
@@ -517,8 +601,24 @@ body.theme-transitioning::after {
   .theme-toggle { width: 32px; height: 32px; font-size: 14px; }
 }
 @media (max-width: 640px) {
-  .ai-week-table { min-width: 480px; }
+  .ai-week-table { min-width: 0; }
   .ai-cell-ex { font-size: 10px; }
+  .ai-table-wrap { overflow-x: visible; border: none; }
+  .ai-week-table, .ai-week-table thead, .ai-week-table tbody, .ai-week-table tr, .ai-week-table th, .ai-week-table td {
+    display: block; border: none; width: auto; padding: 0;
+  }
+  .ai-week-table thead { display: none; }
+  .ai-week-table tr { display: block; }
+  .ai-week-table td.ai-day-cell {
+    display: block; border: 1px solid var(--border); border-radius: var(--radius-card);
+    padding: 12px 16px; margin-bottom: 12px; min-height: auto;
+  }
+  .ai-week-table td.ai-day-cell:last-of-type { margin-bottom: 0; }
+  .ai-cell-focus { font-size: 14px; text-align: left; margin-bottom: 8px; }
+  .ai-cell-rest { text-align: center; padding: 20px 0; }
+  .ai-cell-ex { font-size: 13px; padding: 6px 0; }
+  .ai-ex-sets { display: inline; margin-left: 4px; }
+  .ai-cell-volume { font-size: 13px; padding-top: 6px; }
 }
 
 /* ===== Diet Module ===== */
@@ -583,6 +683,18 @@ body.theme-transitioning::after {
 .meal-item { display:flex; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); }
 .meal-item:last-child { border-bottom:none; }
 .meal-item-left { flex:1; }
+
+/* ===== Diet Nutrition Summary ===== */
+.diet-summary { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-card); padding:16px 20px; margin-bottom:16px; }
+.diet-summary-header { font-size:15px; font-weight:600; color:var(--text-primary); margin-bottom:12px; }
+.diet-summary-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.diet-summary-item { padding:10px 12px; border-radius:var(--radius-tag); background:rgba(var(--accent-rgb),0.04); }
+.diet-summary-item .dsi-label { font-size:11px; color:var(--text-secondary); margin-bottom:4px; }
+.diet-summary-item .dsi-value { font-size:16px; font-weight:600; color:var(--text-primary); }
+.diet-summary-item .dsi-value .dsi-target { font-size:12px; font-weight:400; color:var(--text-secondary); }
+.diet-summary-item .dsi-bar { height:4px; border-radius:2px; background:var(--border); margin-top:6px; overflow:hidden; }
+.diet-summary-item .dsi-bar-fill { height:100%; border-radius:2px; background:var(--accent); transition:width 0.4s ease; }
+.diet-summary-item .dsi-bar-fill.over { background:var(--success); }
 .meal-item-name { font-size:14px; color:var(--text-primary); }
 .meal-item-portion { font-size:12px; color:var(--text-secondary); margin-top:1px; }
 .meal-item-del { background:none; border:none; color:var(--text-secondary); font-size:16px; cursor:pointer; padding:4px 6px; margin-left:8px; font-family:inherit; transition:color 0.15s; }
@@ -611,7 +723,10 @@ body.theme-transitioning::after {
 .food-si-detail { font-size:11px; color:var(--text-secondary); margin-top:1px; }
 .food-si-detail { font-size:11px; color:var(--text-secondary); margin-top:1px; }
 .food-portions { padding:16px 20px 20px; border-top:1px solid var(--border); text-align:center; }
-
+.gram-input-wrap { margin-bottom:16px; }
+.food-nutrition-preview { background:rgba(var(--accent-rgb),0.04); border:1px dashed var(--border); border-radius:var(--radius-card); padding:14px 16px; margin-bottom:16px; display:none; }
+.food-nutrition-preview .np-title { font-size:16px; font-weight:600; color:var(--text-primary); margin-bottom:6px; }
+.food-nutrition-preview .np-detail { font-size:13px; color:var(--text-secondary); line-height:1.6; }
 @media (max-width:640px) {
   .goal-results-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
   .meal-card { padding:14px 16px; }
@@ -741,6 +856,9 @@ body.theme-transitioning::after {
 .log-filter-bar { display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
 .log-filter-input { flex:1; min-width:160px; padding:8px 14px; border:1px solid var(--border); border-radius:var(--radius-btn); font-size:13px; font-family:inherit; background:var(--card-bg); outline:none; transition:border-color 0.15s ease, box-shadow 0.15s ease; }
 .log-filter-input:focus { border-color:var(--accent); }
+.log-filter-bar input[type="date"] { color-scheme:dark; color:#e0e0e0; background:var(--card-bg); border:1px solid var(--border); border-radius:var(--radius-btn); padding:8px 14px; font-size:13px; font-family:inherit; }
+.log-filter-bar input[type="date"]::-webkit-calendar-picker-indicator { filter:invert(1); cursor:pointer; }
+.log-date-label { font-size:12px; color:var(--text-secondary); line-height:36px; white-space:nowrap; }
 
 .log-record-card { background:var(--glass-bg); border:1px solid var(--glass-border); border-radius:var(--radius-card); padding:16px 20px; margin-bottom:12px; box-shadow:0 4px 8px rgba(var(--accent-rgb),0.06); }
 .log-record-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
@@ -767,6 +885,7 @@ body.theme-transitioning::after {
 .log-ex-item:last-child { border-bottom:none; }
 .log-ex-item:hover { background:rgba(var(--accent-rgb),0.04); }
 .log-ex-item.selected { background:rgba(var(--accent-rgb),0.1); color:var(--accent); }
+.log-ex-group-header { padding:6px 14px; font-size:11px; color:var(--text-secondary); font-weight:600; background:rgba(var(--accent-rgb),0.03); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:1; }
 
 .log-set-row { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
 .log-set-row .set-num { width:24px; font-size:13px; color:var(--text-secondary); text-align:center; flex-shrink:0; }
@@ -778,7 +897,8 @@ body.theme-transitioning::after {
 .log-add-set { margin-bottom:16px; }
 
 .log-feeling { display:flex; gap:8px; margin-bottom:16px; justify-content:center; }
-.log-feeling-btn { font-size:24px; padding:8px 12px; border:2px solid transparent; border-radius:var(--radius-btn); background:transparent; cursor:pointer; transition:all 0.15s; line-height:1; }
+.log-feeling-btn { font-size:24px; padding:6px 14px; border:2px solid transparent; border-radius:var(--radius-btn); background:transparent; cursor:pointer; transition:all 0.15s; line-height:1.2; text-align:center; }
+.log-feeling-label { display:block; font-size:10px; color:var(--text-secondary); font-weight:500; margin-top:2px; }
 .log-feeling-btn:hover { border-color:var(--border); }
 .log-feeling-btn.selected { border-color:var(--accent); background:rgba(var(--accent-rgb),0.06); }
 
@@ -919,11 +1039,16 @@ body.theme-transitioning::after {
       <h2>📋 我的训练计划</h2>
     </div>
     <div class="plan-top-actions" id="plan-actions">
-      <button class="plan-action-btn primary" id="btn-export">📸 导出图片</button>
       <button class="plan-action-btn danger" id="btn-clear">🗑️ 清空计划</button>
     </div>
-    <div class="section-title">收藏的动作</div>
-    <div id="plan-content"></div>
+    <div class="week-tracker" id="week-tracker">
+      <div class="section-title" style="margin:0 0 4px;">本周训练进度</div>
+      <div class="week-day-grid" id="week-day-grid"></div>
+      <div class="week-progress-text" id="week-progress-text">本周已完成 0/7 天</div>
+    </div>
+    <div id="plan-schedule-view"></div>
+    <div class="section-title" style="margin-top:32px;">⭐ 我的收藏</div>
+    <div id="plan-favorites-view"></div>
   </div>
 </div>
 
@@ -938,10 +1063,16 @@ body.theme-transitioning::after {
       <div class="ai-steps">
         <span class="ai-step-num active" data-step="0">🎯 目标</span>
         <span class="ai-step-num" data-step="1">📅 频率</span>
-        <span class="ai-step-num" data-step="2">💪 经验</span>
-        <span class="ai-step-num" data-step="3">🔧 器械</span>
+        <span class="ai-step-num" data-step="2">📅 日期</span>
+        <span class="ai-step-num" data-step="3">💪 经验</span>
+        <span class="ai-step-num" data-step="4">🔧 器械</span>
       </div>
       <div class="ai-step-content active" data-step="0">
+        <div class="section-title">你的性别？</div>
+        <div class="ai-options" id="ai-gender-options" style="margin-bottom:20px;">
+          <div class="ai-option" data-value="男"><span class="opt-emoji">👨</span><span class="opt-label">男</span></div>
+          <div class="ai-option" data-value="女"><span class="opt-emoji">👩</span><span class="opt-label">女</span></div>
+        </div>
         <div class="section-title">你的训练目标是什么？</div>
         <div class="ai-options" id="ai-goal-options">
           <div class="ai-option" data-value="增肌"><span class="opt-emoji">💪</span><span class="opt-label">增肌</span></div>
@@ -958,6 +1089,19 @@ body.theme-transitioning::after {
         </div>
       </div>
       <div class="ai-step-content" data-step="2">
+        <div class="section-title">选择训练日</div>
+        <div class="ai-tags" id="day-select-tags" style="margin-bottom:12px;">
+          <span class="ai-tag" data-day="0">周一</span>
+          <span class="ai-tag" data-day="1">周二</span>
+          <span class="ai-tag" data-day="2">周三</span>
+          <span class="ai-tag" data-day="3">周四</span>
+          <span class="ai-tag" data-day="4">周五</span>
+          <span class="ai-tag" data-day="5">周六</span>
+          <span class="ai-tag" data-day="6">周日</span>
+        </div>
+        <div id="day-select-info" style="text-align:center;font-size:14px;color:var(--text-secondary);">已选 3/7 天</div>
+      </div>
+      <div class="ai-step-content" data-step="3">
         <div class="section-title">你的训练经验如何？</div>
         <div class="ai-options" id="ai-exp-options">
           <div class="ai-option" data-value="新手"><span class="opt-emoji">🌱</span><span class="opt-label">新手</span></div>
@@ -965,7 +1109,7 @@ body.theme-transitioning::after {
           <div class="ai-option" data-value="老手"><span class="opt-emoji">🏆</span><span class="opt-label">老手</span></div>
         </div>
       </div>
-      <div class="ai-step-content" data-step="3">
+      <div class="ai-step-content" data-step="4">
         <div class="section-title">你有哪些器械可用？</div>
         <div class="ai-tags" id="ai-equip-tags">
           <span class="ai-tag selected" data-value="dumbbell">哑铃</span>
@@ -1098,6 +1242,12 @@ body.theme-transitioning::after {
         <button class="date-arrow" id="date-next">›</button>
       </div>
 
+      <!-- Nutrition Progress Summary -->
+      <div class="diet-summary" id="diet-summary" style="display:none;">
+        <div class="diet-summary-header">📊 今日营养摄入</div>
+        <div class="diet-summary-grid" id="diet-summary-grid"></div>
+      </div>
+
       <div id="diet-meals-container">
         <div class="meal-card" data-meal="breakfast">
           <div class="meal-header"><span class="meal-name">🌅 早餐</span><button class="meal-add-btn" data-meal="breakfast">+ 添加食物</button></div>
@@ -1163,13 +1313,16 @@ body.theme-transitioning::after {
     <div class="food-categories" id="food-categories"></div>
     <div class="food-search-list" id="food-search-list"></div>
     <div class="food-portions" id="food-portions" style="display:none;">
-      <div class="portions-title">选择份量</div>
-      <div class="form-options" id="portion-options" style="justify-content:center;margin-bottom:16px;">
-        <button class="form-option" data-portion="小">小份</button>
-        <button class="form-option selected" data-portion="中">中份</button>
-        <button class="form-option" data-portion="大">大份</button>
+      <div class="portions-title">吃了多少克？</div>
+      <div class="gram-input-wrap">
+        <input class="form-input" id="food-gram-input" type="number" placeholder="请输入克重" min="1" step="1" style="text-align:center;font-size:20px;width:160px;display:inline-block;">
+        <span style="font-size:16px;color:var(--text-secondary);margin-left:6px;">g</span>
       </div>
-      <button class="btn-primary" id="confirm-food-btn">确认添加</button>
+      <div class="food-nutrition-preview" id="food-nutrition-preview">
+        <div class="nutrition-preview-title" id="nutrition-preview-title"></div>
+        <div class="nutrition-preview-detail" id="nutrition-preview-detail"></div>
+      </div>
+      <button class="btn-primary" id="confirm-food-btn" disabled>确认添加</button>
     </div>
   </div>
 </div>
@@ -1221,8 +1374,8 @@ body.theme-transitioning::after {
       <!-- Filter -->
       <div class="log-filter-bar">
         <input class="log-filter-input" id="log-search-input" type="text" placeholder="🔍 搜索动作名称..." autocomplete="off">
-        <input class="log-filter-input" id="log-date-from" type="date" style="flex:none;width:auto;min-width:0;">
-        <input class="log-filter-input" id="log-date-to" type="date" style="flex:none;width:auto;min-width:0;">
+        <span class="log-date-label">从</span><input class="log-filter-input" id="log-date-from" type="date" placeholder="年/月/日" style="flex:none;width:auto;min-width:0;">
+        <span class="log-date-label">至</span><input class="log-filter-input" id="log-date-to" type="date" placeholder="年/月/日" style="flex:none;width:auto;min-width:0;">
       </div>
       <!-- Record list -->
       <div id="log-record-list"></div>
@@ -1321,11 +1474,11 @@ body.theme-transitioning::after {
 
     <div class="form-label">训练感受</div>
     <div class="log-feeling" id="log-feeling">
-      <button class="log-feeling-btn" data-feeling="1">😫</button>
-      <button class="log-feeling-btn" data-feeling="2">😩</button>
-      <button class="log-feeling-btn" data-feeling="3">😐</button>
-      <button class="log-feeling-btn selected" data-feeling="4">💪</button>
-      <button class="log-feeling-btn" data-feeling="5">🔥</button>
+      <button class="log-feeling-btn" data-feeling="1">😫<br><span class="log-feeling-label">力竭</span></button>
+      <button class="log-feeling-btn" data-feeling="2">😩<br><span class="log-feeling-label">很累</span></button>
+      <button class="log-feeling-btn" data-feeling="3">😐<br><span class="log-feeling-label">一般</span></button>
+      <button class="log-feeling-btn selected" data-feeling="4">💪<br><span class="log-feeling-label">不错</span></button>
+      <button class="log-feeling-btn" data-feeling="5">🔥<br><span class="log-feeling-label">超棒</span></button>
     </div>
 
     <div class="form-label">备注</div>
@@ -1335,6 +1488,31 @@ body.theme-transitioning::after {
       <button class="btn-secondary" id="log-modal-cancel">取消</button>
       <button class="btn-primary" id="log-modal-save">保存记录</button>
     </div>
+  </div>
+</div>
+
+<!-- ============ WELCOME OVERLAY ============ -->
+<div class="welcome-overlay" id="welcome-overlay">
+  <div class="welcome-box">
+    <span class="welcome-emoji">💪</span>
+    <div class="welcome-title">欢迎来到健身动作指南</div>
+    <div class="welcome-sub">三步开始你的训练</div>
+    <div class="welcome-steps">
+      <div class="welcome-step">
+        <span class="welcome-step-num">1</span>
+        <div class="welcome-step-text">生成训练计划<small>填写身体信息，AI 自动安排每周训练</small></div>
+      </div>
+      <div class="welcome-step">
+        <span class="welcome-step-num">2</span>
+        <div class="welcome-step-text">学习标准动作<small>查看视频教程 + 动作要领，避免受伤</small></div>
+      </div>
+      <div class="welcome-step">
+        <span class="welcome-step-num">3</span>
+        <div class="welcome-step-text">记录并坚持<small>记录每次训练，追踪力量增长曲线</small></div>
+      </div>
+    </div>
+    <button class="welcome-btn" id="welcome-start-btn">开始使用</button>
+    <button class="welcome-skip" id="welcome-skip-btn">跳过引导</button>
   </div>
 </div>
 
@@ -1419,6 +1597,24 @@ setTheme(localStorage.getItem(THEME_KEY) || 'dark');
 })();
 
 // ============================================================
+//  WELCOME (first visit)
+// ============================================================
+(function() {
+  if (localStorage.getItem('welcomeDone')) return;
+  var overlay = document.getElementById('welcome-overlay');
+  if (!overlay) return;
+  overlay.classList.add('open');
+  document.getElementById('welcome-start-btn').addEventListener('click', function() {
+    localStorage.setItem('welcomeDone', '1');
+    overlay.classList.remove('open');
+  });
+  document.getElementById('welcome-skip-btn').addEventListener('click', function() {
+    localStorage.setItem('welcomeDone', '1');
+    overlay.classList.remove('open');
+  });
+})();
+
+// ============================================================
 //  DATA
 // ============================================================
 const muscleGroups = [
@@ -1443,13 +1639,14 @@ const allExercises = [
   { resistanceType:'weight', id:'chest-m1', name:'平板杠铃卧推', emoji:'🏋️', muscleId:'chest', subCategory:'中胸', difficulty:'中级', equipment:'barbell', desc:'锻炼胸大肌整体厚度的黄金动作，同时刺激三角肌前束和肱三头肌。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1dD42137Z6', steps:['仰卧在平板凳上，双脚平踩地面，肩胛骨收紧下沉贴紧凳面。','正握杠铃，双手略宽于肩，杠铃置于乳头线上方。','深吸气，控制杠铃缓慢下降至触及胸部，肘部约呈90度。','发力向上推起杠铃，呼气，手臂接近伸直但不要锁定肘关节。','顶端稍作停顿感受胸肌收缩，然后重复。'] },
   { resistanceType:'weight', id:'chest-m2', name:'平板哑铃卧推', emoji:'🏋️', muscleId:'chest', subCategory:'中胸', difficulty:'中级', equipment:'dumbbell', desc:'哑铃卧推比杠铃有更大活动范围，均衡发展胸肌两侧。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1YV4y1H7gW', steps:['仰卧平板凳，双手各持哑铃于肩部上方。','肩胛骨收紧，双脚稳定支撑。','控制哑铃下放至胸部两侧，手肘约呈90度。','胸肌发力将哑铃推起至起始位置。','顶端挤压胸肌，控制哑铃不碰撞。'] },
   { resistanceType:'weight', id:'chest-m3', name:'哑铃飞鸟', emoji:'🪽', muscleId:'chest', subCategory:'中胸', difficulty:'中级', equipment:'dumbbell', desc:'孤立拉伸和收缩胸肌，雕刻胸肌中缝和外沿线条。', sets:'3-4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV12J4m1M72R', steps:['仰卧平板凳，双手各持哑铃，双臂伸直于胸前，掌心相对。','微屈手肘（锁定角度不变），控制哑铃向两侧画弧下放。','感受胸肌被拉伸，下放至手肘约与肩平行。','用胸肌发力将哑铃合拢回起始位置，像拥抱一棵大树。','全程保持手肘角度固定，不要用背部借力。'] },
-  { resistanceType:'weight', id:'chest-m4', name:'器械推胸', emoji:'🏋️', muscleId:'chest', subCategory:'中胸', difficulty:'初级', equipment:'cable', desc:'固定轨迹的推胸动作，安全稳定适合初学者。', sets:'3-4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV16ELqzfEKT', steps:['坐于推胸机，调节座椅高度使手柄对齐胸中部。','背部贴紧靠垫，双手握紧手柄。','用胸肌发力将手柄向前推出至手臂接近伸直。','顶端稍作停顿感受收缩。','控制慢放回起始位置。'] },
+  { resistanceType:'weight', id:'chest-m4', name:'器械推胸', emoji:'🏋️', muscleId:'chest', subCategory:'中胸', difficulty:'初级', femaleRecommended:true, equipment:'cable', desc:'固定轨迹的推胸动作，安全稳定适合初学者。', sets:'3-4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV16ELqzfEKT', steps:['坐于推胸机，调节座椅高度使手柄对齐胸中部。','背部贴紧靠垫，双手握紧手柄。','用胸肌发力将手柄向前推出至手臂接近伸直。','顶端稍作停顿感受收缩。','控制慢放回起始位置。'] },
   // -- 下胸 --
   { resistanceType:'weight', id:'chest-l1', name:'下斜杠铃卧推', emoji:'🏋️', muscleId:'chest', subCategory:'下胸', difficulty:'中级', equipment:'barbell', desc:'下斜角度强化胸大肌下束，使胸部轮廓更完整。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1ys411p7RD', steps:['仰卧在下斜凳上（约15-30度），双脚勾住挡板。','正握杠铃，双手略宽于肩。','控制杠铃缓慢下放至下胸部。','发力推起至起始位置。','注意控制下落速度，避免撞击。'] },
   { resistanceType:'bodyweight_plus', id:'chest-l3', name:'双杠臂屈伸', emoji:'🤸', muscleId:'chest', subCategory:'下胸', difficulty:'中级', equipment:'bodyweight', desc:'以自重刺激下胸和肱三头肌的复合动作。', sets:'3-4组 × 8-15次', videoUrl:'https://www.bilibili.com/video/BV1ka411w7mh', steps:['双手握双杠，身体悬空，手臂伸直。','身体前倾约30度，含胸收腹。','屈肘缓慢下降身体至肩低于肘。','胸肌发力推起身体回到起始位置。','若力量不足可用弹力带辅助。'] },
   { resistanceType:'weight', id:'chest-l4', name:'高位绳索夹胸', emoji:'⛓️', muscleId:'chest', subCategory:'下胸', difficulty:'中级', equipment:'cable', desc:'以恒定张力刺激胸肌，尤其强化胸肌中缝和线条分离度。', sets:'3-4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV11h4y1P7XE', steps:['调节绳索滑轮至高位（高于肩），双手各握一侧把手。','站在龙门架中央，身体稍前倾，一腿在前保持稳定。','手肘微屈锁定，用胸肌发力将绳索向前下方拉拢至双手在腹部前方。','顶端挤压胸肌1-2秒，感受强烈收缩。','控制绳索慢放回起始位置，保持胸肌始终受力。'] },
   // -- 整体 --
   { resistanceType:'bodyweight', id:'chest-a1', name:'俯卧撑', emoji:'🔥', muscleId:'chest', subCategory:'整体', difficulty:'初级', equipment:'bodyweight', desc:'随时随地练胸的自重经典动作，新手进阶必备。', sets:'3-4组 × 12-20次', videoUrl:'https://www.bilibili.com/video/BV11KtAeCEpA', steps:['双手略宽于肩支撑地面，身体呈一条直线，核心收紧。','屈肘缓慢下降身体，胸部贴近地面约2-5厘米。','发力推起回到起始位置，肘部微屈不锁死。','保持头、背、臀、脚跟在同一平面，勿塌腰或撅臀。','若难度过大可改为跪姿俯卧撑。'] },
+  { resistanceType:'bodyweight', id:'chest-a4', name:'跪姿俯卧撑', emoji:'🔥', muscleId:'chest', subCategory:'整体', difficulty:'初级', femaleRecommended:true, equipment:'bodyweight', desc:'俯卧撑的退阶版本，适合初学者和女性建立推力基础。', sets:'3-4组 × 10-15次', videoUrl:'', steps:['跪姿于地面，双手略宽于肩支撑。','身体从膝盖到肩呈一条直线，核心收紧。','屈肘缓慢下降身体至胸部贴近地面。','发力推起至起始位置，手臂微屈不锁死。','保持身体稳定不塌腰，均匀呼吸。'] },
   { resistanceType:'weight', id:'chest-a3', name:'哑铃仰卧屈臂上拉', emoji:'🏋️', muscleId:'chest', subCategory:'整体', difficulty:'中级', equipment:'dumbbell', desc:'经典拉伸动作，同时刺激胸肌和背阔肌。', sets:'3-4组 × 10-12次', videoUrl:'https://www.bilibili.com/video/BV1wpsFexEH1', steps:['仰卧于平板凳，仅上背贴凳，头在凳端。','双手托住一只哑铃的一端，置于胸前。','控制哑铃向后下方缓慢放低，感受胸肌拉伸。','用胸肌发力将哑铃拉回胸前。','保持核心收紧，臀部下沉。'] },
 
   // ==================== BACK ====================
@@ -1459,39 +1656,40 @@ const allExercises = [
   { resistanceType:'weight', id:'back-u3', name:'面拉', emoji:'⛓️', muscleId:'back', subCategory:'上背', difficulty:'中级', equipment:'cable', desc:'强化上背后侧和三角肌后束，改善圆肩驼背。', sets:'3-4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV1Dn4y1f7na', steps:['将绳索滑轮调至面部高度，双手握绳索两端。','向后走一步拉直绳索。','双手拉向面部，肘部向两侧打开。','顶端用力挤压上背和后肩。','控制慢放回起始位置。'] },
   { resistanceType:'weight', id:'back-u4', name:'直立划船', emoji:'🏋️', muscleId:'back', subCategory:'上背', difficulty:'中级', equipment:'barbell', desc:'同时刺激斜方肌和三角肌的复合拉类动作。', sets:'3-4组 × 10-12次', videoUrl:'https://www.bilibili.com/video/BV1jW411a7Wm', steps:['站立正握杠铃于大腿前，双手窄距。','将杠铃沿身体向上拉起至下巴高度。','肘部高于手腕，顶端停顿。','控制杠铃慢放回起始位置。','保持核心收紧勿晃动。'] },
   // -- 背阔肌 --
-  { resistanceType:'bodyweight_plus', id:'back-lat1', name:'引体向上', emoji:'🤸', muscleId:'back', subCategory:'背阔肌', difficulty:'高级', equipment:'bodyweight', desc:'发展背阔肌宽度的王牌动作，同时强化肱二头肌和核心。', sets:'3-4组 × 6-12次', videoUrl:'https://www.bilibili.com/video/BV19V4y117bf', steps:['正握单杠，双手略宽于肩，手臂自然伸直悬垂。','肩胛下沉收紧，核心绷紧。','用背部发力将身体向上拉起，下巴过杠。','顶端停顿1秒，感受背阔肌收缩。','控制身体缓慢下放至手臂接近伸直，重复。'] },
-  { resistanceType:'weight', id:'back-lat2', name:'高位下拉', emoji:'🏋️', muscleId:'back', subCategory:'背阔肌', difficulty:'初级', equipment:'cable', desc:'引体向上的替代或进阶动作，精准控制背阔肌发力。', sets:'4组 × 10-12次', videoUrl:'https://www.bilibili.com/video/BV1LApmzKEmK', steps:['坐于高位下拉机，调节大腿挡板固定腿部。','双手宽握横杆，手臂伸直，身体微微后倾约15度。','下沉肩胛，用背部发力将横杆拉至上胸部。','顶端挤压背阔肌，稍作停顿。','控制慢放至手臂接近伸直，不要完全放松肩胛。'] },
+  { resistanceType:'bodyweight_plus', id:'back-lat1', name:'引体向上', emoji:'🤸', muscleId:'back', subCategory:'背阔肌', difficulty:'高级', equipment:'bodyweight', desc:'发展背阔肌宽度的王牌动作，同时强化肱二头肌和核心。', sets:'3-4组 × 6-12次', videoUrl:'https://www.bilibili.com/video/BV17m4y1U7d7', steps:['正握单杠，双手略宽于肩，手臂自然伸直悬垂。','肩胛下沉收紧，核心绷紧。','用背部发力将身体向上拉起，下巴过杠。','顶端停顿1秒，感受背阔肌收缩。','控制身体缓慢下放至手臂接近伸直，重复。'] },
+  { resistanceType:'weight', id:'back-lat2', name:'高位下拉', emoji:'🏋️', muscleId:'back', subCategory:'背阔肌', difficulty:'初级', femaleRecommended:true, equipment:'cable', desc:'引体向上的替代或进阶动作，精准控制背阔肌发力。', sets:'4组 × 10-12次', videoUrl:'https://www.bilibili.com/video/BV1aw411k7nD', steps:['坐于高位下拉机，调节大腿挡板固定腿部。','双手宽握横杆，手臂伸直，身体微微后倾约15度。','下沉肩胛，用背部发力将横杆拉至上胸部。','顶端挤压背阔肌，稍作停顿。','控制慢放至手臂接近伸直，不要完全放松肩胛。'] },
   { resistanceType:'weight', id:'back-lat3', name:'杠铃划船', emoji:'🏋️', muscleId:'back', subCategory:'背阔肌', difficulty:'中级', equipment:'barbell', desc:'增加背阔肌厚度和背部整体密度的经典复合动作。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1PUVWevEGE', steps:['站姿双脚与肩同宽，正握杠铃，俯身至躯干约45度。','膝盖微屈，背部挺直，核心收紧避免腰部代偿。','用背部力量将杠铃沿小腿前侧拉至下腹部。','顶端挤压肩胛骨1秒，感受背部收缩。','控制杠铃慢放回起始位置，保持背部张力不放松。'] },
   { resistanceType:'weight', id:'back-lat4', name:'哑铃划船', emoji:'🏋️', muscleId:'back', subCategory:'背阔肌', difficulty:'中级', equipment:'dumbbell', desc:'单侧哑铃划船活动范围更大，均衡发展背阔肌两侧。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV126P7zXEDz', steps:['单腿跪于凳上，同侧手撑凳，另一手持哑铃自然下垂。','背部挺直，与地面平行。','用背阔肌发力将哑铃拉至髋部位置。','顶端挤压背阔肌1秒。','控制慢放，充分拉伸背部。'] },
-  { resistanceType:'weight', id:'back-lat5', name:'坐姿划船', emoji:'🏋️', muscleId:'back', subCategory:'背阔肌', difficulty:'初级', equipment:'cable', desc:'固定轨迹下安全有效地训练背阔肌和菱形肌。', sets:'4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV1JN4y1T7aw', steps:['坐于划船机，双脚踩稳踏板，双手握紧手柄（V把或直杆）。','背部挺直，胸部贴紧前方靠垫，肩胛前伸。','用背部发力将手柄拉向腹部，肘部贴近身体后滑。','顶端用力挤压肩胛骨1秒。','控制慢放，感受背部拉伸后再拉下一次。'] },
+  { resistanceType:'weight', id:'back-lat5', name:'坐姿划船', emoji:'🏋️', muscleId:'back', subCategory:'背阔肌', difficulty:'初级', femaleRecommended:true, equipment:'cable', desc:'固定轨迹下安全有效地训练背阔肌和菱形肌。', sets:'4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV1wV4y1Q7cu', steps:['坐于划船机，双脚踩稳踏板，双手握紧手柄（V把或直杆）。','背部挺直，胸部贴紧前方靠垫，肩胛前伸。','用背部发力将手柄拉向腹部，肘部贴近身体后滑。','顶端用力挤压肩胛骨1秒。','控制慢放，感受背部拉伸后再拉下一次。'] },
   // -- 下背 --
-  { resistanceType:'weight', id:'back-l1', name:'硬拉', emoji:'🏋️', muscleId:'back', subCategory:'下背', difficulty:'高级', equipment:'barbell', desc:'全身力量训练之王，大幅强化后侧链肌群包括背部、臀部和腘绳肌。', sets:'4组 × 5-8次', videoUrl:'https://www.bilibili.com/video/BV1j1421C7kS', steps:['杠铃置于脚掌中段上方，双脚与髋同宽。','俯身正握（或正反握）杠铃，手臂伸直，肩胛位于杠铃正上方。','挺胸背部绷直，先屈髋再屈膝下蹲至小腿胫骨触及杠铃。','深吸气屏息，腿驱动地面发力，同时伸展髋和膝将杠铃沿小腿垂直拉起。','站立位臀部夹紧，肩胛下沉，然后屈髋控制杠铃沿原轨迹下放。'] },
-  { resistanceType:'weight', id:'back-l2', name:'罗马尼亚硬拉', emoji:'🏋️', muscleId:'back', subCategory:'下背', difficulty:'中级', equipment:'barbell', desc:'重点强化腘绳肌和臀大肌，对后侧链柔韧性也有极佳效果。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1XS421R7xD', steps:['站立正握杠铃，双手与肩同宽，杠铃置于大腿前侧。','膝盖微屈，挺胸沉肩，背部保持挺直。','屈髋将杠铃沿大腿和小腿前侧缓慢下放，感受腘绳肌拉伸。','下放至小腿中部或感觉到腘绳肌明显拉伸感为止。','伸展髋关节将杠铃拉回起始位置，顶端挤压臀部。'] },
+  { resistanceType:'weight', id:'back-l1', name:'硬拉', emoji:'🏋️', muscleId:'back', subCategory:'下背', difficulty:'高级', equipment:'barbell', desc:'全身力量训练之王，大幅强化后侧链肌群包括背部、臀部和腘绳肌。', sets:'4组 × 5-8次', videoUrl:'https://www.bilibili.com/video/BV1HH4y1u7hM', steps:['杠铃置于脚掌中段上方，双脚与髋同宽。','俯身正握（或正反握）杠铃，手臂伸直，肩胛位于杠铃正上方。','挺胸背部绷直，先屈髋再屈膝下蹲至小腿胫骨触及杠铃。','深吸气屏息，腿驱动地面发力，同时伸展髋和膝将杠铃沿小腿垂直拉起。','站立位臀部夹紧，肩胛下沉，然后屈髋控制杠铃沿原轨迹下放。'] },
+  { resistanceType:'weight', id:'back-l2', name:'罗马尼亚硬拉', emoji:'🏋️', muscleId:'back', subCategory:'下背', difficulty:'中级', femaleRecommended:true, equipment:'barbell', desc:'重点强化腘绳肌和臀大肌，对后侧链柔韧性也有极佳效果。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1XS421R7xD', steps:['站立正握杠铃，双手与肩同宽，杠铃置于大腿前侧。','膝盖微屈，挺胸沉肩，背部保持挺直。','屈髋将杠铃沿大腿和小腿前侧缓慢下放，感受腘绳肌拉伸。','下放至小腿中部或感觉到腘绳肌明显拉伸感为止。','伸展髋关节将杠铃拉回起始位置，顶端挤压臀部。'] },
   { resistanceType:'weight', id:'back-l3', name:'早安式', emoji:'🏋️', muscleId:'back', subCategory:'下背', difficulty:'中级', equipment:'barbell', desc:'强化下背竖脊肌和臀部的经典动作。', sets:'3-4组 × 10-12次', videoUrl:'https://www.bilibili.com/video/BV1cN41117p7', steps:['站立将杠铃置于上斜方肌（如深蹲起杠），双脚与肩同宽。','核心锁紧，膝盖微屈。','保持背部挺直，屈髋将躯干前倾至与地面平行。','用下背和臀部发力伸展髋部回到直立。','全程背部不弯曲，重量适中以防腰部受伤。'] },
   { resistanceType:'bodyweight', id:'back-l4', name:'超人式', emoji:'🧘', muscleId:'back', subCategory:'下背', difficulty:'初级', equipment:'bodyweight', desc:'无器械强化下背部竖脊肌的自重训练动作。', sets:'3-4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV11U4y1578f', steps:['俯卧于地面，双臂向前伸直，双腿向后伸直。','同时抬起手臂、胸部和双腿离开地面。','顶端停顿1-2秒，感受下背收缩。','控制慢放回起始位置。','保持呼吸均匀，勿憋气。'] },
 
   // ==================== LEGS ====================
   // -- 股四头肌 --
-  { resistanceType:'weight', id:'legs-q1', name:'杠铃深蹲', emoji:'🏋️', muscleId:'legs', subCategory:'股四头肌', difficulty:'中级', equipment:'barbell', desc:'下肢力量训练的王者，全面刺激股四头肌、臀大肌和核心。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV19o4y1S7vN', steps:['杠铃置于上斜方肌（高杠位），双手握紧杠铃，双脚与肩同宽。','挺胸沉肩，核心锁紧，杠铃杆稳定压在肩上。','屈髋屈膝同步进行，下蹲至大腿与地面平行或更低。','保持膝盖与脚尖方向一致，背部不弯曲。','脚后跟发力驱动站起，臀部和股四头肌发力回到起始位置。'] },
-  { resistanceType:'weight', id:'legs-q2', name:'腿举', emoji:'🦵', muscleId:'legs', subCategory:'股四头肌', difficulty:'初级', equipment:'barbell', desc:'大重量腿部训练的利器，安全高效孤立刺激股四头肌。', sets:'4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV1Ch411q7Sc', steps:['坐于腿举机，背部紧贴靠垫，双脚与肩同宽踩在踏板上。','双手松开安全把手，控制踏板缓慢下放。','屈膝至约90度，保持臀部不离开座椅。','用股四头肌发力将踏板蹬起，接近伸直但不过度锁定膝盖。','全程保持背部贴紧靠垫，勿弓背。'] },
+  { resistanceType:'weight', id:'legs-q1', name:'杠铃深蹲', emoji:'🏋️', muscleId:'legs', subCategory:'股四头肌', difficulty:'中级', femaleRecommended:true, equipment:'barbell', desc:'下肢力量训练的王者，全面刺激股四头肌、臀大肌和核心。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1Ka6QB9E7F', steps:['杠铃置于上斜方肌（高杠位），双手握紧杠铃，双脚与肩同宽。','挺胸沉肩，核心锁紧，杠铃杆稳定压在肩上。','屈髋屈膝同步进行，下蹲至大腿与地面平行或更低。','保持膝盖与脚尖方向一致，背部不弯曲。','脚后跟发力驱动站起，臀部和股四头肌发力回到起始位置。'] },
+  { resistanceType:'weight', id:'legs-q2', name:'腿举', emoji:'🦵', muscleId:'legs', subCategory:'股四头肌', difficulty:'初级', femaleRecommended:true, equipment:'barbell', desc:'大重量腿部训练的利器，安全高效孤立刺激股四头肌。', sets:'4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV1Ep4y1o7n9', steps:['坐于腿举机，背部紧贴靠垫，双脚与肩同宽踩在踏板上。','双手松开安全把手，控制踏板缓慢下放。','屈膝至约90度，保持臀部不离开座椅。','用股四头肌发力将踏板蹬起，接近伸直但不过度锁定膝盖。','全程保持背部贴紧靠垫，勿弓背。'] },
   { resistanceType:'weight', id:'legs-q3', name:'箭步蹲', emoji:'🚶', muscleId:'legs', subCategory:'股四头肌', difficulty:'初级', equipment:'dumbbell', desc:'单侧腿部训练，改善左右力量不平衡，强化臀部和股四头肌。', sets:'3-4组 × 每侧10-12次', videoUrl:'https://www.bilibili.com/video/BV12b411Z7KN', steps:['双手持哑铃自然垂于身体两侧，或掐腰保持平衡。','向前跨出一大步，前腿屈膝至大腿与地面平行。','后腿膝盖几乎触地，前腿膝盖不超过脚尖。','前脚发力蹬地站回起始位置。','交替换腿重复，保持躯干直立不前倾。'] },
   { resistanceType:'weight', id:'legs-q4', name:'腿屈伸', emoji:'🦵', muscleId:'legs', subCategory:'股四头肌', difficulty:'初级', equipment:'cable', desc:'孤立训练股四头肌的固定器械，有效强化大腿前侧。', sets:'3-4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV1Pj411y7fy', steps:['坐于腿屈伸机，小腿前侧勾住挡板。','背部贴紧靠垫，双手握紧手柄。','用股四头肌发力将小腿向上抬起至接近伸直。','顶端挤压股四头肌1秒。','控制慢放回起始位置。'] },
   // -- 股二头肌 --
-  { resistanceType:'weight', id:'legs-h1', name:'腿弯举', emoji:'🦵', muscleId:'legs', subCategory:'股二头肌', difficulty:'初级', equipment:'cable', desc:'孤立训练腘绳肌（大腿后侧）的固定器械，塑造腿部后侧线条。', sets:'3-4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV1Ub411T7mk', steps:['俯卧在腿弯举机上，膝盖对齐器械转轴，脚后跟勾住挡板。','双手握住手柄保持身体稳定。','用腘绳肌发力将脚后跟向臀部方向弯举。','顶端挤压腘绳肌1秒。','控制慢放回起始位置，全程保持腿部张力。'] },
+  { resistanceType:'weight', id:'legs-h1', name:'腿弯举', emoji:'🦵', muscleId:'legs', subCategory:'股二头肌', difficulty:'初级', femaleRecommended:true, equipment:'cable', desc:'孤立训练腘绳肌（大腿后侧）的固定器械，塑造腿部后侧线条。', sets:'3-4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV1Ub411T7mk', steps:['俯卧在腿弯举机上，膝盖对齐器械转轴，脚后跟勾住挡板。','双手握住手柄保持身体稳定。','用腘绳肌发力将脚后跟向臀部方向弯举。','顶端挤压腘绳肌1秒。','控制慢放回起始位置，全程保持腿部张力。'] },
+  { resistanceType:'weight', id:'legs-h4', name:'坐姿腿弯举', emoji:'🦵', muscleId:'legs', subCategory:'股二头肌', difficulty:'初级', femaleRecommended:true, equipment:'cable', desc:'坐姿固定器械孤立训练腘绳肌，安全稳定适合女生训练。', sets:'3-4组 × 12-15次', videoUrl:'', steps:['坐于腿弯举机，背部贴紧靠垫。','将挡板置于小腿后侧脚踝上方。','用腘绳肌发力将挡板向下压至最大幅度。','顶端挤压腘绳肌1秒。','控制慢放回起始位置，保持张力不放松。'] },
   { resistanceType:'weight', id:'legs-h2', name:'直腿硬拉', emoji:'🏋️', muscleId:'legs', subCategory:'股二头肌', difficulty:'中级', equipment:'barbell', desc:'膝关节接近锁定的硬拉变式，集中拉伸和强化腘绳肌。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV19a4y1C7BX', steps:['站立正握杠铃于大腿前，双脚与髋同宽。','膝盖微屈（接近锁定），背部挺直。','屈髋将杠铃沿腿前侧下放，感受大腿后侧拉伸。','下放至小腿中部或拉伸感充分为止。','伸展髋部将杠铃拉回起始位置。'] },
   { resistanceType:'bodyweight', id:'legs-h3', name:'滑垫弯腿', emoji:'🦵', muscleId:'legs', subCategory:'股二头肌', difficulty:'中级', equipment:'bodyweight', desc:'无器械的腘绳肌训练，利用滑动增加离心控制。', sets:'3-4组 × 10-12次', videoUrl:'https://www.bilibili.com/video/BV18N4y1M73B', steps:['仰卧，双脚踩在滑垫（或毛巾）上，膝盖伸直。','臀部抬起呈桥式，核心收紧。','屈膝将脚跟滑向臀部，感受腘绳肌收缩。','控制滑回起始位置，保持臀部悬空。','可在硬地板上用毛巾代替滑垫。'] },
   // -- 小腿 --
   { resistanceType:'weight', id:'legs-c1', name:'站姿提踵', emoji:'🦵', muscleId:'legs', subCategory:'小腿', difficulty:'初级', equipment:'dumbbell', desc:'发展腓肠肌的经典动作，让小腿线条更有力量感。', sets:'4组 × 15-20次', videoUrl:'https://www.bilibili.com/video/BV1yggPztE7F', steps:['站立双手持哑铃于体侧，双脚与肩同宽。','前脚掌踩在踏板上（或台阶边缘）。','用小腿发力将脚跟向上推起至最高点。','顶端停顿1秒挤压小腿。','控制慢放回起始位置，充分拉伸小腿。'] },
   { resistanceType:'weight', id:'legs-c2', name:'坐姿提踵', emoji:'🦵', muscleId:'legs', subCategory:'小腿', difficulty:'初级', equipment:'dumbbell', desc:'坐姿提踵主要刺激比目鱼肌，让小腿更饱满。', sets:'4组 × 15-20次', videoUrl:'https://www.bilibili.com/video/BV1yggPztE7F', steps:['坐姿，双脚前脚掌踩在踏板上，将哑铃放在膝盖上。','用小腿发力将脚跟向上抬起。','顶端停顿挤压1秒。','控制慢放回起始位置。'] },
-  { resistanceType:'weight', id:'legs-c3', name:'农夫行走', emoji:'🚶', muscleId:'legs', subCategory:'小腿', difficulty:'初级', equipment:'dumbbell', desc:'负重行走全面锻炼前臂、核心和下肢耐力。', sets:'3-4组 × 30-40步', videoUrl:'https://www.bilibili.com/video/BV1VUB1YHEcK', steps:['双手各持一只较重哑铃于体侧。','挺胸沉肩，核心收紧。','保持身体稳定，迈步向前行走。','步幅适中，保持呼吸均匀。','行走至目标步数或距离。'] },
+  { resistanceType:'weight', id:'legs-c3', name:'农夫行走', emoji:'🚶', muscleId:'legs', subCategory:'小腿', difficulty:'初级', femaleRecommended:true, equipment:'dumbbell', desc:'负重行走全面锻炼前臂、核心和下肢耐力。', sets:'3-4组 × 30-40步', videoUrl:'https://www.bilibili.com/video/BV1E64y1K76w', steps:['双手各持一只较重哑铃于体侧。','挺胸沉肩，核心收紧。','保持身体稳定，迈步向前行走。','步幅适中，保持呼吸均匀。','行走至目标步数或距离。'] },
 
   // ==================== SHOULDERS ====================
   // -- 前束 --
   { resistanceType:'weight', id:'shld-f1', name:'杠铃推举', emoji:'🏋️', muscleId:'shoulders', subCategory:'前束', difficulty:'中级', equipment:'barbell', desc:'发展三角肌前束和中束的王牌复合动作，同时刺激肱三头肌。', sets:'4组 × 8-10次', videoUrl:'https://www.bilibili.com/video/BV1ui4y117Kt', steps:['站立或坐姿，正握杠铃与肩同宽，杠铃置于锁骨前方。','核心收紧，肘部微微向前。','三角肌发力将杠铃垂直推过头顶，手臂接近伸直。','顶端稍作停顿，感受肩部挤压。','控制杠铃慢放回锁骨位置，保持核心稳定不后仰。'] },
-  { resistanceType:'weight', id:'shld-f2', name:'哑铃推举', emoji:'🏋️', muscleId:'shoulders', subCategory:'前束', difficulty:'中级', equipment:'dumbbell', desc:'哑铃推举活动范围更大，均衡发展三角肌。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1GaAezgE4R', steps:['坐姿双手各持哑铃于肩部两侧，掌心朝前。','核心收紧，背部贴紧靠垫。','将哑铃垂直推过头顶至手臂接近伸直。','顶端稍作停顿。','控制哑铃慢放回肩部位置。'] },
+  { resistanceType:'weight', id:'shld-f2', name:'哑铃推举', emoji:'🏋️', muscleId:'shoulders', subCategory:'前束', difficulty:'中级', femaleRecommended:true, equipment:'dumbbell', desc:'哑铃推举活动范围更大，均衡发展三角肌。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV1jhHeeTE5u', steps:['坐姿双手各持哑铃于肩部两侧，掌心朝前。','核心收紧，背部贴紧靠垫。','将哑铃垂直推过头顶至手臂接近伸直。','顶端稍作停顿。','控制哑铃慢放回肩部位置。'] },
   { resistanceType:'weight', id:'shld-f3', name:'前平举', emoji:'🦾', muscleId:'shoulders', subCategory:'前束', difficulty:'初级', equipment:'dumbbell', desc:'孤立刺激三角肌前束，强化肩部前侧力量和轮廓。', sets:'3-4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV12K4y1p7n3', steps:['站立双手各持哑铃于大腿前侧，掌心朝后。','手肘微屈，用三角肌前束发力将哑铃向前平举至肩高。','顶端稍作停留，感受前束收缩。','控制慢放回起始位置，身体保持稳定不晃动。','可交替举或双臂同时举。'] },
   // -- 中束 --
-  { resistanceType:'weight', id:'shld-m1', name:'侧平举', emoji:'🦅', muscleId:'shoulders', subCategory:'中束', difficulty:'初级', equipment:'dumbbell', desc:'三角肌中束的孤立动作，让肩膀更宽更饱满。', sets:'3-4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV1fQAheJEG6', steps:['站立双手各持哑铃于身体两侧，手肘微屈。','用肩部力量将哑铃向两侧平举至与肩齐平。','小拇指略高于大拇指，想象倒水动作。','顶端感受肩部收缩，稍作停留。','控制哑铃慢放下，不要完全放松借力。'] },
+  { resistanceType:'weight', id:'shld-m1', name:'侧平举', emoji:'🦅', muscleId:'shoulders', subCategory:'中束', difficulty:'初级', femaleRecommended:true, equipment:'dumbbell', desc:'三角肌中束的孤立动作，让肩膀更宽更饱满。', sets:'3-4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV1jhHeeTE5u', steps:['站立双手各持哑铃于身体两侧，手肘微屈。','用肩部力量将哑铃向两侧平举至与肩齐平。','小拇指略高于大拇指，想象倒水动作。','顶端感受肩部收缩，稍作停留。','控制哑铃慢放下，不要完全放松借力。'] },
   { resistanceType:'weight', id:'shld-m2', name:'单臂侧平举', emoji:'🦅', muscleId:'shoulders', subCategory:'中束', difficulty:'初级', equipment:'dumbbell', desc:'单侧交替侧平举，更专注每侧三角肌中束。', sets:'3-4组 × 每侧12次', videoUrl:'https://www.bilibili.com/video/BV16u4111716', steps:['站立单手持哑铃于体侧，另一手扶固定物。','手肘微屈，将哑铃向侧平举至肩高。','顶端感受中束收缩。','控制慢放。','交替对侧完成相同次数。'] },
   { resistanceType:'weight', id:'shld-m3', name:'直立划船', emoji:'🏋️', muscleId:'shoulders', subCategory:'中束', difficulty:'中级', equipment:'barbell', desc:'宽握直立划船侧重中束，同时刺激斜方肌。', sets:'3-4组 × 10-12次', videoUrl:'https://www.bilibili.com/video/BV1jW411a7Wm', steps:['站立正握杠铃于大腿前，双手宽距。','将杠铃沿身体向上拉起至下巴高度。','肘部向两侧打开高于手腕。','顶端稍作停顿。','控制慢放回起始位置。'] },
   // -- 后束 --
@@ -1525,26 +1723,29 @@ const allExercises = [
   { resistanceType:'bodyweight', id:'abs-o2', name:'侧平板', emoji:'🧘', muscleId:'abs', subCategory:'腹斜肌', difficulty:'初级', equipment:'bodyweight', desc:'单侧核心支撑训练，重点强化腹斜肌和核心稳定性。', sets:'3-4组 × 每侧20-40秒', videoUrl:'https://www.bilibili.com/video/BV1YT421y7Hm', steps:['侧卧，下方手肘撑地，双腿并拢伸直。','将臀部抬离地面，身体呈一条直线。','保持核心收紧，均匀呼吸。','坚持目标时间后换侧。','可抬上方腿增加难度。'] },
   { resistanceType:'weight', id:'abs-o3', name:'伐木式', emoji:'🪓', muscleId:'abs', subCategory:'腹斜肌', difficulty:'中级', equipment:'cable', desc:'旋转砍伐动作模拟伐木，全面刺激腹斜肌和核心旋转力量。', sets:'3-4组 × 每侧10-12次', videoUrl:'https://www.bilibili.com/video/BV1v8UZYEEuy', steps:['站立于龙门架旁，绳索调至高位，双手握把手。','躯干旋转，将绳索从高位向对侧下方拉动。','用腹斜肌发力控制旋转。','慢放回起始位置。','完成一侧次数后换侧。'] },
   // -- 核心稳定 --
-  { resistanceType:'bodyweight', id:'abs-c1', name:'平板支撑', emoji:'🧘', muscleId:'abs', subCategory:'核心稳定', difficulty:'初级', equipment:'bodyweight', desc:'核心稳定性的黄金动作，全面锻炼腹横肌及深层核心。', sets:'3-4组 × 30-60秒', videoUrl:'https://www.bilibili.com/video/BV1paigeEEMx', steps:['俯卧，双肘弯曲支撑于肩部正下方。','双脚脚尖踩地，身体呈一条直线。','收紧核心、臀部和腿部，勿塌腰或撅臀。','保持均匀呼吸（不要憋气）。','尽量坚持至目标时间，质量优于时长。'] },
+  { resistanceType:'bodyweight', id:'abs-c1', name:'平板支撑', emoji:'🧘', muscleId:'abs', subCategory:'核心稳定', difficulty:'初级', femaleRecommended:true, equipment:'bodyweight', desc:'核心稳定性的黄金动作，全面锻炼腹横肌及深层核心。', sets:'3-4组 × 30-60秒', videoUrl:'https://www.bilibili.com/video/BV1paigeEEMx', steps:['俯卧，双肘弯曲支撑于肩部正下方。','双脚脚尖踩地，身体呈一条直线。','收紧核心、臀部和腿部，勿塌腰或撅臀。','保持均匀呼吸（不要憋气）。','尽量坚持至目标时间，质量优于时长。'] },
   { resistanceType:'bodyweight', id:'abs-c2', name:'鸟狗式', emoji:'🐕', muscleId:'abs', subCategory:'核心稳定', difficulty:'初级', equipment:'bodyweight', desc:'四足支撑交替抬对侧手脚，训练核心抗旋转稳定。', sets:'3-4组 × 每侧10-12次', videoUrl:'https://www.bilibili.com/video/BV1Sy4y1K7os', steps:['四足跪姿，手掌在肩正下方，膝盖在髋正下方。','同时抬起右臂和左腿，延伸至与身体平行。','保持核心收紧，身体不晃动。','收回后换对侧重复。','每侧交替进行。'] },
-  { resistanceType:'bodyweight', id:'abs-c3', name:'死虫式', emoji:'🪲', muscleId:'abs', subCategory:'核心稳定', difficulty:'初级', equipment:'bodyweight', desc:'仰卧交替对侧伸展，有效训练深层核心控制力。', steps:['仰卧，双臂伸直指向天花板，双膝弯曲90度。','核心收紧，下背贴地。','同时伸直右臂和左腿向地面靠近但不触地。','回到起始位置后换对侧。','全程保持下背不离开地面。'], sets:'3-4组 × 每侧10次', videoUrl:'https://www.bilibili.com/video/BV1bg4y1i7rk' },
+  { resistanceType:'bodyweight', id:'abs-c3', name:'死虫式', emoji:'🪲', muscleId:'abs', subCategory:'核心稳定', difficulty:'初级', femaleRecommended:true, equipment:'bodyweight', desc:'仰卧交替对侧伸展，有效训练深层核心控制力。', steps:['仰卧，双臂伸直指向天花板，双膝弯曲90度。','核心收紧，下背贴地。','同时伸直右臂和左腿向地面靠近但不触地。','回到起始位置后换对侧。','全程保持下背不离开地面。'], sets:'3-4组 × 每侧10次', videoUrl:'https://www.bilibili.com/video/BV1bg4y1i7rk' },
+  { resistanceType:'bodyweight', id:'abs-c4', name:'健身球卷腹', emoji:'🏀', muscleId:'abs', subCategory:'腹直肌', difficulty:'初级', femaleRecommended:true, equipment:'bodyweight', desc:'利用健身球的不稳定平面增强核心激活的卷腹动作。', sets:'3-4组 × 12-15次', videoUrl:'', steps:['坐于健身球上，将球滚动至下背部贴球支撑。','双手交叉于胸前或轻放耳侧。','用腹肌发力卷起上背部，肩胛离球。','顶端挤压腹肌，稍作停顿。','控制慢放，保持球体稳定不晃动。'] },
 
   // ==================== GLUTES (新增) ====================
   // -- 臀大肌 --
   { resistanceType:'weight', id:'glute-m1', name:'臀推', emoji:'🍑', muscleId:'glutes', subCategory:'臀大肌', difficulty:'中级', equipment:'barbell', desc:'发展臀大肌的王牌动作，让臀部更饱满有型。', sets:'4组 × 10-15次', videoUrl:'https://www.bilibili.com/video/BV1vP411j77h', steps:['坐于地面，上背靠在凳沿，将杠铃置于髋部上方。','双脚与肩同宽踩地，膝盖弯曲90度。','用臀大肌发力将髋部向上推起至身体成一直线。','顶端挤压臀大肌1-2秒。','控制髋部慢放下但不触地。'] },
-  { resistanceType:'weight', id:'glute-m2', name:'杠铃臀桥', emoji:'🏋️', muscleId:'glutes', subCategory:'臀大肌', difficulty:'初级', equipment:'barbell', desc:'经典臀部训练动作，安全高效激活臀大肌。', sets:'4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV1YF4m1T7KS', steps:['仰卧，双膝弯曲90度，将杠铃置于髋部。','双手扶稳杠铃。','臀大肌发力将髋部向上顶起至身体成一直线。','顶端挤压臀肌1秒。','控制慢放回起始位置。'] },
+  { resistanceType:'weight', id:'glute-m2', name:'杠铃臀桥', emoji:'🏋️', muscleId:'glutes', subCategory:'臀大肌', difficulty:'初级', femaleRecommended:true, equipment:'barbell', desc:'经典臀部训练动作，安全高效激活臀大肌。', sets:'4组 × 12-15次', videoUrl:'https://www.bilibili.com/video/BV1YF4m1T7KS', steps:['仰卧，双膝弯曲90度，将杠铃置于髋部。','双手扶稳杠铃。','臀大肌发力将髋部向上顶起至身体成一直线。','顶端挤压臀肌1秒。','控制慢放回起始位置。'] },
+  { resistanceType:'bodyweight', id:'glute-m5', name:'臀桥', emoji:'🍑', muscleId:'glutes', subCategory:'臀大肌', difficulty:'初级', femaleRecommended:true, equipment:'bodyweight', desc:'最简单的臀部激活动作，用自身体重训练臀大肌发力感。', sets:'3-4组 × 15-20次', videoUrl:'', steps:['仰卧，双膝弯曲约90度，双脚平踩地面与肩同宽。','双臂置于身体两侧，掌心向下。','臀大肌发力将髋部向上顶起至身体成一直线。','顶端挤压臀肌1-2秒。','控制慢放回起始位置，臀部不触地保持张力。'] },
   { resistanceType:'bodyweight', id:'glute-m3', name:'单腿臀桥', emoji:'🦵', muscleId:'glutes', subCategory:'臀大肌', difficulty:'中级', equipment:'bodyweight', desc:'单侧臀桥有效纠正左右臀肌不平衡。', sets:'3-4组 × 每侧12-15次', videoUrl:'https://www.bilibili.com/video/BV1Sh4y1u7Za', steps:['仰卧，一腿弯曲踩地，另一腿伸直抬起。','臀大肌发力将髋部向上顶起。','顶端挤压臀肌1秒。','控制慢放。','完成一侧次数后换腿。'] },
   { resistanceType:'weight', id:'glute-m4', name:'深蹲', emoji:'🏋️', muscleId:'glutes', subCategory:'臀大肌', difficulty:'中级', equipment:'barbell', desc:'全幅度深蹲充分激活臀大肌，是发展下肢力量的基石。', sets:'4组 × 8-12次', videoUrl:'https://www.bilibili.com/video/BV19o4y1S7vN', steps:['杠铃置于上斜方肌，双脚略宽于肩。','挺胸沉肩，核心锁紧。','屈髋屈膝下蹲至大腿低于平行。','脚后跟发力驱动站起。','顶端收紧臀部。'] },
   // -- 臀中肌 --
   { resistanceType:'bodyweight', id:'glute-md1', name:'侧卧抬腿', emoji:'🦵', muscleId:'glutes', subCategory:'臀中肌', difficulty:'初级', equipment:'bodyweight', desc:'简单有效的自重动作，精准刺激臀中肌。', sets:'3-4组 × 每侧15-20次', videoUrl:'https://www.bilibili.com/video/BV1e94y1s7sf', steps:['侧卧，下腿微屈保持平衡，上腿伸直。','用臀中肌发力将上腿向上抬起至45度。','顶端停顿1秒。','控制慢放。','保持身体不前后晃动。'] },
-  { resistanceType:'bodyweight', id:'glute-md2', name:'蚌式开合', emoji:'🦐', muscleId:'glutes', subCategory:'臀中肌', difficulty:'初级', equipment:'bodyweight', desc:'侧卧蚌式开合精准激活臀中肌，改善臀部上方线条。', sets:'3-4组 × 每侧15-20次', videoUrl:'https://www.bilibili.com/video/BV1Cg4y1w7um', steps:['侧卧，双膝弯曲约90度，双脚并拢。','保持双脚接触，用臀中肌发力将上方膝盖打开。','顶端停顿1秒。','控制合拢膝盖。','可加弹力带增加阻力。'] },
+  { resistanceType:'bodyweight', id:'glute-md2', name:'蚌式开合', emoji:'🦐', muscleId:'glutes', subCategory:'臀中肌', difficulty:'初级', femaleRecommended:true, equipment:'bodyweight', desc:'侧卧蚌式开合精准激活臀中肌，改善臀部上方线条。', sets:'3-4组 × 每侧15-20次', videoUrl:'https://www.bilibili.com/video/BV1Cg4y1w7um', steps:['侧卧，双膝弯曲约90度，双脚并拢。','保持双脚接触，用臀中肌发力将上方膝盖打开。','顶端停顿1秒。','控制合拢膝盖。','可加弹力带增加阻力。'] },
+  { resistanceType:'weight', id:'glute-md5', name:'坐姿髋外展', emoji:'🦵', muscleId:'glutes', subCategory:'臀中肌', difficulty:'初级', femaleRecommended:true, equipment:'cable', desc:'固定器械坐姿髋外展，精准强化臀中肌，改善臀部上侧饱满度。', sets:'3-4组 × 12-15次', videoUrl:'', steps:['坐于髋外展机，背部贴紧靠垫。','双腿外侧抵住挡板。','用臀中肌发力将双腿向外打开至最大幅度。','顶端停顿1秒挤压臀中肌。','控制慢放回起始位置，保持张力不放松。'] },
   { resistanceType:'bodyweight', id:'glute-md3', name:'弹力带行走', emoji:'🚶', muscleId:'glutes', subCategory:'臀中肌', difficulty:'初级', equipment:'bodyweight', desc:'弹力带侧向行走是激活臀中肌的黄金热身动作。', sets:'3-4组 × 每侧15步', videoUrl:'https://www.bilibili.com/video/BV1yyf6Y3E3U', steps:['将弹力带套在脚踝或小腿处。','微屈膝，保持核心收紧。','向侧方迈步，保持弹力带张力。','步幅适中，交替向两侧行走。','保持上半身稳定不晃动。'] },
   { resistanceType:'weight', id:'glute-md4', name:'单腿硬拉', emoji:'🏋️', muscleId:'glutes', subCategory:'臀中肌', difficulty:'中级', equipment:'dumbbell', desc:'单侧支撑硬拉挑战平衡和臀中肌稳定性。', sets:'3-4组 × 每侧10-12次', videoUrl:'https://www.bilibili.com/video/BV1U8Arz9EuT', steps:['站立单手持哑铃，对侧腿微微抬起。','保持背部挺直，屈髋将哑铃向下放。','对侧腿向后伸展保持平衡。','用臀肌发力将身体拉回起始位置。','全程核心收紧。'] },
   // -- 整体 --
   { resistanceType:'weight', id:'glute-a1', name:'保加利亚分腿蹲', emoji:'🦵', muscleId:'glutes', subCategory:'整体', difficulty:'中级', equipment:'dumbbell', desc:'单腿后抬高蹲，全面刺激臀部和股四头肌。', sets:'3-4组 × 每侧10-12次', videoUrl:'https://www.bilibili.com/video/BV15JYXe2ETW', steps:['背对长凳站立，将一只脚放在凳面上。','前腿屈膝下蹲至大腿与地面平行。','后腿膝盖接近地面。','前脚发力蹬地站起。','完成一侧次数后换腿。'] },
   { resistanceType:'weight', id:'glute-a2', name:'弓步走', emoji:'🚶', muscleId:'glutes', subCategory:'整体', difficulty:'初级', equipment:'dumbbell', desc:'行进中弓步走，功能性训练臀部和腿部力量。', sets:'3-4组 × 每侧12步', videoUrl:'https://www.bilibili.com/video/BV1j142117Fc', steps:['双手持哑铃于体侧。','向前跨出一大步下蹲至前腿大腿与地面平行。','后腿膝盖几乎触地。','前脚发力蹬地向前迈步。','交替行进至目标步数。'] },
   { resistanceType:'bodyweight', id:'glute-a3', name:'箱跳', emoji:'📦', muscleId:'glutes', subCategory:'整体', difficulty:'高级', equipment:'bodyweight', desc:'爆发力训练动作，增强臀部力量和弹跳。', sets:'3-4组 × 8-10次', videoUrl:'https://www.bilibili.com/video/BV1xF411t7bf', steps:['面对跳箱站立，双脚与肩同宽。','微屈膝下蹲后快速摆臂跳上箱面。','双脚同时落在箱上，完全站直。','下箱后重复。','选择合适高度确保安全。'] },
-  { resistanceType:'weight', id:'glute-a4', name:'壶铃摆动', emoji:'🔔', muscleId:'glutes', subCategory:'整体', difficulty:'中级', equipment:'dumbbell', desc:'髋铰链爆发力动作，全面强化臀部和后侧链。', sets:'4组 × 15-20次', videoUrl:'https://www.bilibili.com/video/BV1VHxKzXEgq', steps:['站立双脚与肩同宽，双手持壶铃（或哑铃）于胯下。','微屈膝，挺胸沉肩。','用臀部爆发力将壶铃向前摆至胸部高度。','控制壶铃自然荡回胯下。','保持核心收紧，用臀部发力而非手臂。'] }
+  { resistanceType:'weight', id:'glute-a4', name:'壶铃摇摆', emoji:'🔔', muscleId:'glutes', subCategory:'整体', difficulty:'中级', femaleRecommended:true, equipment:'dumbbell', desc:'髋铰链爆发力动作，全面强化臀部和后侧链。', sets:'4组 × 15-20次', videoUrl:'https://www.bilibili.com/video/BV1o2byenE77', steps:['站立双脚与肩同宽，双手持壶铃（或哑铃）于胯下。','微屈膝，挺胸沉肩。','用臀部爆发力将壶铃向前摆至胸部高度。','控制壶铃自然荡回胯下。','保持核心收紧，用臀部发力而非手臂。'] }
 ];
 
 // Build exercises map for backward compatibility
@@ -1562,10 +1763,13 @@ allExercises.forEach(ex => {
   subCategoryMap[ex.muscleId][ex.subCategory]++;
 });
 
+// Female exercise selection uses femaleRecommended field on exercise data objects
+
 // ============================================================
 //  FAVORITES (localStorage)
 // ============================================================
 const STORAGE_KEY = 'fitness_favorites';
+const PLAN_WEEK_KEY = 'fitness_weekplan';
 function getFavorites() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } }
 function saveFavorites(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
 function isFavorite(muscleId, name) { return getFavorites().some(f => f.muscleId === muscleId && f.name === name); }
@@ -1573,6 +1777,23 @@ function toggleFavorite(muscleId, name) {
   const list = getFavorites(); const idx = list.findIndex(f => f.muscleId === muscleId && f.name === name);
   if (idx >= 0) list.splice(idx, 1); else list.push({ muscleId, name });
   saveFavorites(list); return idx < 0;
+}
+function saveWeekPlan(plan) {
+  if (!plan || !plan.weekPlan) return;
+  var data = { weekPlan: [], summary: plan.summary || {} };
+  for (var d = 0; d < plan.weekPlan.length; d++) {
+    var day = plan.weekPlan[d];
+    var dayData = { dayIdx: day.dayIdx, focus: day.focus, totalSets: day.totalSets, exercises: [] };
+    for (var e = 0; e < day.exercises.length; e++) {
+      var ex = day.exercises[e];
+      dayData.exercises.push({ muscleId: ex.muscleId, name: ex.name, role: ex.role, assignedSets: ex.assignedSets });
+    }
+    data.weekPlan.push(dayData);
+  }
+  localStorage.setItem(PLAN_WEEK_KEY, JSON.stringify(data));
+}
+function getWeekPlan() {
+  try { return JSON.parse(localStorage.getItem(PLAN_WEEK_KEY)) || null; } catch { return null; }
 }
 function removeFavorite(muscleId, name) { saveFavorites(getFavorites().filter(f => !(f.muscleId === muscleId && f.name === name))); }
 function clearFavorites() { saveFavorites([]); }
@@ -1668,9 +1889,12 @@ function renderFilteredExercises() {
     exerciseGrid.innerHTML = '<div class="empty-state"><span class="empty-state-icon">🔍</span><div class="empty-state-text">没有匹配的训练动作</div><div class="empty-hint">试试调整筛选条件</div><button class="btn-primary" onclick="resetExerciseFilters()" style="border:none;">查看全部动作</button></div>';
     return;
   }
-  exerciseGrid.innerHTML = '';
+  exerciseGrid.innerHTML = '<div class="loading-exercises" style="grid-column:1/-1;text-align:center;padding:24px;color:var(--text-secondary);font-size:13px;">加载训练动作...</div>';
   var _idx = 0;
   function batchInsert() {
+    // Remove loading indicator on first batch
+    var loadingEl = exerciseGrid.querySelector('.loading-exercises');
+    if (loadingEl) loadingEl.remove();
     var fragment = document.createDocumentFragment();
     var count = 0;
     while (_idx < filtered.length && count < 4) {
@@ -1689,7 +1913,6 @@ function renderFilteredExercises() {
         <span class="ex-equip">${equipLabel}</span>`;
       const star = card.querySelector('.fav-star');
       star.addEventListener('click', e => { e.stopPropagation(); const a = toggleFavorite(currentMuscleId, ex.name); star.textContent = a ? '★' : '☆'; star.classList.toggle('active', a); });
-      card.addEventListener('click', () => openModal(ex));
       fragment.appendChild(card);
       _idx++;
       count++;
@@ -1699,6 +1922,18 @@ function renderFilteredExercises() {
   }
   requestAnimationFrame(batchInsert);
 }
+// Event delegation for exercise card clicks
+exerciseGrid.addEventListener('click', function(e) {
+  const card = e.target.closest('.exercise-card');
+  if (!card) return;
+  const star = card.querySelector('.fav-star');
+  if (!star) return;
+  const muscleId = star.dataset.muscle;
+  const name = star.dataset.name;
+  console.log('点击了动作：', name);
+  const ex = getExerciseByKey(muscleId, name);
+  if (ex) openModal(ex);
+});
 
 muscleGroups.forEach(mg => {
   const card = document.createElement('div');
@@ -1780,7 +2015,7 @@ function openModal(ex) {
   pcInput.value = '';
   pcResult.style.display = 'none';
 }
-function closeModal() { var box = document.querySelector('.modal-box'); box.classList.add('closing'); setTimeout(function(){ modalOverlay.classList.remove('open'); box.classList.remove('closing'); document.body.style.overflow = ''; videoIframe.src = ''; }, 150); }
+function closeModal() { modalOverlay.classList.remove('open'); var box = document.querySelector('.modal-box'); box.classList.add('closing'); setTimeout(function(){ box.classList.remove('closing'); document.body.style.overflow = ''; videoIframe.src = ''; }, 150); }
 btnCloseModal.addEventListener('click', closeModal);
 modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal(); });
@@ -1798,6 +2033,10 @@ pcBtn.addEventListener('click', async () => {
   const problem = pcInput.value.trim();
   if (!problem) {
     alert('请描述你遇到的问题，比如膝盖疼、肩膀不舒服等');
+    return;
+  }
+  if (!localStorage.getItem('deepseek_api_key')) {
+    document.getElementById('ai-settings-overlay').classList.add('open');
     return;
   }
 
@@ -1844,7 +2083,11 @@ pcBtn.addEventListener('click', async () => {
     if (!html) html = '<div>' + advice.replace(/\n/g, '<br>') + '</div>';
     pcResult.innerHTML = html;
   } catch (err) {
-    pcResult.innerHTML = '<div class="pc-error">❌ ' + err.message + '</div>';
+    var friendlyMsg = '姿势分析暂时不可用，请检查网络后重试。';
+    if (err.message.indexOf('401') >= 0 || err.message.indexOf('authentication') >= 0) {
+      friendlyMsg = 'API Key 无效或未配置，请点击右上角设置。';
+    }
+    pcResult.innerHTML = '<div class="pc-error">❌ ' + friendlyMsg + '</div>';
   } finally {
     pcBtn.disabled = false;
   }
@@ -1880,65 +2123,140 @@ document.getElementById('ai-settings-overlay').addEventListener('click', (e) => 
 // ============================================================
 let dragIndex = null;
 function renderPlanPage() {
-  const container = document.getElementById('plan-content');
-  const favs = getFavorites();
-  if (favs.length === 0) {
-    container.innerHTML = '<div class="empty-state"><span class="empty-state-icon">📋</span><div class="empty-state-text">还没有收藏任何动作</div><div class="empty-hint">在训练列表中点击 ☆ 收藏动作</div><button class="btn-primary" onclick="showPage(document.getElementById(\'training-page\'))" style="border:none;">去浏览动作</button></div>';
-    return;
+  renderWeekTracker();
+  renderPlanBySchedule();
+  renderFavorites();
+}
+document.getElementById('btn-clear').addEventListener('click', () => { if (confirm('确定要清空训练计划吗？')) { localStorage.removeItem(PLAN_WEEK_KEY); renderPlanPage(); } });
+
+// ---- Week tracker ----
+function getWeekKey() {
+  var now = new Date(), y = now.getFullYear();
+  var jan4 = new Date(Date.UTC(y, 0, 4));
+  var weekNum = Math.ceil(((now - jan4) / 86400000 + jan4.getDay() + 1) / 7);
+  return 'planCompleted_' + y + (weekNum < 10 ? '0' : '') + weekNum;
+}
+function getWeekDays(key) { try { return JSON.parse(localStorage.getItem(key)) || []; } catch(e) { return []; } }
+function saveWeekDays(key, arr) { localStorage.setItem(key, JSON.stringify(arr)); }
+function renderWeekTracker() {
+  var key = getWeekKey(), doneDays = getWeekDays(key);
+  // Auto-check days with training logs this week
+  var now = new Date(), dow = now.getDay();
+  var monOff = dow === 0 ? -6 : 1 - dow;
+  var monday = new Date(now); monday.setDate(now.getDate() + monOff);
+  var logs = getTrainingLogs();
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(monday); d.setDate(monday.getDate() + i);
+    var y = d.getFullYear(), m = String(d.getMonth()+1).padStart(2,'0'), day = String(d.getDate()).padStart(2,'0');
+    var dateStr = y + '-' + m + '-' + day;
+    var hasLog = logs.some(function(log) { return log.date === dateStr; });
+    if (hasLog && doneDays.indexOf(i) < 0) doneDays.push(i);
   }
-  const grouped = {};
-  favs.forEach(f => { if (!grouped[f.muscleId]) grouped[f.muscleId] = []; grouped[f.muscleId].push(f); });
-  let html = '';
-  for (const mid of Object.keys(grouped)) {
-    const mg = muscleGroups.find(g => g.id === mid);
-    const gn = mg ? mg.name : mid, ge = mg ? mg.emoji : '🏋️';
-    html += `<div class="plan-group"><div class="plan-group-title">${ge} ${gn}<span class="plan-group-count">(${grouped[mid].length} 个)</span></div>`;
-    grouped[mid].forEach(f => {
-      const ex = getExerciseByKey(f.muscleId, f.name);
-      const dl = ex ? ex.difficulty : ''; const sl = ex ? ex.sets : ''; const el = ex ? (equipmentLabels[ex.equipment] || '') : '';
-      const dc = dl === '初级' ? 'beginner' : dl === '中级' ? 'intermediate' : 'advanced';
-      html += `<div class="plan-item" draggable="true" data-muscle="${f.muscleId}" data-name="${f.name}">
-        <span class="drag-handle">⠿</span>
-        <span class="plan-emoji">${ex ? ex.emoji : '🏋️'}</span>
-        <div class="plan-info"><h4>${f.name}</h4><div class="plan-meta">${dl ? `<span class="difficulty-tag ${dc}">${dl}</span>` : ''}${el ? `<span>${el}</span>` : ''}${sl ? `<span>${sl}</span>` : ''}</div></div>
-        <button class="plan-remove" title="移除">✕</button>
-      </div>`;
-    });
-    html += `</div>`;
+  var dayNames = ['周一','周二','周三','周四','周五','周六','周日'];
+  var grid = document.getElementById('week-day-grid');
+  if (!grid) return;
+  var html = '';
+  for (var i = 0; i < 7; i++) {
+    var checked = doneDays.indexOf(i) >= 0;
+    html += '<div class="week-day-card' + (checked ? ' checked' : '') + '" data-day="' + i + '">' +
+      '<span class="week-day-name">' + dayNames[i] + '</span>' +
+      '<span class="week-day-check">' + (checked ? '✓' : '○') + '</span></div>';
   }
-  container.innerHTML = html;
-  container.querySelectorAll('.plan-item').forEach(item => {
-    item.addEventListener('dragstart', e => { item.classList.add('dragging'); dragIndex = { muscle: item.dataset.muscle, name: item.dataset.name }; e.dataTransfer.effectAllowed = 'move'; });
-    item.addEventListener('dragend', () => { item.classList.remove('dragging'); document.querySelectorAll('.plan-item').forEach(i => i.classList.remove('drag-over')); });
-    item.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; item.classList.add('drag-over'); });
-    item.addEventListener('dragleave', () => { item.classList.remove('drag-over'); });
-    item.addEventListener('drop', e => {
-      e.preventDefault(); item.classList.remove('drag-over');
-      if (!dragIndex) return;
-      if (dragIndex.muscle === item.dataset.muscle && dragIndex.name === item.dataset.name) return;
-      let list = getFavorites();
-      const si = list.findIndex(f => f.muscleId === dragIndex.muscle && f.name === dragIndex.name);
-      const ti = list.findIndex(f => f.muscleId === item.dataset.muscle && f.name === item.dataset.name);
-      if (si === -1 || ti === -1) return;
-      const [m] = list.splice(si, 1);
-      const nt = list.findIndex(f => f.muscleId === item.dataset.muscle && f.name === item.dataset.name);
-      list.splice(nt >= 0 ? nt : ti, 0, m);
-      saveFavorites(list); renderPlanPage();
+  grid.innerHTML = html;
+  document.getElementById('week-progress-text').textContent = '本周已完成 ' + doneDays.length + '/7 天';
+  grid.querySelectorAll('.week-day-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      var day = parseInt(this.dataset.day);
+      var key2 = getWeekKey(), list = getWeekDays(key2);
+      var idx = list.indexOf(day);
+      if (idx >= 0) list.splice(idx, 1); else list.push(day);
+      saveWeekDays(key2, list);
+      renderWeekTracker();
     });
-  });
-  container.querySelectorAll('.plan-remove').forEach(btn => {
-    btn.addEventListener('click', e => { e.stopPropagation(); if (!confirm('确定移除这个动作？')) return; const p = btn.closest('.plan-item'); removeFavorite(p.dataset.muscle, p.dataset.name); renderPlanPage(); });
   });
 }
-document.getElementById('btn-clear').addEventListener('click', () => { if (getFavorites().length && confirm('确定要清空所有收藏的动作吗？')) { clearFavorites(); renderPlanPage(); } });
-document.getElementById('btn-export').addEventListener('click', () => {
-  if (getFavorites().length === 0) { alert('还没有收藏任何动作，请先收藏再导出。'); return; }
-  if (typeof html2canvas === 'undefined') { alert('图片导出库加载中，请稍后再试。'); return; }
-  const bg = '#FAFBFC';
-  html2canvas(document.getElementById('plan-content'), { backgroundColor: bg, scale: 2, useCORS: true, logging: false })
-    .then(c => { const a = document.createElement('a'); a.download = '我的训练计划.png'; a.href = c.toDataURL('image/png'); a.click(); })
-    .catch(() => alert('导出失败，请重试。'));
-});
+// ---- Schedule view ----
+function renderPlanBySchedule() {
+  var data = getWeekPlan();
+  var container = document.getElementById('plan-schedule-view');
+  if (!container) return;
+  if (!data || !data.weekPlan) {
+    container.innerHTML = '<div class="schedule-empty">📋 还没有保存的训练计划<br><span style="font-size:13px;">去 AI 推荐生成并保存吧</span></div>';
+    return;
+  }
+  var dayNames = ['周一','周二','周三','周四','周五','周六','周日'];
+  var html = '';
+  for (var d = 0; d < data.weekPlan.length; d++) {
+    var day = data.weekPlan[d];
+    if (!day || !day.focus) {
+      html += '<div class="schedule-day-card"><div class="schedule-day-rest">😊 休息日</div></div>';
+      continue;
+    }
+    html += '<div class="schedule-day-card"><div class="schedule-day-header">' + dayNames[d] + ' · ' + day.focus + '</div>';
+    for (var e = 0; e < day.exercises.length; e++) {
+      var ex = day.exercises[e];
+      var exFull = getExerciseByKey(ex.muscleId, ex.name);
+      var badge = ex.role === '主项' ? '⭐' : ex.role === '孤立' ? '🎯' : '·';
+      html += '<div class="schedule-ex-item">' +
+        '<span class="schedule-ex-emoji">' + (exFull ? exFull.emoji : '🏋️') + '</span>' +
+        '<span class="schedule-ex-link" data-muscleid="' + ex.muscleId + '" data-name="' + ex.name + '">' + ex.name + '</span>' +
+        '<span class="ai-ex-role" style="font-size:11px;">' + badge + '</span>' +
+        '<span class="schedule-ex-sets">' + ex.assignedSets + '组</span></div>';
+    }
+    html += '</div>';
+  }
+  container.innerHTML = html;
+  // Click to open modal
+  container.querySelectorAll('.schedule-ex-link').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var exFull = getExerciseByKey(this.dataset.muscleid, this.dataset.name);
+      if (exFull) openModal(exFull);
+    });
+  });
+}
+
+// ---- Favorites View ----
+function renderFavorites() {
+  var container = document.getElementById('plan-favorites-view');
+  if (!container) return;
+  var list = getFavorites();
+  if (list.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-secondary);font-size:14px;">还没有收藏的动作，在训练列表中点击☆收藏</div>';
+    return;
+  }
+  var html = '<div class="fav-grid">';
+  list.forEach(function(f) {
+    var ex = getExerciseByKey(f.muscleId, f.name);
+    var emoji = ex ? ex.emoji : '🏋️';
+    html += '<div class="fav-item" data-muscle="' + f.muscleId + '" data-name="' + f.name + '">' +
+      '<span class="fav-emoji">' + emoji + '</span>' +
+      '<span class="fav-name">' + f.name + '</span>' +
+      '<button class="fav-del" data-muscle="' + f.muscleId + '" data-name="' + f.name + '">✕</button>' +
+      '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+  // Click to open modal
+  container.querySelectorAll('.fav-item').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+      if (e.target.closest('.fav-del')) return;
+      var ex = getExerciseByKey(this.dataset.muscle, this.dataset.name);
+      if (ex) openModal(ex);
+    });
+  });
+  // Delete from favorites
+  container.querySelectorAll('.fav-del').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      removeFavorite(this.dataset.muscle, this.dataset.name);
+      renderFavorites();
+      // Re-render schedule view to update stars on existing plan
+      renderPlanBySchedule();
+    });
+  });
+}
+
 // ============================================================
 //  AI 推荐 — 增强规则引擎
 // ============================================================
@@ -1952,7 +2270,7 @@ const exAnnotations = {
   '哑铃飞鸟':{type:'isolation',level:'intermediate'}, '器械推胸':{type:'compound',level:'basic'},
   '下斜杠铃卧推':{type:'compound',level:'intermediate'},
   '双杠臂屈伸':{type:'compound',level:'intermediate'}, '高位绳索夹胸':{type:'isolation',level:'intermediate'},
-  '俯卧撑':{type:'compound',level:'basic'},
+  '俯卧撑':{type:'compound',level:'basic'}, '跪姿俯卧撑':{type:'compound',level:'basic'},
   '哑铃仰卧屈臂上拉':{type:'compound',level:'intermediate'},
   // Back
   '引体向上':{type:'compound',level:'basic'}, '杠铃耸肩':{type:'isolation',level:'basic'},
@@ -1984,14 +2302,15 @@ const exAnnotations = {
   '卷腹机':{type:'isolation',level:'basic'}, '俄罗斯转体':{type:'isolation',level:'basic'},
   '侧平板':{type:'isolation',level:'basic'}, '伐木式':{type:'isolation',level:'intermediate'},
   '平板支撑':{type:'isolation',level:'basic'}, '鸟狗式':{type:'isolation',level:'basic'},
-  '死虫式':{type:'isolation',level:'basic'},
+  '死虫式':{type:'isolation',level:'basic'}, '健身球卷腹':{type:'isolation',level:'basic'},
   // Glutes
   '臀推':{type:'isolation',level:'intermediate'}, '杠铃臀桥':{type:'isolation',level:'basic'},
   '单腿臀桥':{type:'isolation',level:'intermediate'}, '深蹲':{type:'compound',level:'basic'},
   '侧卧抬腿':{type:'isolation',level:'basic'}, '蚌式开合':{type:'isolation',level:'basic'},
-  '弹力带行走':{type:'isolation',level:'basic'}, '单腿硬拉':{type:'compound',level:'intermediate'},
+  '坐姿髋外展':{type:'isolation',level:'basic'}, '弹力带行走':{type:'isolation',level:'basic'}, '单腿硬拉':{type:'compound',level:'intermediate'},
   '保加利亚分腿蹲':{type:'compound',level:'intermediate'}, '弓步走':{type:'compound',level:'basic'},
-  '箱跳':{type:'compound',level:'intermediate'}, '壶铃摆动':{type:'compound',level:'intermediate'}
+  '箱跳':{type:'compound',level:'intermediate'}, '壶铃摇摆':{type:'compound',level:'intermediate'},
+  '臀桥':{type:'isolation',level:'basic'}, '坐姿腿弯举':{type:'isolation',level:'basic'}
 };
 function isCompound(n){return(exAnnotations[n]||{}).type==='compound'}
 function isIsolation(n){return(exAnnotations[n]||{}).type==='isolation'}
@@ -2009,6 +2328,14 @@ const goalConfig = {
     weekPattern:['推','拉','腿','推','拉','腿','休息'],
     baseCompounds:'对称肌群均衡发展'}
 };
+
+// ---- Gender-adjusted config ----
+function getAdjustedConfig(gCfg, gender) {
+  if (gender === '女') {
+    return { ...gCfg, sets: 3, repDisplay: '12-15次', rest: '60-90秒' };
+  }
+  return gCfg;
+}
 
 // ---- Day-name → muscle groups mapping ----
 const dayMuscleMap = {
@@ -2038,7 +2365,7 @@ const experienceConfig = {
 
 // ---- State ----
 let aiStep = 0;
-const aiState = { goal: null, days: 3, experience: null, equipment: ['dumbbell','barbell','cable','bodyweight'] };
+const aiState = { gender: null, goal: null, days: 3, selectedDays: [0,2,4], experience: null, equipment: ['dumbbell','barbell','cable','bodyweight'] };
 let aiGeneratedPlan = null;
 
 // ---- DOM refs ----
@@ -2065,13 +2392,20 @@ btnBackAI.addEventListener('click', goHome);
 
 function resetAIWizard() {
   aiStep = 0;
-  aiState.goal = null; aiState.days = 3; aiState.experience = null;
+  aiState.gender = null; aiState.goal = null; aiState.days = 3; aiState.selectedDays = [0,2,4]; aiState.experience = null;
   aiState.equipment = ['dumbbell','barbell','cable','bodyweight'];
   aiGeneratedPlan = null;
   aiWizard.style.display = 'block'; aiLoading.style.display = 'none'; aiResult.classList.remove('active');
-  document.querySelectorAll('#ai-goal-options .ai-option, #ai-exp-options .ai-option').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('#ai-gender-options .ai-option, #ai-goal-options .ai-option, #ai-exp-options .ai-option').forEach(o => o.classList.remove('selected'));
   document.querySelectorAll('#ai-equip-tags .ai-tag').forEach(t => t.classList.add('selected'));
   daysSlider.value = 3; daysDisplay.textContent = '3';
+  // Restore saved gender from nutrition goal
+  var savedGoal = getNutritionGoal();
+  if (savedGoal && savedGoal.aiGender) {
+    aiState.gender = savedGoal.aiGender;
+    var genderOpt = document.querySelector('#ai-gender-options .ai-option[data-value="' + savedGoal.aiGender + '"]');
+    if (genderOpt) genderOpt.classList.add('selected');
+  }
   updateSteps(); showStep(0);
 }
 
@@ -2087,11 +2421,19 @@ function showStep(idx) {
   document.querySelectorAll('.ai-step-content').forEach(el => el.classList.remove('active'));
   document.querySelector(`.ai-step-content[data-step="${idx}"]`).classList.add('active');
   aiPrev.disabled = idx === 0;
-  aiNext.textContent = idx === 3 ? '🚀 生成计划' : '下一步 →';
+  if (idx === 4) aiNext.textContent = '🚀 生成计划';
+  else aiNext.textContent = '下一步 →';
+  if (idx === 2) updateDayUI();
   updateSteps();
 }
 
 // ---- Wizard interactions ----
+document.querySelectorAll('#ai-gender-options .ai-option').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('#ai-gender-options .ai-option').forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected'); aiState.gender = opt.dataset.value;
+  });
+});
 document.querySelectorAll('#ai-goal-options .ai-option').forEach(opt => {
   opt.addEventListener('click', () => {
     document.querySelectorAll('#ai-goal-options .ai-option').forEach(o => o.classList.remove('selected'));
@@ -2105,7 +2447,9 @@ document.querySelectorAll('#ai-exp-options .ai-option').forEach(opt => {
   });
 });
 daysSlider.addEventListener('input', () => {
-  aiState.days = parseInt(daysSlider.value); daysDisplay.textContent = aiState.days;
+	  aiState.days = parseInt(daysSlider.value); daysDisplay.textContent = aiState.days;
+	  aiState.selectedDays = getDefaultDays(aiState.days);
+	  if (aiStep === 2) updateDayUI();
 });
 document.querySelectorAll('#ai-equip-tags .ai-tag').forEach(tag => {
   tag.addEventListener('click', () => {
@@ -2116,11 +2460,36 @@ document.querySelectorAll('#ai-equip-tags .ai-tag').forEach(tag => {
     else aiState.equipment.push(val);
   });
 });
+// ---- Day selection ----
+document.querySelectorAll('#day-select-tags .ai-tag').forEach(tag => {
+  tag.addEventListener('click', function() {
+    var day = parseInt(this.dataset.day);
+    var idx = aiState.selectedDays.indexOf(day);
+    if (idx >= 0) {
+      if (aiState.selectedDays.length <= 1) return;
+      aiState.selectedDays.splice(idx, 1);
+    } else {
+      aiState.selectedDays.push(day);
+      aiState.selectedDays.sort(function(a,b){return a-b;});
+    }
+    updateDayUI();
+  });
+});
 aiPrev.addEventListener('click', () => { if (aiStep > 0) { aiStep--; showStep(aiStep); } });
+function validateDaySelection() {
+  if (aiState.selectedDays.length !== aiState.days) {
+    aiNext.disabled = true;
+    return false;
+  }
+  aiNext.disabled = false;
+  return true;
+}
 aiNext.addEventListener('click', () => {
+  if (aiStep === 0 && !aiState.gender) { alert('请选择性别'); return; }
   if (aiStep === 0 && !aiState.goal) { alert('请选择训练目标'); return; }
-  if (aiStep === 2 && !aiState.experience) { alert('请选择训练经验'); return; }
-  if (aiStep === 3) {
+  if (aiStep === 2 && !validateDaySelection()) { return; }
+  if (aiStep === 3 && !aiState.experience) { alert('请选择训练经验'); return; }
+  if (aiStep === 4) {
     if (aiState.equipment.length === 0) { alert('请至少选择一种器械'); return; }
     generatePlan(); return;
   }
@@ -2129,21 +2498,34 @@ aiNext.addEventListener('click', () => {
 
 // ---- Shuffle helper ----
 function shuffle(a) { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a; }
+function getDefaultDays(count) {
+  if (count === 1) return [3];
+  if (count === 7) return [0,1,2,3,4,5,6];
+  var step = 7 / count;
+  var result = [];
+  for (var i = 0; i < count; i++) result.push(Math.round(i * step));
+  return result;
+}
+function updateDayUI() {
+  document.querySelectorAll('#day-select-tags .ai-tag').forEach(tag => {
+    tag.classList.toggle('selected', aiState.selectedDays.indexOf(parseInt(tag.dataset.day)) >= 0);
+  });
+  document.getElementById('day-select-info').textContent = '已选 ' + aiState.selectedDays.length + '/' + aiState.days + ' 天';
+  validateDaySelection();
+}
 
 // ============================================================
 //  RULE ENGINE
 // ============================================================
 
-function getWeeklySchedule(goal, days) {
+function getWeeklySchedule(goal, days, selectedDays) {
   const pattern = goalConfig[goal].weekPattern;
   const pool = pattern.filter(d => d !== '休息');
   const seq = [];
   for (let i = 0; i < days; i++) seq.push(pool[i % pool.length]);
   const week = Array(7).fill(null);
-  let idx = 0;
-  for (let d = 0; d < 7 && idx < days; d++) {
-    if (pattern[d] !== '休息') { week[d] = seq[idx++]; }
-    else if (idx < days) { week[d] = seq[idx++]; }
+  for (let i = 0; i < selectedDays.length; i++) {
+    week[selectedDays[i]] = seq[i];
   }
   return week;
 }
@@ -2178,6 +2560,18 @@ function selfCheckSchedule(week) {
   return week;
 }
 
+// Female-specific weekly schedule: 下肢/上肢/全身 split
+function getFemaleSchedule(days, selectedDays) {
+  const patterns = { 1:['全身'], 2:['下肢','上肢'], 3:['下肢','上肢','全身'], 4:['下肢','上肢','休息','下肢','上肢','休息','休息'], 5:['下肢','上肢','全身','下肢','上肢','休息','休息'], 6:['下肢','上肢','全身','下肢','上肢','全身','休息'], 7:['下肢','上肢','全身','下肢','上肢','全身','全身'] };
+  const pattern = patterns[days] || patterns[3];
+  const pool = pattern.filter(d => d !== '休息');
+  const seq = [];
+  for (let i = 0; i < days; i++) seq.push(pool[i % pool.length]);
+  const week = Array(7).fill(null);
+  for (let i = 0; i < selectedDays.length; i++) week[selectedDays[i]] = seq[i];
+  return week;
+}
+
 function buildPool() {
   const { experience, equipment } = aiState;
   const expCfg = experienceConfig[experience];
@@ -2196,13 +2590,28 @@ function getAvailable(mid, pool, expCfg) {
 
 function pickOne(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-function selectExercisesForDay(focusName, pool, expCfg, gCfg) {
+// Arm isolation exercises banned for female plans
+function isFemaleBannedArm(name) {
+  return name.includes('弯举') || name.includes('下压') || name.includes('腕弯举') || name === '窄距卧推';
+}
+
+function selectExercisesForDay(focusName, pool, expCfg, gCfg, gender) {
   const dayInfo = dayMuscleMap[focusName];
   if (!dayInfo) return [];
   const { groups, primary } = dayInfo;
   const selected = [];
   const used = new Set();
-  function avail(mid) { return getAvailable(mid, pool, expCfg).map(e=>({...e, muscleId:mid})); }
+  function avail(mid) {
+    let arr = getAvailable(mid, pool, expCfg).map(e=>({...e, muscleId:mid}));
+    if (gender === '女') { const rec = arr.filter(e=>e.femaleRecommended); if (rec.length >= 1) arr = rec; const o={'初级':0,'中级':1,'高级':2}; arr.sort((a,b)=>(o[a.difficulty]||1)-(o[b.difficulty]||1)); arr = arr.filter(e=>!isFemaleBannedArm(e.name)); }
+    return arr;
+  }
+  function pickOneFF(arr) {
+    if (gender !== '女' || arr.length === 0) return pickOne(arr);
+    const ff = arr.filter(e => e.femaleRecommended);
+    if (ff.length > 0) { const bg = ff.filter(e=>e.difficulty==='初级'); return bg.length>0?pickOne(bg):pickOne(ff); }
+    return pickOne(arr);
+  }
   function add(ex, role) {
     if (!ex || used.has(ex.name)) return false;
     selected.push({ ...ex, role, assignedSets: gCfg.sets });
@@ -2210,78 +2619,139 @@ function selectExercisesForDay(focusName, pool, expCfg, gCfg) {
     return true;
   }
 
+  if (gender === '女') {
+    // Female structure: 1 compound (main) + 2 auxiliary + 1 isolation
+    // 1) Main compound from primary (主项复合动作)
+    const primCompounds = avail(primary).filter(e => isCompound(e.name));
+    if (primCompounds.length > 0) add(pickOneFF(primCompounds), '主项');
+    else { const fb = avail(primary); if (fb.length > 0) add(pickOneFF(fb), '主项'); }
+
+    // 2) Auxiliary machine exercises (辅助固定器械) — prefer cable/machine
+    const auxPool = [];
+    for (const g of groups) {
+      for (const ex of avail(g)) {
+        if (!used.has(ex.name) && ex.femaleRecommended) auxPool.push(ex);
+      }
+    }
+    // Prioritize cable (fixed machine) exercises, then shuffle within groups
+    const cableAux = auxPool.filter(e => e.equipment === 'cable');
+    const otherAux = auxPool.filter(e => e.equipment !== 'cable');
+    shuffle(cableAux);
+    shuffle(otherAux);
+    const sortedAuxPool = [...cableAux, ...otherAux];
+    let auxAdded = 0;
+    for (const ex of sortedAuxPool) {
+      if (auxAdded >= 2) break;
+      if (add(ex, '辅助')) auxAdded++;
+    }
+
+    // 3) Isolation shaping (孤立塑形)
+    if (!selected.some(e => e.role === '孤立')) {
+      const isoPool = [];
+      for (const g of groups) {
+        for (const ex of avail(g)) {
+          if (!used.has(ex.name) && isIsolation(ex.name) && ex.femaleRecommended) isoPool.push(ex);
+        }
+      }
+      if (isoPool.length > 0) add(pickOneFF(isoPool), '孤立');
+    }
+
+    // Safety: ensure at least 3 exercises
+    if (selected.length < 3) {
+      const more = avail(primary).filter(e => !used.has(e.name));
+      shuffle(more);
+      for (const ex of more) { if (selected.length >= 3) break; add(ex, '辅助'); }
+    }
+
+    return selected;
+  }
+
+  // ---- Male: existing logic ----
   // 1) Compound from primary (主项)
   const primCompounds = avail(primary).filter(e => isCompound(e.name));
-  if (primCompounds.length > 0) add(pickOne(primCompounds), '主项');
-  else { const fallback = avail(primary); if (fallback.length > 0) add(pickOne(fallback), '主项'); }
+  if (primCompounds.length > 0) add(pickOneFF(primCompounds), '主项');
+  else { const fallback = avail(primary); if (fallback.length > 0) add(pickOneFF(fallback), '主项'); }
 
   // 2) Isolation from any group (孤立)
   if (!selected.some(e => e.role === '孤立')) {
     const isolations = [];
     for (const g of groups) isolations.push(...avail(g).filter(e => isIsolation(e.name) && !used.has(e.name)));
-    if (isolations.length > 0) add(pickOne(isolations), '孤立');
+    if (isolations.length > 0) add(pickOneFF(isolations), '孤立');
   }
 
-  // 3) Fill to 4-6 with remaining
+  // 3) Fill to target with remaining
   const remaining = [];
-  for (const g of groups) remaining.push(...avail(g).filter(e => !used.has(e.name)));
+  for (const g of groups) {
+    const exs = avail(g).filter(e => !used.has(e.name));
+    remaining.push(...exs);
+  }
   shuffle(remaining);
 
   const target = Math.min(6, Math.max(4, groups.length + 2));
+  const minEx = 4;
   for (const ex of remaining) { if (selected.length >= target) break; add(ex, '辅助'); }
 
-  // 4) Safety: ensure >= 4
-  if (selected.length < 4) {
+  // 4) Safety: ensure minimum count
+  if (selected.length < minEx) {
     const more = avail(primary).filter(e => !used.has(e.name));
     shuffle(more);
-    for (const ex of more) { if (selected.length >= 4) break; add(ex, '辅助'); }
+    for (const ex of more) { if (selected.length >= minEx) break; add(ex, '辅助'); }
   }
 
   return selected;
 }
 
 function generateAIPlan() {
-  const { goal, days } = aiState;
+  const { goal, days, gender } = aiState;
   const gCfg = goalConfig[goal];
+  const adjCfg = getAdjustedConfig(gCfg, gender);
   const expCfg = experienceConfig[aiState.experience];
   const pool = buildPool();
 
-  // Weekly schedule with self-check
-  let schedule = getWeeklySchedule(goal, days);
-  schedule = selfCheckSchedule(schedule);
+  // Weekly schedule
+  let schedule = gender === '女' ? getFemaleSchedule(days, aiState.selectedDays) : getWeeklySchedule(goal, days, aiState.selectedDays);
+  schedule = gender === '女' ? schedule : selfCheckSchedule(schedule);
 
   // Generate per-day exercises
   let weekPlan = schedule.map((focus, dayIdx) => {
     if (!focus) return { dayIdx, focus: null, exercises: [], totalSets: 0 };
-    const exercises = selectExercisesForDay(focus, pool, expCfg, gCfg);
+    const exercises = selectExercisesForDay(focus, pool, expCfg, adjCfg, gender);
     const totalSets = exercises.reduce((s, e) => s + e.assignedSets, 0);
     return { dayIdx, focus, exercises, totalSets };
   });
 
-  // Self-check: pad days with < 4 exercises
+  // Self-check: pad days with fewer than target exercises
   for (const day of weekPlan) {
-    if (!day.focus || day.exercises.length >= 4) continue;
+    if (!day.focus) continue;
     const dayInfo = dayMuscleMap[day.focus];
     if (!dayInfo) continue;
+    const dayMin = (gender === '女' && dayInfo.primary === 'chest') ? 2 : (gender === '女' ? 3 : 4);
+    if (day.exercises.length >= dayMin) continue;
     const used = new Set(day.exercises.map(e => e.name));
     const extras = [];
-    for (const g of dayInfo.groups) extras.push(...((pool[g] || []).filter(e => !used.has(e.name)).map(e => ({...e, muscleId: g}))));
+    for (const g of dayInfo.groups) { let pe = (pool[g] || []); if (gender === '女') { pe = pe.filter(e=>e.femaleRecommended); pe = pe.filter(e=>!isFemaleBannedArm(e.name)); } extras.push(...pe.filter(e => !used.has(e.name)).map(e => ({...e, muscleId: g}))); }
     shuffle(extras);
-    while (day.exercises.length < 4 && extras.length > 0) {
+    while (day.exercises.length < dayMin && extras.length > 0) {
       const ex = extras.shift();
-      day.exercises.push({ ...ex, role: '辅助', assignedSets: gCfg.sets });
+      day.exercises.push({ ...ex, role: '辅助', assignedSets: adjCfg.sets });
     }
     day.totalSets = day.exercises.reduce((s, e) => s + e.assignedSets, 0);
   }
 
   const totalWeeklySets = weekPlan.reduce((s, d) => s + d.totalSets, 0);
-  return { weekPlan, summary: { goal, days, experience: aiState.experience, totalWeeklySets, gCfg, expCfg } };
+  return { weekPlan, summary: { gender, goal, days, experience: aiState.experience, totalWeeklySets, gCfg: adjCfg, expCfg } };
 }
 
 // ---- Generate entry ----
 function generatePlan() {
   aiWizard.style.display = 'none';
   aiLoading.style.display = 'block';
+  // Save gender to localStorage (alongside nutrition goal)
+  if (aiState.gender) {
+    var goalData = getNutritionGoal() || {};
+    goalData.aiGender = aiState.gender;
+    persistNutritionGoal(goalData);
+  }
   setTimeout(() => {
     const plan = generateAIPlan();
     aiGeneratedPlan = plan;
@@ -2298,7 +2768,13 @@ function renderAIResult(plan) {
   const { weekPlan, summary } = plan;
   const dayNames = ['周一','周二','周三','周四','周五','周六','周日'];
 
-  let html = '<div class="ai-table-wrap"><table class="ai-week-table"><thead><tr>';
+  var html = '';
+  if (summary.gender === '女') {
+    html += '<div style="background:rgba(var(--accent-rgb),0.08);border:1px solid var(--accent);border-radius:var(--radius-card);padding:12px 16px;margin-bottom:16px;text-align:center;font-size:14px;color:var(--text-primary);">' +
+      '👩 已为你切换到女生版计划：按 下肢/上肢/全身 划分，每组 12-15 次，专注塑形' +
+      '</div>';
+  }
+  html += '<div class="ai-table-wrap"><table class="ai-week-table"><thead><tr>';
   for (const dn of dayNames) html += `<th class="ai-th">${dn}</th>`;
   html += '</tr></thead><tbody><tr>';
 
@@ -2312,12 +2788,16 @@ function renderAIResult(plan) {
     totalSets += day.totalSets;
     trainingDays++;
     html += `<td class="ai-day-cell"><div class="ai-cell-focus">${day.focus}</div>`;
-    for (const ex of day.exercises) {
+    for (let exIdx = 0; exIdx < day.exercises.length; exIdx++) {
+      const ex = day.exercises[exIdx];
       const badge = ex.role === '主项' ? '⭐' : ex.role === '孤立' ? '🎯' : '·';
-      html += `<div class="ai-cell-ex"><span class="ai-ex-emoji">${ex.emoji}</span> ` +
-        `<span class="ai-ex-name">${ex.name}</span> ` +
+      html += `<div class="ai-cell-ex">` +
+        `<span class="ai-ex-emoji">${ex.emoji}</span>` +
+        `<span class="ai-ex-name">${ex.name}</span>` +
+        `<button class="ai-ex-replace" data-day="${d}" data-ex="${exIdx}">✕</button>` +
         `<span class="ai-ex-role">${badge}</span>` +
-        `<span class="ai-ex-sets">${ex.assignedSets}组×${summary.gCfg.repDisplay}</span></div>`;
+        `<span class="ai-ex-sets">${ex.assignedSets}组×${summary.gCfg.repDisplay}</span>` +
+        `<select class="ai-ex-select" data-day="${d}" data-ex="${exIdx}" style="display:none"></select></div>`;
     }
     html += `<div class="ai-cell-volume">共 ${day.totalSets} 组</div></td>`;
   }
@@ -2343,7 +2823,7 @@ function renderAIResult(plan) {
   }
 
   html += `<div class="ai-summary">
-    <div class="ai-summary-item">📊 每周总组数：<strong>${totalSets} 组</strong>${summary.goal==='增肌'?(totalSets>=60?' ✅达标':' ⚠️不足'):''}</div>
+    <div class="ai-summary-item">📊 每周总组数：<strong>${totalSets} 组</strong>${summary.gender==='女'?(totalSets>=36?' ✅达标':' ⚠️不足'):(summary.goal==='增肌'?(totalSets>=60?' ✅达标':' ⚠️不足'):'')}</div>
     <div class="ai-summary-item">⏱ 单次训练约：<strong>${estMin} 分钟</strong></div>
     <div class="ai-summary-item">💪 强度评级：<strong>${intensity}</strong></div>
     <div class="ai-summary-item">⏳ 组间休息：<strong>${summary.gCfg.rest}</strong></div>
@@ -2352,7 +2832,8 @@ function renderAIResult(plan) {
   </div>`;
 
   aiWeekGrid.innerHTML = html;
-  aiPlanSummary.textContent = `目标：${summary.goal} · 每周${summary.days}天 · 经验：${summary.experience}`;
+  var genderLabel = summary.gender === '女' ? '👩 女' : '👨 男';
+  aiPlanSummary.textContent = `${genderLabel} · 目标：${summary.goal} · 每周${summary.days}天 · 经验：${summary.experience}`;
 }
 
 // ============================================================
@@ -2362,36 +2843,39 @@ function renderAIResult(plan) {
 // 换一批动作 (keep schedule, re-pick exercises)
 aiRegenerate.addEventListener('click', () => {
   if (!aiGeneratedPlan) return;
-  const { goal, days, experience, equipment } = aiState;
+  const { goal, days, experience, equipment, gender } = aiState;
   const gCfg = goalConfig[goal];
+  const adjCfg = getAdjustedConfig(gCfg, gender);
   const expCfg = experienceConfig[experience];
   const pool = buildPool();
 
   const weekPlan = aiGeneratedPlan.weekPlan.map((oldDay, dayIdx) => {
     if (!oldDay.focus) return { ...oldDay };
-    const exercises = selectExercisesForDay(oldDay.focus, pool, expCfg, gCfg);
+    const exercises = selectExercisesForDay(oldDay.focus, pool, expCfg, adjCfg, gender);
     const totalSets = exercises.reduce((s, e) => s + e.assignedSets, 0);
     return { dayIdx, focus: oldDay.focus, exercises, totalSets };
   });
 
-  // Self-check: pad <4
+  // Self-check: pad days with fewer than target exercises
   for (const day of weekPlan) {
-    if (!day.focus || day.exercises.length >= 4) continue;
+    if (!day.focus) continue;
     const dayInfo = dayMuscleMap[day.focus];
     if (!dayInfo) continue;
+    const dayMin = (gender === '女' && dayInfo.primary === 'chest') ? 2 : (gender === '女' ? 3 : 4);
+    if (day.exercises.length >= dayMin) continue;
     const used = new Set(day.exercises.map(e => e.name));
     const extras = [];
-    for (const g of dayInfo.groups) extras.push(...((pool[g] || []).filter(e => !used.has(e.name)).map(e => ({...e, muscleId: g}))));
+    for (const g of dayInfo.groups) { let pe = (pool[g] || []); if (gender === '女') { pe = pe.filter(e=>e.femaleRecommended); pe = pe.filter(e=>!isFemaleBannedArm(e.name)); } extras.push(...pe.filter(e => !used.has(e.name)).map(e => ({...e, muscleId: g}))); }
     shuffle(extras);
-    while (day.exercises.length < 4 && extras.length > 0) {
+    while (day.exercises.length < dayMin && extras.length > 0) {
       const ex = extras.shift();
-      day.exercises.push({ ...ex, role: '辅助', assignedSets: gCfg.sets });
+      day.exercises.push({ ...ex, role: '辅助', assignedSets: adjCfg.sets });
     }
     day.totalSets = day.exercises.reduce((s, e) => s + e.assignedSets, 0);
   }
 
   const totalWeeklySets = weekPlan.reduce((s, d) => s + d.totalSets, 0);
-  aiGeneratedPlan = { weekPlan, summary: { ...aiGeneratedPlan.summary, totalWeeklySets } };
+  aiGeneratedPlan = { weekPlan, summary: { ...aiGeneratedPlan.summary, totalWeeklySets, gCfg: adjCfg } };
   renderAIResult(aiGeneratedPlan);
 });
 
@@ -2404,13 +2888,8 @@ aiBackWizard.addEventListener('click', () => {
 // 保存为我的计划
 aiAddPlan.addEventListener('click', () => {
   if (!aiGeneratedPlan) return;
-  let count = 0;
-  for (const day of aiGeneratedPlan.weekPlan) {
-    for (const ex of day.exercises) {
-      if (!isFavorite(ex.muscleId, ex.name)) { toggleFavorite(ex.muscleId, ex.name); count++; }
-    }
-  }
-  alert(count > 0 ? `✅ 已将 ${count} 个动作加入「我的计划」！` : '这些动作已经在你的计划中了 ✅');
+  saveWeekPlan(aiGeneratedPlan);
+  alert('✅ 训练计划已保存！你可以在「我的计划」中查看。');
 });
 
 // 导出图片
@@ -2422,6 +2901,69 @@ aiExport.addEventListener('click', () => {
   html2canvas(el, { backgroundColor: bg, scale: 2, useCORS: true, logging: false })
     .then(c => { const a = document.createElement('a'); a.download = 'AI训练计划.png'; a.href = c.toDataURL('image/png'); a.click(); })
     .catch(() => alert('导出失败，请重试。'));
+});
+
+// ---- Exercise replacement (✕ → dropdown) ----
+aiWeekGrid.addEventListener('click', function(e) {
+  var btn = e.target.closest('.ai-ex-replace');
+  if (!btn || !aiGeneratedPlan) return;
+  var dayIdx = parseInt(btn.dataset.day), exIdx = parseInt(btn.dataset.ex);
+  var day = aiGeneratedPlan.weekPlan[dayIdx], ex = day && day.exercises[exIdx];
+  if (!day || !ex) return;
+  var sel = btn.parentNode.querySelector('.ai-ex-select');
+  if (!sel) return;
+  btn.style.display = 'none';
+  // Build candidate list from the same muscle group
+  var dayInfo = dayMuscleMap[day.focus];
+  var targetMuscle = ex.muscleId || (dayInfo ? dayInfo.primary : null);
+  var pool = targetMuscle ? (exercises[targetMuscle] || []) : [];
+  var expCfg = experienceConfig[aiState.experience];
+  var candidates = [];
+  for (var i = 0; i < pool.length; i++) {
+    var ce = pool[i];
+    if (ce.name === ex.name) continue;
+    if (expCfg && expCfg.allowedDiff && expCfg.allowedDiff.indexOf(ce.difficulty) < 0) continue;
+    if (aiState.equipment.indexOf(ce.equipment) < 0) continue;
+    candidates.push(ce);
+  }
+  var optHTML = '<option value="">选择替换动作...</option>';
+  var grouped = {};
+  for (var ci = 0; ci < candidates.length; ci++) {
+    var cat = candidates[ci].subCategory || '其他';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(candidates[ci]);
+  }
+  for (var catName in grouped) {
+    optHTML += '<optgroup label="' + catName + '">';
+    for (var cj = 0; cj < grouped[catName].length; cj++)
+      optHTML += '<option value="' + grouped[catName][cj].name + '">' + grouped[catName][cj].name + '</option>';
+    optHTML += '</optgroup>';
+  }
+  optHTML += '<option value="__restore__">↩ 恢复原动作</option>';
+  sel.innerHTML = optHTML;
+  sel.style.display = 'inline-block';
+  sel.focus();
+});
+aiWeekGrid.addEventListener('change', function(e) {
+  var sel = e.target.closest('.ai-ex-select');
+  if (!sel || !aiGeneratedPlan) return;
+  var dayIdx = parseInt(sel.dataset.day), exIdx = parseInt(sel.dataset.ex);
+  var day = aiGeneratedPlan.weekPlan[dayIdx], oldEx = day && day.exercises[exIdx];
+  if (!day || !oldEx) return;
+  var val = sel.value;
+  if (!val || val === '__restore__') { renderAIResult(aiGeneratedPlan); return; }
+  var dayInfo = dayMuscleMap[day.focus];
+  var targetMuscle = oldEx.muscleId || (dayInfo ? dayInfo.primary : null);
+  var pool = targetMuscle ? (exercises[targetMuscle] || []) : [];
+  var newEx = null;
+  for (var i = 0; i < pool.length; i++) { if (pool[i].name === val) { newEx = pool[i]; break; } }
+  if (!newEx) { renderAIResult(aiGeneratedPlan); return; }
+  day.exercises[exIdx] = {
+    muscleId: newEx.muscleId, name: newEx.name, emoji: newEx.emoji,
+    role: oldEx.role, assignedSets: oldEx.assignedSets, difficulty: newEx.difficulty
+  };
+  day.totalSets = day.exercises.reduce(function(s, e) { return s + e.assignedSets; }, 0);
+  renderAIResult(aiGeneratedPlan);
 });
 
 // ============================================================
@@ -2830,6 +3372,60 @@ function updateDateDisplay() {
   document.getElementById('date-display').textContent = formatDisplay(currentDate);
 }
 
+function renderDietSummary() {
+  const dateStr = formatDate(currentDate);
+  const records = getDayRecords(dateStr);
+  const goal = getNutritionGoal();
+  const container = document.getElementById('diet-summary');
+  const grid = document.getElementById('diet-summary-grid');
+  if (!container || !grid) return;
+
+  // Calculate totals
+  const portionMult = { '小':0.7, '中':1.0, '大':1.3 };
+  let cal = 0, protein = 0, carbs = 0, fat = 0;
+  for (const meal of mealKeys) {
+    for (const item of (records[meal] || [])) {
+      if (item.grams) {
+        // New format: stored exact nutrition values
+        cal += item.calories || 0;
+        protein += item.protein || 0;
+        carbs += item.carbs || 0;
+        fat += item.fat || 0;
+      } else {
+        // Legacy format: estimate from portion multiplier
+        const db = foodDatabase.find(f => f.name === item.name);
+        if (!db) continue;
+        const p = portionMult[item.portion] || 1;
+        cal += db.calories * p;
+        protein += (db.protein || 0) * p;
+        carbs += (db.carbs || 0) * p;
+        fat += (db.fat || 0) * p;
+      }
+    }
+  }
+  cal = Math.round(cal); protein = Math.round(protein); carbs = Math.round(carbs); fat = Math.round(fat);
+
+  if (cal === 0) { container.style.display = 'none'; return; }
+  container.style.display = 'block';
+
+  const items = [
+    { label:'热量', value:cal, target:goal ? goal.targetCalories : null, unit:'大卡' },
+    { label:'蛋白质', value:protein, target:goal ? goal.protein : null, unit:'g' },
+    { label:'碳水', value:carbs, target:goal ? goal.carbs : null, unit:'g' },
+    { label:'脂肪', value:fat, target:goal ? goal.fat : null, unit:'g' }
+  ];
+
+  grid.innerHTML = items.map(item => {
+    const pct = item.target > 0 ? Math.min(Math.round(item.value / item.target * 100), 100) : 0;
+    const over = item.target && item.value >= item.target;
+    return `<div class="diet-summary-item">
+      <div class="dsi-label">${item.label}</div>
+      <div class="dsi-value">${item.value}<span class="dsi-target"> / ${item.target || '--'} ${item.unit}</span></div>
+      <div class="dsi-bar"><div class="dsi-bar-fill${over?' over':''}" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
 function renderDay() {
   const dateStr = formatDate(currentDate);
   const records = getDayRecords(dateStr);
@@ -2839,7 +3435,12 @@ function renderDay() {
     const container = document.getElementById('meal-' + meal);
     container.innerHTML = '';
     items.forEach((item, idx) => {
-      const portion = item.portion || (item.portions + ' ' + (item.unit || '份'));
+      let portion;
+      if (item.grams) {
+        portion = item.grams + 'g · ' + item.calories + '大卡';
+      } else {
+        portion = item.portion || (item.portions + ' ' + (item.unit || '份'));
+      }
       const div = document.createElement('div');
       div.className = 'meal-item';
       div.innerHTML = `<div class="meal-item-left"><div class="meal-item-name">${item.name}</div><div class="meal-item-portion">${portion}</div></div>
@@ -2864,6 +3465,7 @@ function renderDay() {
       if (planTab && planTab.classList.contains('active')) renderDietPlanTab();
     });
   });
+  renderDietSummary();
 }
 
 // Date navigation
@@ -2897,16 +3499,9 @@ const foodSearchList = document.getElementById('food-search-list');
 const foodCategoriesEl = document.getElementById('food-categories');
 const foodPortions = document.getElementById('food-portions');
 const confirmFoodBtn = document.getElementById('confirm-food-btn');
+const foodGramInput = document.getElementById('food-gram-input');
 
 let activeFoodCategory = '全部';
-
-// Portion option buttons
-document.querySelectorAll('#portion-options .form-option').forEach(opt => {
-  opt.addEventListener('click', () => {
-    document.querySelectorAll('#portion-options .form-option').forEach(o => o.classList.remove('selected'));
-    opt.classList.add('selected');
-  });
-});
 
 // Build category filter buttons
 (function buildCategoryFilters() {
@@ -2940,7 +3535,7 @@ function renderFoodSearch() {
     el.addEventListener('click', () => {
       const name = el.dataset.name;
       selectedFood = foodDatabase.find(f => f.name === name);
-      if (selectedFood) showPortionSelector();
+      if (selectedFood) showGramInput();
     });
   });
   if (list.length > 0) {
@@ -2949,18 +3544,48 @@ function renderFoodSearch() {
   foodPortions.style.display = 'none';
 }
 
-function showPortionSelector() {
+function showGramInput() {
   if (!selectedFood) return;
   foodPortions.style.display = 'block';
-  foodPortions.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  foodGramInput.value = '';
+  foodGramInput.focus();
+  document.getElementById('food-nutrition-preview').style.display = 'none';
+  confirmFoodBtn.disabled = true;
 }
+
+function updateNutritionPreview() {
+  if (!selectedFood) return;
+  const grams = parseFloat(foodGramInput.value);
+  if (!grams || grams <= 0) {
+    document.getElementById('food-nutrition-preview').style.display = 'none';
+    confirmFoodBtn.disabled = true;
+    return;
+  }
+  const factor = grams / 100;
+  const cal = Math.round(selectedFood.calories * factor);
+  const protein = (selectedFood.protein * factor).toFixed(1);
+  const carbs = (selectedFood.carbs * factor).toFixed(1);
+  const fat = (selectedFood.fat * factor).toFixed(1);
+  document.getElementById('nutrition-preview-title').textContent = grams + 'g ' + selectedFood.name + ' ≈ ' + cal + ' kcal';
+  document.getElementById('nutrition-preview-detail').textContent = '碳水 ' + carbs + 'g · 蛋白质 ' + protein + 'g · 脂肪 ' + fat + 'g';
+  document.getElementById('food-nutrition-preview').style.display = 'block';
+  confirmFoodBtn.disabled = false;
+}
+
+foodGramInput.addEventListener('input', updateNutritionPreview);
 
 confirmFoodBtn.addEventListener('click', () => {
   if (!selectedFood) return;
-  const portionEl = document.querySelector('#portion-options .form-option.selected');
+  const grams = parseFloat(foodGramInput.value);
+  if (!grams || grams <= 0) return;
+  const factor = grams / 100;
   const item = {
     name: selectedFood.name,
-    portion: portionEl ? portionEl.dataset.portion : '中'
+    grams: grams,
+    calories: Math.round(selectedFood.calories * factor),
+    protein: Math.round((selectedFood.protein || 0) * factor * 10) / 10,
+    carbs: Math.round((selectedFood.carbs || 0) * factor * 10) / 10,
+    fat: Math.round((selectedFood.fat || 0) * factor * 10) / 10
   };
 
   if (pendingMealType) {
@@ -2990,6 +3615,9 @@ function openFoodSearch() {
   });
   selectedFood = null;
   foodPortions.style.display = 'none';
+  if (foodGramInput) { foodGramInput.value = ''; }
+  document.getElementById('food-nutrition-preview').style.display = 'none';
+  confirmFoodBtn.disabled = true;
   renderFoodSearch();
   foodSearchInput.focus();
 }
@@ -3329,6 +3957,7 @@ let logSelectedEx = null;
 let logFeeling = 4;
 let logResistanceType = null;
 let logBWMode = true; // true = bodyweight, false = weighted
+let editLogId = null; // non-null when editing existing record
 const logBWToggle = document.getElementById("log-bw-toggle");
 const logBWModeBtns = document.querySelectorAll("#log-bw-toggle .filter-btn");
 const logTypeLabel = document.getElementById("log-type-label");
@@ -3404,6 +4033,7 @@ function renderLogRecords() {
       '<div class="log-record-header">' +
         '<div><span class="log-record-ex-name">' + (log.exerciseEmoji || "🏋️") + " " + log.exerciseName + '</span>' + (isBW ? '<span class="log-bw-tag">自重</span>' : '') + '</div>' +
         '<div><span class="log-record-date">' + dateDisplay + '</span>' +
+        '<button class="log-record-edit" data-log-id="' + log.id + '" style="background:none;border:none;cursor:pointer;font-size:13px;color:var(--text-secondary);padding:2px 6px;border-radius:4px;" title="编辑">✎</button>' +
         '<button class="log-record-delete" data-log-id="' + log.id + '">✕</button></div>' +
       '</div>' +
       '<div class="log-record-sets">' + setsHtml + '</div>' +
@@ -3420,6 +4050,13 @@ function renderLogRecords() {
       renderLogPage();
     });
   });
+  container.querySelectorAll(".log-record-edit").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var logs = getTrainingLogs();
+      var log = logs.find(function(l) { return l.id === this.dataset.logId; }.bind(this));
+      if (log) openLogModal(log);
+    });
+  });
 }
 
 function renderLogPage() {
@@ -3433,7 +4070,8 @@ if (logDateFrom) logDateFrom.addEventListener("change", renderLogRecords);
 if (logDateTo) logDateTo.addEventListener("change", renderLogRecords);
 
 // --- Modal ---
-function openLogModal() {
+function openLogModal(log) {
+  editLogId = log ? log.id : null;
   logSelectedEx = null;
   logFeeling = 4;
   logResistanceType = null;
@@ -3449,6 +4087,51 @@ function openLogModal() {
     btn.classList.toggle("selected", parseInt(btn.dataset.feeling) === 4);
   });
   renderLogSets(1);
+
+  if (log) {
+    // Pre-fill for editing
+    var exData = allExercises.find(function(e) { return e.name === log.exerciseName; }) ||
+                 allExercises.find(function(e) { return e.id === log.exerciseId; });
+    if (exData) {
+      logSelectedEx = exData;
+      logResistanceType = exData.resistanceType || log.resistanceType;
+      logExSearch.value = (exData.emoji || '🏋️') + ' ' + exData.name;
+    } else {
+      // Fallback: log has name but not in database
+      logSelectedEx = { id: log.exerciseId, name: log.exerciseName, emoji: log.exerciseEmoji || '🏋️', resistanceType: log.resistanceType || 'weight' };
+      logResistanceType = log.resistanceType || 'weight';
+      logExSearch.value = (log.exerciseEmoji || '🏋️') + ' ' + log.exerciseName;
+    }
+    logDateInput.value = log.date;
+    logNoteInput.value = log.note || '';
+    logFeeling = log.feeling || 4;
+    logFeelingBtns.forEach(function(btn) {
+      btn.classList.toggle("selected", parseInt(btn.dataset.feeling) === logFeeling);
+    });
+    // Rebuild sets
+    if (log.sets && log.sets.length > 0) {
+      logSetsContainer.innerHTML = '';
+      log.sets.forEach(function(s, i) {
+        var row = document.createElement('div');
+        row.className = 'log-set-row';
+        row.innerHTML = '<span class="set-num">' + (i+1) + '</span>' +
+          '<input class="log-set-input log-set-weight" type="number" placeholder="重量" min="0" step="0.5" value="' + (s.weight||'') + '">' +
+          '<span class="log-set-label">kg</span>' +
+          '<input class="log-set-input log-set-reps" type="number" placeholder="次数" min="0" step="1" value="' + (s.reps||'') + '">' +
+          '<span class="log-set-label">次</span>' +
+          '<button class="log-set-del">✕</button>';
+        logSetsContainer.appendChild(row);
+        row.querySelector(".log-set-del").addEventListener("click", function() {
+          if (!confirm("确定删除这组？")) return;
+          row.remove();
+          logSetsContainer.querySelectorAll(".log-set-row").forEach(function(r, idx) {
+            r.querySelector(".set-num").textContent = idx + 1;
+          });
+        });
+      });
+    }
+  }
+
   logModalOverlay.classList.add("open");
 }
 
@@ -3463,7 +4146,34 @@ window.addEventListener("beforeunload", function(e) { if (hasUnsavedLogData()) {
 // Exercise search
 logExSearch.addEventListener("input", function() {
   var q = this.value.trim().toLowerCase();
-  if (!q) { logExList.classList.remove("open"); return; }
+  logExList.innerHTML = "";
+  if (!q) {
+    // Show all exercises grouped by muscle
+    var groups = {};
+    allExercises.forEach(function(ex) {
+      var mg = muscleGroups.find(function(g) { return g.id === ex.muscleId; });
+      var key = mg ? mg.name : ex.muscleId;
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(ex);
+    });
+    for (var gName in groups) {
+      var header = document.createElement("div");
+      header.className = "log-ex-group-header";
+      header.textContent = "— " + gName + " —";
+      logExList.appendChild(header);
+      groups[gName].forEach(function(ex) {
+        var div = document.createElement("div");
+        div.className = "log-ex-item";
+        div.dataset.exId = ex.id;
+        div.dataset.exName = ex.name;
+        div.dataset.exEmoji = ex.emoji || "🏋️";
+        div.textContent = (ex.emoji || "🏋️") + " " + ex.name;
+        logExList.appendChild(div);
+      });
+    }
+    logExList.classList.add("open");
+    return;
+  }
   var matches = allExercises.filter(function(ex) {
     return ex.name.toLowerCase().indexOf(q) !== -1;
   }).slice(0, 10);
@@ -3631,8 +4341,8 @@ logModalSave.addEventListener("click", function() {
     });
     if (sets.length === 0) { alert(isBW ? "请至少填写一组有效次数" : "请至少填写一组有效的重量和次数"); return; }
     var logs = getTrainingLogs();
-    logs.push({
-      id: Date.now().toString(),
+    var entry = {
+      id: editLogId || Date.now().toString(),
       date: date,
       exerciseId: logSelectedEx.id,
       exerciseName: logSelectedEx.name,
@@ -3642,7 +4352,14 @@ logModalSave.addEventListener("click", function() {
       sets: sets,
       feeling: logFeeling,
       note: logNoteInput.value.trim()
-    });
+    };
+    if (editLogId) {
+      var idx = logs.findIndex(function(l) { return l.id === editLogId; });
+      if (idx >= 0) logs[idx] = entry;
+      else logs.push(entry);
+    } else {
+      logs.push(entry);
+    }
     saveTrainingLogs(logs);
     closeLogModal();
     renderLogPage();
