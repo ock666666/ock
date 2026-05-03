@@ -2034,7 +2034,6 @@ exerciseGrid.addEventListener('click', function(e) {
   if (!star) return;
   const muscleId = star.dataset.muscle;
   const name = star.dataset.name;
-  console.log('点击了动作：', name);
   const ex = getExerciseByKey(muscleId, name);
   if (ex) openModal(ex);
 });
@@ -2063,7 +2062,6 @@ function showWorkout(id) {
 }
 
 function showPage(page) {
-  console.log('[Nav] showPage called, target:', page.id);
   if (typeof hasUnsavedLogData === 'function' && hasUnsavedLogData() && !confirm('你有未保存的训练记录，确定要离开吗？')) return;
   // Phase 1: all reads (layout is clean at function entry)
   var allPages = document.querySelectorAll('.page');
@@ -2080,9 +2078,8 @@ function showPage(page) {
   else page.classList.add('active');
   navBtns.forEach(function(n){n.classList.remove('active');});
   if (navId) { var el = document.getElementById(navId); if (el) el.classList.add('active'); }
-  console.log('[Nav] active page after switch:', page.id);
 }
-function goHome() { console.log('[Nav] goHome -> delegating to showPage(main-page)'); showPage(document.getElementById('main-page')); }
+function goHome() { showPage(document.getElementById('main-page')); }
 btnBack.addEventListener('click', goHome);
 btnBackPlan.addEventListener('click', goHome);
 btnNavHome.addEventListener('click', goHome);
@@ -2108,7 +2105,6 @@ function openModal(ex) {
     videoPlaceholder.style.display = 'flex'; videoPlaceholder.innerHTML = '<span style="color:#8899aa;">暂无示范视频</span>';
     videoLabel.textContent = `${ex.name} — 暂无示范视频`;
   }
-  console.log(`[视频] ${ex.name} => ${ex.videoUrl}`);
   modalOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   // Init posture correction + context
@@ -2201,7 +2197,6 @@ pcBtn.addEventListener('click', async () => {
 document.getElementById('ai-settings-save').addEventListener('click', () => {
   const raw = document.getElementById('ai-api-key-input').value;
   const key = raw.trim();
-  if (raw !== key) console.log('已自动清洗Key');
   if (!key) { alert('请输入 API Key'); return; }
   saveApiKey(key);
   const btn = document.getElementById('ai-settings-save');
@@ -3355,7 +3350,6 @@ function calcMacros(gender, weight, height, age, goal, trainingDays) {
   const protein = Math.round(proteinPerKg * weight);
   const fat = Math.round(Math.max(0.9 * weight, 50));
   const carbs = Math.round((targetCalories - protein * 4 - fat * 9) / 4);
-  console.log('[Nutrition] BMR=' + bmr + ', TDEE=' + tdee + ', 目标热量=' + targetCalories + ', 蛋白质=' + protein + 'g, 脂肪=' + fat + 'g, 碳水=' + carbs + 'g' + (capped ? ' (热量已上限3000)' : ''));
   return { targetCalories, protein, carbs, fat, bmr, tdee, capped };
 }
 
@@ -4590,7 +4584,6 @@ logModalSave.addEventListener("click", function() {
       });
       sb.from('training_records').insert(sbRows).then(function(res) {
         if (res.error) { console.error('保存失败', res.error); }
-        else { console.log('训练记录保存成功'); }
       });
     } else {
       saveTrainingLogs(logs);
