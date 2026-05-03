@@ -1848,6 +1848,8 @@ async function loadFavoritesFromSupabase() {
     console.error('读取收藏失败', err);
   }
 }
+var cachedPlan = null;
+
 function saveWeekPlan(plan) {
   if (!plan || !plan.weekPlan) return;
   var data = { weekPlan: [], summary: plan.summary || {} };
@@ -1860,10 +1862,29 @@ function saveWeekPlan(plan) {
     }
     data.weekPlan.push(dayData);
   }
-  localStorage.setItem(PLAN_WEEK_KEY, JSON.stringify(data));
+  cachedPlan = data;
+  if (typeof sb !== 'undefined') {
+    sb.from('workout_plans').upsert({ id: 1, plan_data: data, updated_at: new Date() }); // [已迁移到Supabase]
+  } else {
+    localStorage.setItem(PLAN_WEEK_KEY, JSON.stringify(data)); // 降级
+  }
 }
 function getWeekPlan() {
+  if (cachedPlan) return cachedPlan;
   try { return JSON.parse(localStorage.getItem(PLAN_WEEK_KEY)) || null; } catch { return null; }
+}
+async function loadWeekPlanFromSupabase() {
+  if (typeof sb === 'undefined') return;
+  try {
+    var res = await sb.from('workout_plans').select('plan_data').eq('id', 1).single();
+    if (res.error) { if (res.error.code !== 'PGRST116') console.error('读取训练计划失败', res.error); return; }
+    if (res.data && res.data.plan_data) {
+      cachedPlan = res.data.plan_data;
+      renderPlanPage();
+    }
+  } catch(err) {
+    console.error('读取训练计划失败', err);
+  }
 }
 function removeFavorite(muscleId, name) { saveFavorites(getFavorites().filter(f => !(f.muscleId === muscleId && f.name === name))); }
 function clearFavorites() { saveFavorites([]); }
@@ -2196,8 +2217,9 @@ function renderPlanPage() {
   renderWeekTracker();
   renderPlanBySchedule();
   renderFavorites();
+  if (typeof sb !== 'undefined' && !cachedPlan) loadWeekPlanFromSupabase();
 }
-document.getElementById('btn-clear').addEventListener('click', () => { if (confirm('确定要清空训练计划吗？')) { localStorage.removeItem(PLAN_WEEK_KEY); renderPlanPage(); } });
+document.getElementById('btn-clear').addEventListener('click', function() { if (confirm('确定要清空训练计划吗？')) { cachedPlan = null; if (typeof sb !== 'undefined') { sb.from('workout_plans').delete().eq('id', 1); } else { localStorage.removeItem(PLAN_WEEK_KEY); } renderPlanPage(); } });
 
 // ---- Week tracker ----
 function getWeekKey() {
