@@ -3238,7 +3238,7 @@ function persistNutritionGoal(g) {
 async function loadNutritionGoalFromSupabase() {
   if (typeof sb === 'undefined') return;
   try {
-    var res = await sb.from('nutrition_goals').select('goal_data').eq('id', 1).single();
+    var res = await sb.from('nutrition_goals').select('goal_data').eq('id', 1).maybeSingle();
     if (res.error) { if (res.error.code !== 'PGRST116') console.error('读取营养目标失败', res.error); return; }
     if (res.data && res.data.goal_data) {
       cachedNutritionGoal = res.data.goal_data;
