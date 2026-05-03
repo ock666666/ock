@@ -3181,22 +3181,67 @@ const mealLabels = { breakfast:'🌅 早餐', lunch:'☀️ 午餐', dinner:'�
 
 function getDietRecords() { try { return JSON.parse(localStorage.getItem(DIET_RECORDS_KEY)) || {}; } catch { return {}; } }
 function saveDietRecords(r) { localStorage.setItem(DIET_RECORDS_KEY, JSON.stringify(r)); }
+var cachedDietRecords = {};
 function getDayRecords(dateStr) {
-  const all = getDietRecords();
+  if (cachedDietRecords[dateStr]) return cachedDietRecords[dateStr];
+  var all = getDietRecords();
   if (!all[dateStr]) all[dateStr] = { breakfast:[], lunch:[], dinner:[], snack:[] };
+  cachedDietRecords[dateStr] = all[dateStr];
   return all[dateStr];
 }
 function saveDayRecords(dateStr, records) {
-  const all = getDietRecords();
+  cachedDietRecords[dateStr] = records;
+  var all = getDietRecords();
   all[dateStr] = records;
   saveDietRecords(all);
 }
-
-
+async function loadDayDietRecordsFromSupabase(dateStr) {
+  if (typeof sb === 'undefined') {
+    var _all = getDietRecords();
+    cachedDietRecords[dateStr] = _all[dateStr] || { breakfast:[], lunch:[], dinner:[], snack:[] };
+    renderDay(); return;
+  }
+  try {
+    var res = await sb.from('diet_records').select('*').eq('date', dateStr);
+    if (res.error) { console.error('读取饮食记录失败', res.error); return; }
+    var records = { breakfast:[], lunch:[], dinner:[], snack:[] };
+    res.data.forEach(function(row) {
+      var meal = row.meal_type;
+      if (records[meal]) {
+        records[meal].push({ name: row.food_name, grams: row.grams, calories: row.calories, protein: row.protein, carbs: row.carbs, fat: row.fat, _sid: row.id });
+      }
+    });
+    cachedDietRecords[dateStr] = records;
+    renderDay();
+  } catch(err) { console.error('读取饮食记录失败', err); }
+}
 
 const NUTRITION_GOAL_KEY = 'userNutritionGoal';
-function getNutritionGoal() { try { return JSON.parse(localStorage.getItem(NUTRITION_GOAL_KEY)); } catch { return null; } }
-function persistNutritionGoal(g) { localStorage.setItem(NUTRITION_GOAL_KEY, JSON.stringify(g)); }
+var cachedNutritionGoal = null;
+function getNutritionGoal() {
+  if (cachedNutritionGoal) return cachedNutritionGoal;
+  try { return JSON.parse(localStorage.getItem(NUTRITION_GOAL_KEY)); } catch { return null; }
+}
+function persistNutritionGoal(g) {
+  cachedNutritionGoal = g;
+  if (typeof sb !== 'undefined') { sb.from('nutrition_goals').upsert({ id: 1, goal_data: g }); }
+  localStorage.setItem(NUTRITION_GOAL_KEY, JSON.stringify(g));
+}
+async function loadNutritionGoalFromSupabase() {
+  if (typeof sb === 'undefined') return;
+  try {
+    var res = await sb.from('nutrition_goals').select('goal_data').eq('id', 1).single();
+    if (res.error) { if (res.error.code !== 'PGRST116') console.error('读取营养目标失败', res.error); return; }
+    if (res.data && res.data.goal_data) {
+      cachedNutritionGoal = res.data.goal_data;
+      renderDietPlanTab();
+      renderDietSummary();
+      if (res.data.goal_data.gender && res.data.goal_data.age && res.data.goal_data.height) {
+        showGoalCard(res.data.goal_data);
+      }
+    }
+  } catch(err) { console.error('读取营养目标失败', err); }
+}
 
 // ============================================================
 //  DIET: Navigation & Init
@@ -3205,7 +3250,7 @@ const dietPage = document.getElementById('diet-page');
 const btnNavDiet = document.getElementById('nav-diet');
 const btnBackDiet = document.getElementById('btn-back-diet');
 
-btnNavDiet.addEventListener('click', () => { showPage(dietPage); });
+btnNavDiet.addEventListener('click', function() { showPage(dietPage); if (typeof sb !== 'undefined') loadDayDietRecordsFromSupabase(formatDate(currentDate)); });
 btnBackDiet.addEventListener('click', goHome);
 
 const logPage = document.getElementById('log-page');
@@ -3438,6 +3483,7 @@ function restoreNutritionGoal() {
 }
 
 restoreNutritionGoal();
+if (typeof sb !== 'undefined') loadNutritionGoalFromSupabase();
 
 document.getElementById('goal-guide-btn').addEventListener('click', showGoalForm);
 
@@ -3550,8 +3596,12 @@ function renderDay() {
       const idx = parseInt(btn.dataset.idx);
       const dateStr = formatDate(currentDate);
       const records = getDayRecords(dateStr);
+      const item = records[meal][idx];
       records[meal].splice(idx, 1);
       saveDayRecords(dateStr, records);
+      if (typeof sb !== 'undefined' && item && item._sid) {
+        sb.from('diet_records').delete().eq('id', item._sid).then(function(r) { if (r.error) console.error('删除饮食记录失败', r.error); });
+      }
       renderDay();
       // Re-render plan tab if visible
       const planTab = document.getElementById('diet-plan-tab');
@@ -3566,11 +3616,13 @@ document.getElementById('date-prev').addEventListener('click', () => {
   currentDate.setDate(currentDate.getDate() - 1);
   updateDateDisplay();
   renderDay();
+  if (typeof sb !== 'undefined') loadDayDietRecordsFromSupabase(formatDate(currentDate));
 });
 document.getElementById('date-next').addEventListener('click', () => {
   currentDate.setDate(currentDate.getDate() + 1);
   updateDateDisplay();
   renderDay();
+  if (typeof sb !== 'undefined') loadDayDietRecordsFromSupabase(formatDate(currentDate));
 });
 
 // Add food buttons
@@ -3686,6 +3738,15 @@ confirmFoodBtn.addEventListener('click', () => {
     const records = getDayRecords(dateStr);
     records[pendingMealType].push(item);
     saveDayRecords(dateStr, records);
+    if (typeof sb !== 'undefined') {
+      sb.from('diet_records').insert({
+        meal_type: pendingMealType, food_name: item.name, grams: item.grams,
+        calories: item.calories, protein: item.protein, carbs: item.carbs, fat: item.fat, date: dateStr
+      }).then(function(res) {
+        if (res.error) { console.error('保存饮食记录失败', res.error); return; }
+        if (res.data && res.data.length > 0) item._sid = res.data[0].id;
+      });
+    }
     renderDay();
     const planTab = document.getElementById('diet-plan-tab');
     if (planTab && planTab.classList.contains('active')) renderDietPlanTab();
@@ -3724,6 +3785,7 @@ function closeFoodSearch() {
 // Initialize record tab
 updateDateDisplay();
 renderDay();
+if (typeof sb !== 'undefined') loadDayDietRecordsFromSupabase(formatDate(currentDate));
 
 // ============================================================
 //  DIET: Tab3 - 我的计划
