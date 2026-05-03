@@ -1572,13 +1572,19 @@ const THEME_KEY = 'themePreference';
 
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem(THEME_KEY, theme);
+  // localStorage.setItem(THEME_KEY, theme); // [LOCALSTORAGE] // [已迁移到Supabase]
+  sb.from('user_settings').upsert({ setting_key: 'themePreference', setting_value: theme });
   var btn = document.getElementById('theme-toggle');
   if (btn) btn.textContent = theme === 'dark' ? '🌙' : '🌸';
 }
 
-// Init theme
-setTheme(localStorage.getItem(THEME_KEY) || 'dark');
+// Init theme — 先默认深色，再异步从 Supabase 加载用户偏好
+setTheme('dark');
+sb.from('user_settings').select('setting_value').eq('setting_key', 'themePreference').then(function(res) {
+  if (res.data && res.data.length > 0 && res.data[0].setting_value) {
+    setTheme(res.data[0].setting_value);
+  }
+});
 
 // Toggle
 (function() {
