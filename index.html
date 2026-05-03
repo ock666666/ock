@@ -1789,17 +1789,64 @@ allExercises.forEach(ex => {
 // Female exercise selection uses femaleRecommended field on exercise data objects
 
 // ============================================================
-//  FAVORITES (localStorage)
+//  FAVORITES (localStorage → Supabase)
 // ============================================================
 const STORAGE_KEY = 'fitness_favorites';
 const PLAN_WEEK_KEY = 'fitness_weekplan';
-function getFavorites() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } }
-function saveFavorites(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+let cachedFavorites = null;
+
+function getFavorites() {
+  if (cachedFavorites) return cachedFavorites;
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+}
+function saveFavorites(list) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
 function isFavorite(muscleId, name) { return getFavorites().some(f => f.muscleId === muscleId && f.name === name); }
 function toggleFavorite(muscleId, name) {
-  const list = getFavorites(); const idx = list.findIndex(f => f.muscleId === muscleId && f.name === name);
-  if (idx >= 0) list.splice(idx, 1); else list.push({ muscleId, name });
-  saveFavorites(list); return idx < 0;
+  const list = getFavorites();
+  const idx = list.findIndex(f => f.muscleId === muscleId && f.name === name);
+  if (idx >= 0) {
+    list.splice(idx, 1);
+    if (typeof sb !== 'undefined') {
+      sb.from('user_favorites').delete().eq('action_name', name); // [已迁移到Supabase]
+    }
+  } else {
+    list.push({ muscleId, name });
+    if (typeof sb !== 'undefined') {
+      sb.from('user_favorites').insert({ action_name: name, category: muscleId }); // [已迁移到Supabase]
+    }
+  }
+  cachedFavorites = list;
+  if (typeof sb === 'undefined') saveFavorites(list);
+  return idx < 0;
+}
+function removeFavorite(muscleId, name) {
+  if (typeof sb !== 'undefined') {
+    sb.from('user_favorites').delete().eq('action_name', name); // [已迁移到Supabase]
+  }
+  var filtered = getFavorites().filter(function(f) { return !(f.muscleId === muscleId && f.name === name); });
+  cachedFavorites = filtered;
+  if (typeof sb === 'undefined') saveFavorites(filtered);
+}
+function clearFavorites() {
+  cachedFavorites = [];
+  if (typeof sb === 'undefined') saveFavorites([]);
+}
+
+async function loadFavoritesFromSupabase() {
+  if (typeof sb === 'undefined') return;
+  try {
+    var res = await sb.from('user_favorites').select('*').order('created_at', { ascending: false });
+    if (res.error) { console.error('读取收藏失败', res.error); return; }
+    cachedFavorites = res.data.map(function(row) {
+      return { muscleId: row.category, name: row.action_name };
+    });
+    renderFavorites();
+    renderPlanBySchedule();
+  } catch(err) {
+    console.error('读取收藏失败', err);
+  }
 }
 function saveWeekPlan(plan) {
   if (!plan || !plan.weekPlan) return;
@@ -2243,6 +2290,7 @@ function renderPlanBySchedule() {
 function renderFavorites() {
   var container = document.getElementById('plan-favorites-view');
   if (!container) return;
+  if (typeof sb !== 'undefined' && !cachedFavorites) loadFavoritesFromSupabase();
   var list = getFavorites();
   if (list.length === 0) {
     container.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-secondary);font-size:14px;">还没有收藏的动作，在训练列表中点击☆收藏</div>';
