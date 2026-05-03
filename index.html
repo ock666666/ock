@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="健身教练">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>💪</text></svg>">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 /* ===== Design System ===== */
 :root {
@@ -1566,25 +1567,41 @@ body.theme-transitioning::after {
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script>
 // ============================================================
+//  SUPABASE
+// ============================================================
+var SUPABASE_URL = 'https://ekjktmianrptxkagsifk.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_C-pLVbyji_Cz861Q0TCpXg_CWG8u3Nd';
+var sb;
+try { sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); } catch(e) { console.warn('Supabase 初始化失败，降级到 localStorage', e); }
+
+// ============================================================
 //  THEME
 // ============================================================
 const THEME_KEY = 'themePreference';
 
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  // localStorage.setItem(THEME_KEY, theme); // [LOCALSTORAGE] // [已迁移到Supabase]
-  sb.from('user_settings').upsert({ setting_key: 'themePreference', setting_value: theme });
+  if (typeof sb !== 'undefined') {
+    sb.from('user_settings').upsert({ setting_key: 'themePreference', setting_value: theme });
+  } else {
+    localStorage.setItem(THEME_KEY, theme); // 降级
+  }
   var btn = document.getElementById('theme-toggle');
   if (btn) btn.textContent = theme === 'dark' ? '🌙' : '🌸';
 }
 
-// Init theme — 先默认深色，再异步从 Supabase 加载用户偏好
+// Init theme — 先默认深色，再异步加载用户偏好
 setTheme('dark');
-sb.from('user_settings').select('setting_value').eq('setting_key', 'themePreference').then(function(res) {
-  if (res.data && res.data.length > 0 && res.data[0].setting_value) {
-    setTheme(res.data[0].setting_value);
-  }
-});
+if (typeof sb !== 'undefined') {
+  sb.from('user_settings').select('setting_value').eq('setting_key', 'themePreference').then(function(res) {
+    if (res.data && res.data.length > 0 && res.data[0].setting_value) {
+      setTheme(res.data[0].setting_value);
+    }
+  });
+} else {
+  var savedTheme = localStorage.getItem(THEME_KEY);
+  if (savedTheme) setTheme(savedTheme);
+}
 
 // Toggle
 (function() {
@@ -3125,7 +3142,7 @@ const logPage = document.getElementById('log-page');
 const btnNavLog = document.getElementById('nav-log');
 const btnBackLog = document.getElementById('btn-back-log');
 
-btnNavLog.addEventListener('click', () => { showPage(logPage); renderLogPage(); });
+btnNavLog.addEventListener('click', function() { showPage(logPage); renderLogPage(); if (typeof sb !== 'undefined') loadTrainingLogsFromSupabase(); });
 btnBackLog.addEventListener('click', goHome);
 
 // Log sub-tab switching
@@ -3968,12 +3985,51 @@ const logBWToggle = document.getElementById("log-bw-toggle");
 const logBWModeBtns = document.querySelectorAll("#log-bw-toggle .filter-btn");
 const logTypeLabel = document.getElementById("log-type-label");
 
+let cachedTrainingLogs = null;
+
+function findExerciseEmoji(name) {
+  var ex = allExercises.find(function(e) { return e.name === name; });
+  return ex ? ex.emoji : null;
+}
+
 function getTrainingLogs() {
-  try { return JSON.parse(localStorage.getItem(TRAINING_LOGS_KEY)) || []; }
-  catch { return []; }
+  if (cachedTrainingLogs) return cachedTrainingLogs;
+  try { return JSON.parse(localStorage.getItem(TRAINING_LOGS_KEY)) || []; } catch { return []; }
 }
 function saveTrainingLogs(logs) {
   localStorage.setItem(TRAINING_LOGS_KEY, JSON.stringify(logs));
+}
+
+async function loadTrainingLogsFromSupabase() {
+  if (typeof sb === 'undefined') return;
+  try {
+    var res = await sb.from('training_records').select('*').order('created_at', { ascending: false });
+    if (res.error) { console.error('读取训练记录失败', res.error); return; }
+    var groups = {};
+    res.data.forEach(function(row) {
+      var key = row.action_name + '||' + row.date;
+      if (!groups[key]) {
+        groups[key] = {
+          id: String(row.id),
+          date: row.date,
+          exerciseName: row.action_name,
+          exerciseEmoji: findExerciseEmoji(row.action_name) || '🏋️',
+          bodyweight: row.weight_kg === null,
+          sets: [],
+          supabaseIds: [],
+          feeling: 4,
+          note: ''
+        };
+      }
+      groups[key].supabaseIds.push(row.id);
+      groups[key].sets.push({ weight: row.weight_kg, reps: row.reps });
+      if (row.weight_kg !== null) groups[key].bodyweight = false;
+    });
+    cachedTrainingLogs = Object.values(groups);
+    renderLogPage();
+  } catch(err) {
+    console.error('读取训练记录失败', err);
+  }
 }
 
 function renderLogStats() {
@@ -4051,9 +4107,17 @@ function renderLogRecords() {
     btn.addEventListener("click", function() {
       if (!confirm("确定删除这条记录？")) return;
       var logs = getTrainingLogs();
-      logs = logs.filter(function(log) { return log.id !== this.dataset.logId; }.bind(this));
-      saveTrainingLogs(logs);
-      renderLogPage();
+      var delLog = logs.find(function(log) { return log.id === this.dataset.logId; }.bind(this));
+      if (typeof sb !== 'undefined' && delLog && delLog.supabaseIds && delLog.supabaseIds.length > 0) {
+        sb.from('training_records').delete().in('id', delLog.supabaseIds).then(function(res) {
+          if (res.error) { console.error('删除失败', res.error); return; }
+          loadTrainingLogsFromSupabase();
+        });
+      } else {
+        logs = logs.filter(function(log) { return log.id !== btn.dataset.logId; });
+        saveTrainingLogs(logs);
+        renderLogPage();
+      }
     });
   });
   container.querySelectorAll(".log-record-edit").forEach(function(btn) {
@@ -4068,6 +4132,9 @@ function renderLogRecords() {
 function renderLogPage() {
   renderLogStats();
   renderLogRecords();
+  if (typeof sb !== 'undefined' && (!cachedTrainingLogs || document.getElementById('log-page').classList.contains('active'))) {
+    loadTrainingLogsFromSupabase();
+  }
 }
 
 // Filter handlers
@@ -4366,7 +4433,23 @@ logModalSave.addEventListener("click", function() {
     } else {
       logs.push(entry);
     }
-    saveTrainingLogs(logs);
+    if (typeof sb !== 'undefined' && !editLogId) {
+      var sbRows = sets.map(function(s) {
+        return {
+          action_name: entry.exerciseName,
+          weight_kg: isBW ? null : (s.weight || null),
+          reps: s.reps || null,
+          sets: sets.length,
+          date: entry.date
+        };
+      });
+      sb.from('training_records').insert(sbRows).then(function(res) {
+        if (res.error) { console.error('保存失败', res.error); }
+        else { console.log('训练记录保存成功'); }
+      });
+    } else {
+      saveTrainingLogs(logs);
+    }
     closeLogModal();
     renderLogPage();
   } catch(e) {
