@@ -1627,18 +1627,6 @@ function getApiKey() {
 function saveApiKey(key) {
   cachedApiKey = key;
   localStorage.setItem('deepseek_api_key', key);
-  if (typeof sb !== 'undefined') { sb.from('user_settings').upsert({ setting_key: 'deepseek_api_key', setting_value: key }); }
-}
-async function loadApiKeyFromSupabase() {
-  if (typeof sb === 'undefined') return;
-  try {
-    var res = await sb.from('user_settings').select('setting_value').eq('setting_key', 'deepseek_api_key').single();
-    if (res.error) { if (res.error.code !== 'PGRST116') console.error('读取API Key失败', res.error); return; }
-    if (res.data && res.data.setting_value) {
-      cachedApiKey = res.data.setting_value;
-      localStorage.setItem('deepseek_api_key', cachedApiKey);
-    }
-  } catch(err) { console.error('读取API Key失败', err); }
 }
 
 // ============================================================
@@ -3505,7 +3493,7 @@ function restoreNutritionGoal() {
 }
 
 restoreNutritionGoal();
-if (typeof sb !== 'undefined') { loadNutritionGoalFromSupabase(); loadApiKeyFromSupabase(); }
+if (typeof sb !== 'undefined') loadNutritionGoalFromSupabase();
 
 document.getElementById('goal-guide-btn').addEventListener('click', showGoalForm);
 
