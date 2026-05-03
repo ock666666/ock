@@ -1619,6 +1619,28 @@ if (typeof sb !== 'undefined') {
   });
 })();
 
+var cachedApiKey = null;
+function getApiKey() {
+  if (cachedApiKey) return cachedApiKey;
+  return localStorage.getItem('deepseek_api_key') || '';
+}
+function saveApiKey(key) {
+  cachedApiKey = key;
+  localStorage.setItem('deepseek_api_key', key);
+  if (typeof sb !== 'undefined') { sb.from('user_settings').upsert({ setting_key: 'deepseek_api_key', setting_value: key }); }
+}
+async function loadApiKeyFromSupabase() {
+  if (typeof sb === 'undefined') return;
+  try {
+    var res = await sb.from('user_settings').select('setting_value').eq('setting_key', 'deepseek_api_key').single();
+    if (res.error) { if (res.error.code !== 'PGRST116') console.error('读取API Key失败', res.error); return; }
+    if (res.data && res.data.setting_value) {
+      cachedApiKey = res.data.setting_value;
+      localStorage.setItem('deepseek_api_key', cachedApiKey);
+    }
+  } catch(err) { console.error('读取API Key失败', err); }
+}
+
 // ============================================================
 //  WELCOME (first visit)
 // ============================================================
@@ -2126,7 +2148,7 @@ pcBtn.addEventListener('click', async () => {
     alert('请描述你遇到的问题，比如膝盖疼、肩膀不舒服等');
     return;
   }
-  if (!localStorage.getItem('deepseek_api_key')) {
+  if (!getApiKey()) {
     document.getElementById('ai-settings-overlay').classList.add('open');
     return;
   }
@@ -2138,7 +2160,7 @@ pcBtn.addEventListener('click', async () => {
   try {
     const resp = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('deepseek_api_key') },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getApiKey() },
       body: JSON.stringify({
         model: 'deepseek-chat',
         messages: [
@@ -2190,7 +2212,7 @@ document.getElementById('ai-settings-save').addEventListener('click', () => {
   const key = raw.trim();
   if (raw !== key) console.log('已自动清洗Key');
   if (!key) { alert('请输入 API Key'); return; }
-  localStorage.setItem('deepseek_api_key', key);
+  saveApiKey(key);
   const btn = document.getElementById('ai-settings-save');
   btn.textContent = '✓ 已保存';
   btn.style.background = '#34C759';
@@ -3483,7 +3505,7 @@ function restoreNutritionGoal() {
 }
 
 restoreNutritionGoal();
-if (typeof sb !== 'undefined') loadNutritionGoalFromSupabase();
+if (typeof sb !== 'undefined') { loadNutritionGoalFromSupabase(); loadApiKeyFromSupabase(); }
 
 document.getElementById('goal-guide-btn').addEventListener('click', showGoalForm);
 
@@ -3884,7 +3906,7 @@ const aiCoachBtn = document.getElementById("ai-coach-btn");
 const CHAT_HISTORY_KEY = "ai_chat_history";
 
 function openAIChat() {
-  const apiKey = localStorage.getItem("deepseek_api_key");
+  const apiKey = getApiKey();
   if (!apiKey) {
     document.getElementById("ai-settings-overlay").classList.add("open");
     return;
@@ -3945,7 +3967,7 @@ async function sendMessage(text) {
     const history = getChatHistory();
     history.push({ role:"user", content: msg });
 
-    const apiKey = localStorage.getItem("deepseek_api_key");
+    const apiKey = getApiKey();
     if (!apiKey) {
       hideLoading();
       appendMsg("请先在设置页面配置 DeepSeek API Key", "bot");
